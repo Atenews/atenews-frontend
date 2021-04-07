@@ -1,5 +1,5 @@
 import WPGraphQL from '@/utils/wpgraphql';
-import { gql } from '@apollo/client';
+import { gql } from 'graphql-request';
 
 export default async (req, res) => {
   const {
@@ -11,8 +11,8 @@ export default async (req, res) => {
     });
   }
   try {
-    const { data } = await WPGraphQL.query({
-      query: gql`
+    const data = await WPGraphQL.request(
+      gql`
         query Articles {
           posts(first: 5, after: ${cursor ? `"${cursor}"` : null}, where: { notIn: [${articleId}], categoryIn: [${JSON.parse(categories).toString()}] }) {
             pageInfo {
@@ -50,7 +50,7 @@ export default async (req, res) => {
           }
         }            
       `,
-    });
+    );
     res.status(200).send({
       articlesRaw: data.posts.nodes,
       pageInfo: data.posts.pageInfo,

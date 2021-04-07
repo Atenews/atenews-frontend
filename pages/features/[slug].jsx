@@ -8,7 +8,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import articlePaths from '@/utils/serverProps/articlePaths';
 import articleStaticProps from '@/utils/serverProps/articleStaticProps';
 
-import ReactHtmlParser from 'react-html-parser';
+import { decode } from 'html-entities';
 
 import { Grid, CircularProgress } from '@material-ui/core';
 
@@ -53,10 +53,10 @@ export default function Page(args) {
   return (
     <div className={classes.container}>
       <NextSeo
-        title={`${ReactHtmlParser(post.title)}`}
+        title={`${decode(post.title)}`}
         description={post.excerpt.replace(/<[^>]+>/g, '')}
         openGraph={{
-          title: `${ReactHtmlParser(post.title)}`,
+          title: `${decode(post.title)}`,
           type: 'article',
           description: post.excerpt.replace(/<[^>]+>/g, ''),
           images: [

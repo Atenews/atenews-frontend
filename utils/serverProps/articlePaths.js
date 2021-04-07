@@ -1,13 +1,13 @@
 import WPGraphQL from '@/utils/wpgraphql';
-import { gql } from '@apollo/client';
+import { gql } from 'graphql-request';
 
 const articlePaths = async (categories) => {
   let res = [];
   try {
     const temp = await Promise.all(
       categories.map(
-        async (cat) => WPGraphQL.query({
-          query: gql`
+        async (cat) => WPGraphQL.request(
+          gql`
             query Slugs {
               posts(first: 1, where: { categoryId: ${cat} }) {
                 nodes {
@@ -16,11 +16,11 @@ const articlePaths = async (categories) => {
               }
             }             
           `,
-        }),
+        ),
       ),
     );
     temp.forEach((arr) => {
-      res = [...res, ...arr.data.posts.nodes];
+      res = [...res, ...arr.posts.nodes];
     });
   } catch (err) {
     res = [];

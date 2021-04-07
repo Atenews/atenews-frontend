@@ -17,7 +17,7 @@ import {
 } from '@material-ui/core';
 
 import WPGraphQL from '@/utils/wpgraphql';
-import { gql } from '@apollo/client';
+import { gql } from 'graphql-request';
 
 import { useError } from '@/utils/hooks/useSnackbar';
 import { useAuth } from '@/utils/hooks/useAuth';
@@ -487,8 +487,8 @@ export async function getServerSideProps({ params }) {
         const wpSnapshot = await firebaseAdmin.firestore().collection('wordpress').where('id', '==', snapshot.docs[0].id).get();
         if (!wpSnapshot.empty) {
           wpId = wpSnapshot.docs[0].id;
-          wpData = (await WPGraphQL.query({
-            query: gql`
+          wpData = await WPGraphQL.request(
+            gql`
               query Articles {
                 posts(first: 5, where: { author: ${wpId} }) {
                   pageInfo {
@@ -526,7 +526,7 @@ export async function getServerSideProps({ params }) {
                 }
               }            
             `,
-          })).data;
+          );
         }
       }
       return {

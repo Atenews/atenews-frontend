@@ -1,6 +1,5 @@
 import React from 'react';
 import Head from 'next/head';
-import PropTypes from 'prop-types';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -13,7 +12,6 @@ import Router from 'next/router';
 import NProgress from 'nprogress';
 import '@/styles/nprogress.css';
 import '@/styles/main.css';
-import 'react-gutenberg/default.css';
 
 import { TrendingProvider } from '@/utils/hooks/useTrending';
 import { AuthProvider } from '@/utils/hooks/useAuth';
@@ -127,8 +125,3 @@ export default function MyApp(props) {
     </>
   );
 }
-
-MyApp.propTypes = {
-  Component: PropTypes.elementType.isRequired,
-  pageProps: PropTypes.object.isRequired,
-};

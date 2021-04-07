@@ -1,5 +1,5 @@
 import WPGraphQL from '@/utils/wpgraphql';
-import { gql } from '@apollo/client';
+import { gql } from 'graphql-request';
 import slugGenerator from '@/utils/slugGenerator';
 
 export default function Page() {
@@ -9,8 +9,8 @@ export default function Page() {
 export const getServerSideProps = async (ctx) => {
   let res = {};
   try {
-    const { data: raw } = await WPGraphQL.query({
-      query: gql`
+    const raw = await WPGraphQL.request(
+      gql`
         query Article {
           post( id: "${ctx.params.slug}" , idType: SLUG ) {
             categories {
@@ -24,7 +24,7 @@ export const getServerSideProps = async (ctx) => {
           }
         }            
       `,
-    });
+    );
     res = raw.post;
   } catch (err) {
     res = {};

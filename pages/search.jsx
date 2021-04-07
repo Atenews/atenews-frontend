@@ -1,7 +1,7 @@
 import React from 'react';
 
 import WPGraphQL from '@/utils/wpgraphql';
-import { gql } from '@apollo/client';
+import { gql } from 'graphql-request';
 
 import ArchiveLayout from '@/components/ArchiveLayout';
 
@@ -15,8 +15,8 @@ export default function Page(props) {
 export async function getServerSideProps({ query: rawQuery }) {
   try {
     const { query } = rawQuery;
-    const { data } = await WPGraphQL.query({
-      query: gql`
+    const data = await WPGraphQL.request(
+      gql`
         query Search {
           posts(first: 5, where: { search: "${query}" }) {
             pageInfo {
@@ -54,7 +54,7 @@ export async function getServerSideProps({ query: rawQuery }) {
           }
         }            
       `,
-    });
+    );
     return {
       props: {
         articlesRaw: data.posts.nodes,

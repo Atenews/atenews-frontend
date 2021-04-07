@@ -40,4 +40,4 @@ const generator = (article) => {
   return `${category}/${article.slug}`;
 };
 
-module.exports = generator;
+export default generator;

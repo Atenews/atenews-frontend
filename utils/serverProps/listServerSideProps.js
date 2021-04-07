@@ -1,10 +1,10 @@
 import WPGraphQL from '@/utils/wpgraphql';
-import { gql } from '@apollo/client';
+import { gql } from 'graphql-request';
 
 const listServerSideProps = async (CATEGORY_ID) => {
   try {
-    const { data } = await WPGraphQL.query({
-      query: gql`
+    const data = await WPGraphQL.request(
+      gql`
         query Articles {
           posts(first: 5, where: { categoryId: ${CATEGORY_ID} }) {
             pageInfo {
@@ -42,7 +42,7 @@ const listServerSideProps = async (CATEGORY_ID) => {
           }
         }            
       `,
-    });
+    );
     return {
       props: {
         articlesRaw: data.posts.nodes,

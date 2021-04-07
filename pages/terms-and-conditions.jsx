@@ -5,9 +5,9 @@ import DefaultErrorPage from '@/components/404';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import WPGraphQL from '@/utils/wpgraphql';
-import { gql } from '@apollo/client';
+import { gql } from 'graphql-request';
 
-import ReactHtmlParser from 'react-html-parser';
+import { decode } from 'html-entities';
 import CustomPage from '@/components/CustomPage';
 
 import { Grid } from '@material-ui/core';
@@ -35,9 +35,9 @@ export default function Page({ page }) {
   return (
     <div className={classes.container}>
       <NextSeo
-        title={`${ReactHtmlParser(page.title)} - Atenews`}
+        title={`${decode(page.title)} - Atenews`}
         openGraph={{
-          title: `${ReactHtmlParser(page.title)} - Atenews`,
+          title: `${decode(page.title)} - Atenews`,
           images: [
             {
               url: '/default-thumbnail.jpg',
@@ -72,8 +72,8 @@ export default function Page({ page }) {
 export const getStaticProps = async () => {
   let res = {};
   try {
-    const { data } = await WPGraphQL.query({
-      query: gql`
+    const data = await WPGraphQL.request(
+      gql`
         query Terms {
           page(id: "terms-and-conditions", idType: URI) {
             content
@@ -82,7 +82,7 @@ export const getStaticProps = async () => {
           }
         }             
       `,
-    });
+    );
     res = data.page;
   } catch (err) {
     res = {};

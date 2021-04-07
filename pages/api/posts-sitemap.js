@@ -2,7 +2,7 @@ import { SitemapStream, streamToPromise } from 'sitemap';
 import slugGenerator from '@/utils/slugGenerator';
 
 import WPGraphQL from '@/utils/wpgraphql';
-import { gql } from '@apollo/client';
+import { gql } from 'graphql-request';
 
 export default async (req, res) => {
   try {
@@ -11,8 +11,8 @@ export default async (req, res) => {
       cacheTime: 600000,
     });
 
-    const { data } = await WPGraphQL.query({
-      query: gql`
+    const data = await WPGraphQL.request(
+      gql`
         query Sitemap {
           posts(first: 30) {
             nodes {
@@ -29,7 +29,7 @@ export default async (req, res) => {
           }
         }              
       `,
-    });
+    );
 
     const categories = [
       '/',

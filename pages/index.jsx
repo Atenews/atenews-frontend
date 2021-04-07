@@ -8,7 +8,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
 import WPGraphQL from '@/utils/wpgraphql';
-import { gql } from '@apollo/client';
+import { gql } from 'graphql-request';
 
 import { useTrending } from '@/utils/hooks/useTrending';
 import { useAuth } from '@/utils/hooks/useAuth';
@@ -188,8 +188,8 @@ export async function getServerSideProps({ query }) {
         },
       };
     }
-    const { data } = await WPGraphQL.query({
-      query: gql`
+    const data = await WPGraphQL.request(
+      gql`
         query Home {
           recentArticles: posts(first: 5) {
             nodes {
@@ -360,7 +360,7 @@ export async function getServerSideProps({ query }) {
           }
         }        
       `,
-    });
+    );
     return {
       props: {
         recentArticles: data.recentArticles.nodes,

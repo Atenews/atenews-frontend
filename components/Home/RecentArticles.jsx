@@ -151,7 +151,7 @@ function RecentArticles({ articles }) {
           />
           <div
             className={classes.bannerImage}
-            style={{ backgroundImage: `url(${imageGenerator(hoveredData.featuredImage?.node.sourceUrl, 800)})` }}
+            style={{ backgroundImage: `url(${imageGenerator(hoveredData?.featuredImage?.node.sourceUrl, 800)})` }}
           >
             <div className={classes.bannerDetailsContainer}>
               <div className={classes.bannerDetails}>
@@ -160,7 +160,7 @@ function RecentArticles({ articles }) {
                     item
                     xs={12}
                   >
-                    <Tag type={hoveredData.categories.nodes[0]} />
+                    <Tag type={hoveredData?.categories.nodes[0]} />
                   </Grid>
                   <Grid
                     item
@@ -171,7 +171,7 @@ function RecentArticles({ articles }) {
                       href={slugGenerator(hoveredData)}
                     >
                       <Typography
-                        dangerouslySetInnerHTML={{ __html: hoveredData.title }}
+                        dangerouslySetInnerHTML={{ __html: hoveredData?.title }}
                         style={{ marginTop: theme.spacing(1) }}
                         variant="h5"
                       />
@@ -203,7 +203,7 @@ function RecentArticles({ articles }) {
                           style={{ fontSize: '0.7rem' }}
                           variant="subtitle2"
                         >
-                          { coauthors(hoveredData.coauthors.nodes) }
+                          { coauthors(hoveredData?.coauthors.nodes) }
                         </Typography>
                       </Grid>
                     </Grid>
@@ -227,7 +227,7 @@ function RecentArticles({ articles }) {
                           style={{ fontSize: '0.7rem' }}
                           variant="subtitle2"
                         >
-                          {formatDistanceToNow(new Date(hoveredData.date), { addSuffix: true })}
+                          {formatDistanceToNow(new Date(hoveredData?.date), { addSuffix: true })}
                         </Typography>
                       </Grid>
                     </Grid>

@@ -1,12 +1,12 @@
 import WPGraphQL from '@/utils/wpgraphql';
-import { gql } from '@apollo/client';
+import { gql } from 'graphql-request';
 
 const articleStaticProps = async (ctx, categories) => {
   let articleData = null;
 
   try {
-    const { data: tempData } = await WPGraphQL.query({
-      query: gql`
+    const tempData = await WPGraphQL.request(
+      gql`
         query Article {
           post( id: "${ctx.params.slug}" , idType: SLUG ) {
             title(format: RENDERED)
@@ -48,7 +48,7 @@ const articleStaticProps = async (ctx, categories) => {
           }
         }            
       `,
-    });
+    );
     articleData = tempData.post;
   } catch (err) {
     articleData = null;
@@ -58,8 +58,8 @@ const articleStaticProps = async (ctx, categories) => {
     if (articleCategories.filter((cat) => categories.includes(cat.databaseId)).length === 0) {
       return { notFound: true, revalidate: 10 };
     }
-    const { data } = await WPGraphQL.query({
-      query: gql`
+    const data = await WPGraphQL.request(
+      gql`
         query Articles {
           posts(first: 5, where: { notIn: [${articleData.databaseId}], categoryIn: [${categories.toString()}] }) {
             pageInfo {
@@ -97,7 +97,7 @@ const articleStaticProps = async (ctx, categories) => {
           }
         }            
       `,
-    });
+    );
     return {
       props: {
         post: articleData,
