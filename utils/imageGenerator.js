@@ -5,7 +5,7 @@ const imageGenerator = (url, width) => {
   }
   try {
     const urlObject = new URL(url.replace('https://atenews.ph', 'https://wp.atenews.ph'));
-    if (urlObject.hostname === 'secure.gravatar.com') {
+    if (urlObject.hostname !== 'wp.atenews.ph') {
       return url;
     }
     return `https://cdn.statically.io/img/${urlObject.hostname}/w=${width},f=auto${urlObject.pathname}`;
