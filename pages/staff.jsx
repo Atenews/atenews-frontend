@@ -39,10 +39,6 @@ export default function Home({ staffs: staffsRaw }) {
   const [juniors, setJuniors] = React.useState([]);
   const [trainees, setTrainees] = React.useState([]);
 
-  const checkAssocManEd = () => (
-    staffsRaw.find((staff) => (staff.roles.includes('associate_editor'))) === staffsRaw.find((staff) => (staff.roles.includes('managing_editor')))
-  );
-
   React.useEffect(() => {
     const rolesIgnore = [
       ..._rolesIgnore,
@@ -58,32 +54,24 @@ export default function Home({ staffs: staffsRaw }) {
       return 0;
     };
 
-    const nonEICEditors = staffsRaw.filter((staff) => {
-      const cleanRoles = staff.roles.filter((role) => !rolesIgnore.includes(role));
-
+    const nonBigThreeEditors = staffsRaw.filter((staff) => {
       let isIncluded = false;
-      cleanRoles.forEach((role) => {
-        if (role.toLowerCase().includes('editor') && !role.toLowerCase().includes('junior') && !role.toLowerCase().includes('senior')) {
-          isIncluded = true;
+      if (staff.roles.includes('editor')) {
+        isIncluded = true;
+        if (staff.roles.includes('editor-in-chief') || staff.roles.includes('associate_editor') || staff.roles.includes('managing_editor')) {
+          isIncluded = false;
         }
-      });
+      }
 
-      return cleanRoles.length > 0 && isIncluded;
+      return isIncluded;
     });
-    if (checkAssocManEd) {
-      setEditors([
-        staffsRaw.find((staff) => (staff.roles.includes('editor-in-chief'))),
-        staffsRaw.find((staff) => (staff.roles.includes('associate_editor'))),
-        ...nonEICEditors,
-      ]);
-    } else {
-      setEditors([
-        staffsRaw.find((staff) => (staff.roles.includes('editor-in-chief'))),
-        staffsRaw.find((staff) => (staff.roles.includes('associate_editor'))),
-        staffsRaw.find((staff) => (staff.roles.includes('managing_editor'))),
-        ...nonEICEditors,
-      ]);
-    }
+
+    setEditors([
+      staffsRaw.find((staff) => (staff.roles.includes('editor-in-chief'))),
+      staffsRaw.find((staff) => (staff.roles.includes('associate_editor'))),
+      staffsRaw.find((staff) => (staff.roles.includes('managing_editor'))),
+      ...nonBigThreeEditors,
+    ]);
 
     setSeniors(staffsRaw.filter((staff) => {
       const cleanRoles = staff.roles.filter((role) => !rolesIgnore.includes(role));
