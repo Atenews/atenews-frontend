@@ -53,10 +53,10 @@ export default async (req, res) => {
       title: 'Features',
       description: 'Welcome to the official student publication of AdDU. Here is a list of Features written by Atenews.',
       id: 'features',
-      link: 'https://atenews.ph/api/rss/features',
+      link: 'https://atenews.ph/api/atom/features.xml',
       language: 'en',
       feedLinks: {
-        rss2: 'https://atenews.ph/api/rss/features',
+        atom: 'https://atenews.ph/api/atom/features.xml',
       },
       author: {
         name: 'Atenews',
@@ -87,7 +87,7 @@ export default async (req, res) => {
     });
 
     // Display output to user
-    res.end(feed.rss2());
+    res.end(feed.atom1());
   } catch (e) {
     res.send(JSON.stringify(e));
   }
