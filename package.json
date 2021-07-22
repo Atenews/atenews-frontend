@@ -20,6 +20,7 @@
     "@n8tb1t/use-scroll-position": "^2.0.3",
     "date-fns": "^2.22.1",
     "dotenv": "^10.0.0",
+    "feed": "^4.2.2",
     "firebase": "^8.7.1",
     "firebase-admin": "^9.11.0",
     "graphql": "^15.5.1",
