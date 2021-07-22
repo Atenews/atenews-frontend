@@ -101,29 +101,28 @@ function RecentArticles({ articles }) {
   const [
     hoveredData,
     setHoveredData,
-  ] = React.useState(articles[0]);
-  const [
-    props,
-    set,
-  ] = useSpring(() => ({ top: 'calc(70px + 25px)' }));
+  ] = React.useState({ index: 0, ...articles[0] });
   const [
     elRefs,
     setElRefs,
   ] = React.useState([]);
+  const [arrowTop, setArrowTop] = React.useState(95);
+
+  const props = useSpring({
+    top: arrowTop,
+  });
 
   React.useEffect(() => {
     // Add or remove refs
     setElRefs((elRefsTmp) => Array(arrLength).fill()
       .map((_, i) => elRefsTmp[i] || React.createRef()));
-
     if (elRefs.length > 0) {
-      set({ top: elRefs[0].current.offsetTop - 70 });
+      setArrowTop(elRefs[0].current.offsetTop - 70);
     }
   }, [arrLength]);
 
   const onHover = (data) => {
-    // Console.log(elRefs[data.index].current.getBoundingClientRect())
-    set({ top: elRefs[data.index].current.offsetTop - 70 });
+    setArrowTop(elRefs[data.index].current.offsetTop - 70);
     setHoveredData(data);
   };
 
