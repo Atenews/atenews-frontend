@@ -1,4 +1,5 @@
 import slugGenerator from '@/utils/slugGenerator';
+import imageGenerator from '@/utils/imageGenerator';
 
 import WPGraphQL from '@/utils/wpgraphql';
 import { gql } from 'graphql-request';
@@ -77,6 +78,7 @@ export default async (req, res) => {
           name: `${author.firstName} ${author.lastName}`,
           email: author.email,
         })),
+        image: imageGenerator(post.featuredImage?.node.sourceUrl, 800) ?? null,
         date: new Date(post.date),
       });
     });
