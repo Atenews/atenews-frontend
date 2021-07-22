@@ -76,8 +76,8 @@ export default async (req, res) => {
         description: post.excerpt,
         content: post.content,
         author: [{
-          name: `${post.coauthors.nodes[0].firstName} ${post.coauthors.nodes[0].lastName}`,
-          email: post.coauthors.nodes[0].email,
+          name: `${post.coauthors?.nodes[0]?.firstName} ${post.coauthors?.nodes[0]?.lastName}`,
+          email: post.coauthors?.nodes[0]?.email,
         }],
         image: imageGenerator(post.featuredImage?.node.sourceUrl, 800) ?? null,
         date: new Date(post.date),
