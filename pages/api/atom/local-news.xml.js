@@ -52,7 +52,7 @@ export default async (req, res) => {
     const feed = new Feed({
       title: 'Local News',
       description: 'Welcome to the official student publication of AdDU. Here is a list of Local News written by Atenews.',
-      id: 'local-news',
+      id: 'https://atenews.ph/api/atom/local-news.xml',
       link: 'https://atenews.ph/api/atom/local-news.xml',
       language: 'en',
       feedLinks: {
