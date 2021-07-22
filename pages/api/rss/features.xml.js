@@ -53,8 +53,8 @@ export default async (req, res) => {
     const feed = new Feed({
       title: 'Features',
       description: 'Welcome to the official student publication of AdDU. Here is a list of Features written by Atenews.',
-      id: 'https://atenews.ph/api/atom/features.xml',
-      link: 'https://atenews.ph/api/atom/features.xml',
+      id: 'https://atenews.ph/api/rss/features.xml',
+      link: 'https://atenews.ph/api/rss/features.xml',
       language: 'en',
       feedLinks: {
         atom: 'https://atenews.ph/api/atom/features.xml',
@@ -90,7 +90,7 @@ export default async (req, res) => {
     });
 
     // Display output to user
-    res.end(feed.atom1());
+    res.end(feed.rss2());
   } catch (e) {
     res.send(JSON.stringify(e));
   }

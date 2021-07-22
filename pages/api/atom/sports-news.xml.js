@@ -58,6 +58,7 @@ export default async (req, res) => {
       language: 'en',
       feedLinks: {
         atom: 'https://atenews.ph/api/atom/sports-news.xml',
+        rss2: 'https://atenews.ph/api/rss/sports-news.xml',
       },
       author: {
         name: 'Atenews',

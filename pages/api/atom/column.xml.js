@@ -58,6 +58,7 @@ export default async (req, res) => {
       language: 'en',
       feedLinks: {
         atom: 'https://atenews.ph/api/atom/column.xml',
+        rss2: 'https://atenews.ph/api/rss/column.xml',
       },
       author: {
         name: 'Atenews',
@@ -89,7 +90,7 @@ export default async (req, res) => {
     });
 
     // Display output to user
-    res.end(feed.atom1());
+    res.end(feed.rss2());
   } catch (e) {
     res.send(JSON.stringify(e));
   }

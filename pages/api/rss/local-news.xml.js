@@ -10,7 +10,7 @@ export default async (req, res) => {
     const data = await WPGraphQL.request(
       gql`
         query Articles {
-          posts(first: 20, where: { categoryId: 4 }) {
+          posts(first: 20, where: { categoryId: 18 }) {
             pageInfo {
               hasNextPage
               hasPreviousPage
@@ -51,14 +51,14 @@ export default async (req, res) => {
     );
 
     const feed = new Feed({
-      title: 'Features',
-      description: 'Welcome to the official student publication of AdDU. Here is a list of Features written by Atenews.',
-      id: 'https://atenews.ph/api/atom/features.xml',
-      link: 'https://atenews.ph/api/atom/features.xml',
+      title: 'Local News',
+      description: 'Welcome to the official student publication of AdDU. Here is a list of Local News written by Atenews.',
+      id: 'https://atenews.ph/api/rss/local-news.xml',
+      link: 'https://atenews.ph/api/rss/local-news.xml',
       language: 'en',
       feedLinks: {
-        atom: 'https://atenews.ph/api/atom/features.xml',
-        rss2: 'https://atenews.ph/api/rss/features.xml',
+        atom: 'https://atenews.ph/api/atom/local-news.xml',
+        rss2: 'https://atenews.ph/api/rss/local-news.xml',
       },
       author: {
         name: 'Atenews',
@@ -90,7 +90,7 @@ export default async (req, res) => {
     });
 
     // Display output to user
-    res.end(feed.atom1());
+    res.end(feed.rss2());
   } catch (e) {
     res.send(JSON.stringify(e));
   }
