@@ -1,5 +1,4 @@
 import slugGenerator from '@/utils/slugGenerator';
-import imageGenerator from '@/utils/imageGenerator';
 
 import WPGraphQL from '@/utils/wpgraphql';
 import { gql } from 'graphql-request';
@@ -11,12 +10,6 @@ export default async (req, res) => {
       gql`
         query Articles {
           posts(first: 20, where: { categoryId: 21 }) {
-            pageInfo {
-              hasNextPage
-              hasPreviousPage
-              startCursor
-              endCursor
-            }
             nodes {
               title(format: RENDERED)
               slug
@@ -74,7 +67,7 @@ export default async (req, res) => {
         id: `https://atenews.ph${slugGenerator(post)}`,
         link: `https://atenews.ph${slugGenerator(post)}`,
         description: post.excerpt,
-        content: `<figure><img src="${imageGenerator(post.featuredImage?.node.sourceUrl, 800)}" class="type:primaryImage" /></figure>${post.content}`,
+        content: `<figure><img src="${post.featuredImage?.node.sourceUrl}" class="type:primaryImage" /></figure>${post.content}`,
         author: [{
           name: `${post.coauthors?.nodes[0]?.firstName} ${post.coauthors?.nodes[0]?.lastName ?? ''}`,
           email: post.coauthors?.nodes[0]?.email,
@@ -86,7 +79,7 @@ export default async (req, res) => {
 
     // Change headers
     res.writeHead(200, {
-      'Content-Type': 'application/xml',
+      'Content-Type': 'application/rss+xml',
     });
 
     // Display output to user

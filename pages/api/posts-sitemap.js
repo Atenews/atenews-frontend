@@ -71,7 +71,7 @@ export default async (req, res) => {
 
     // Change headers
     res.writeHead(200, {
-      'Content-Type': 'application/xml',
+      'Content-Type': 'application/rss+xml',
     });
 
     // Display output to user
