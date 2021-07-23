@@ -79,7 +79,7 @@ export default async (req, res) => {
           name: `${author.firstName} ${author.lastName}`,
           email: author.email,
         })),
-        image: post.featuredImage?.node.sourceUrl ?? null,
+        image: post.featuredImage?.node.sourceUrl.replace('https://', 'http://') ?? null,
         date: new Date(post.date),
       });
     });

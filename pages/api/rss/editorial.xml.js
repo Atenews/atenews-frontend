@@ -76,10 +76,10 @@ export default async (req, res) => {
         description: post.excerpt,
         content: `<figure><img src="${imageGenerator(post.featuredImage?.node.sourceUrl, 800)}" class="type:primaryImage" /></figure>${post.content}`,
         author: [{
-          name: `${post.coauthors?.nodes[0]?.firstName} ${post.coauthors?.nodes[0]?.lastName ?? ''}`,
+          name: `${post.coauthors?.nodes[0]?.firstName}`,
           email: post.coauthors?.nodes[0]?.email,
         }],
-        image: post.featuredImage?.node.sourceUrl ?? null,
+        image: post.featuredImage?.node.sourceUrl.replace('https://', 'http://') ?? null,
         date: new Date(post.date),
       });
     });
