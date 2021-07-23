@@ -74,12 +74,12 @@ export default async (req, res) => {
         id: `https://atenews.ph${slugGenerator(post)}`,
         link: `https://atenews.ph${slugGenerator(post)}`,
         description: post.excerpt,
-        content: post.content,
+        content: `<figure><img src="${imageGenerator(post.featuredImage?.node.sourceUrl, 800)}" class="type:primaryImage" /></figure>${post.content}`,
         author: post.coauthors.nodes.map((author) => ({
           name: `${author.firstName} ${author.lastName}`,
           email: author.email,
         })),
-        image: imageGenerator(post.featuredImage?.node.sourceUrl, 800) ?? null,
+        image: post.featuredImage?.node.sourceUrl ?? null,
         date: new Date(post.date),
       });
     });
