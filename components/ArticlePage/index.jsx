@@ -84,10 +84,11 @@ export default function Page({
   let viewTimer = null;
 
   React.useEffect(() => {
-    const time = readingTime(post.content).time * 0.5;
+    const time = readingTime(post.content).time * 0.25;
     clearTimeout(viewTimer);
     viewTimer = setTimeout(() => {
       fetch('/api/update/viewCount', { slug: post.slug });
+      fetch('/api/graphql/updateArticleViewCount', { slug: post.slug });
     }, time);
   }, [post]);
 
