@@ -12,6 +12,7 @@ const articleStaticProps = async (ctx, categories) => {
             title(format: RENDERED)
             slug
             date
+            postViewsAndUpdate
             coauthors {
               nodes {
                 firstName

@@ -17,6 +17,7 @@ const listServerSideProps = async (CATEGORY_ID) => {
               title(format: RENDERED)
               slug
               date
+              postViews
               coauthors {
                 nodes {
                   firstName

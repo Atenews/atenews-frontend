@@ -25,6 +25,7 @@ export default async (req, res) => {
               title(format: RENDERED)
               slug
               date
+              postViews
               coauthors {
                 nodes {
                   firstName
