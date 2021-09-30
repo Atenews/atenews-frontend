@@ -20,9 +20,6 @@ const config = {
 if (!firebase.apps.length) {
   firebase.initializeApp(config);
 
-  firebase.firestore()
-    .enablePersistence().catch(() => {});
-
   if (typeof navigator !== 'undefined' && 'measurementId' in config) {
     firebase.analytics();
   }
