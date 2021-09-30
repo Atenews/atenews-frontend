@@ -232,7 +232,7 @@ export default function Home({ staffs: staffsRaw }) {
           container
           spacing={0}
           alignItems="center"
-          justify="center"
+          justifyContent="center"
           style={{ minHeight: '100vh' }}
         >
           <Grid item>
@@ -244,21 +244,19 @@ export default function Home({ staffs: staffsRaw }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   try {
     const staffs = await WP.staffs();
     return {
       props: {
         staffs,
       },
-      revalidate: 1,
     };
   } catch (err) {
     return {
       props: {
         staffs: [],
       },
-      revalidate: 1,
     };
   }
 }

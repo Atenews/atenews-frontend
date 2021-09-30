@@ -140,7 +140,7 @@ const Article = ({ article, topImage }) => {
                         width: '100%',
                       }}
                       spacing={2}
-                      justify="space-between"
+                      justifyContent="space-between"
                     >
                       <Grid item xs>
                         <ReactInfo socialStats={socialStats} />
@@ -241,7 +241,7 @@ const Article = ({ article, topImage }) => {
                         width: '100%',
                       }}
                       spacing={2}
-                      justify="space-between"
+                      justifyContent="space-between"
                     >
                       <Grid item xs>
                         <ReactInfo socialStats={socialStats} />

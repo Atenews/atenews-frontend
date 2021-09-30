@@ -31,7 +31,7 @@ export default function Header() {
             {' '}
             <b style={{ color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white' }}>Atenews</b>
           </Typography>
-          <Grid item container direction="row" spacing={4} justify="center" style={{ marginTop: theme.spacing(1) }}>
+          <Grid item container direction="row" spacing={4} justifyContent="center" style={{ marginTop: theme.spacing(1) }}>
             <Grid item>
               <IconButton color={theme.palette.type === 'light' ? 'primary' : 'secondary'} onClick={() => window.open('https://www.facebook.com/atenews', '_blank')}>
                 <FacebookIcon />

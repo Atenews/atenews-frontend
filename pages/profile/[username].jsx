@@ -238,7 +238,7 @@ export default function Home({ profile, cdnKey, staffArticles }) {
           direction="column"
           spacing={0}
           alignItems="center"
-          justify="center"
+          justifyContent="center"
           style={{ marginTop: theme.spacing(4) }}
         >
           <Grid item>
@@ -261,7 +261,7 @@ export default function Home({ profile, cdnKey, staffArticles }) {
               container
               spacing={0}
               alignItems="center"
-              justify="center"
+              justifyContent="center"
             >
               <Grid item>
                 <CircularProgress />
@@ -285,7 +285,7 @@ export default function Home({ profile, cdnKey, staffArticles }) {
           direction="column"
           spacing={0}
           alignItems="center"
-          justify="center"
+          justifyContent="center"
           style={{ marginTop: theme.spacing(4) }}
         >
           <Grid item>
@@ -309,7 +309,7 @@ export default function Home({ profile, cdnKey, staffArticles }) {
               container
               spacing={0}
               alignItems="center"
-              justify="center"
+              justifyContent="center"
             >
               <Grid item>
                 <CircularProgress />
@@ -348,7 +348,7 @@ export default function Home({ profile, cdnKey, staffArticles }) {
         />
         { !loadingAuth ? (
           <>
-            <Grid container spacing={6} justify="center">
+            <Grid container spacing={6} justifyContent="center">
               <Grid item>
                 <DisplayAvatar editMode={editMode} profile={profile} cdnKey={cdnKey} />
               </Grid>
@@ -428,7 +428,7 @@ export default function Home({ profile, cdnKey, staffArticles }) {
                     { !loading ? (
                       <RecentActivities />
                     ) : (
-                      <Grid container justify="center" alignItems="center" spacing={2}>
+                      <Grid container justifyContent="center" alignItems="center" spacing={2}>
                         <Grid item>
                           <CircularProgress color="primary" style={{ margin: theme.spacing(2) }} />
                         </Grid>
@@ -443,7 +443,7 @@ export default function Home({ profile, cdnKey, staffArticles }) {
                   { !loading ? (
                     <RecentActivities />
                   ) : (
-                    <Grid container justify="center" alignItems="center" spacing={2}>
+                    <Grid container justifyContent="center" alignItems="center" spacing={2}>
                       <Grid item>
                         <CircularProgress color="primary" style={{ margin: theme.spacing(2) }} />
                       </Grid>
@@ -459,7 +459,7 @@ export default function Home({ profile, cdnKey, staffArticles }) {
             container
             spacing={0}
             alignItems="center"
-            justify="center"
+            justifyContent="center"
             style={{ minHeight: '100vh' }}
           >
             <Grid item>

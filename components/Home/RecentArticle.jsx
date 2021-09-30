@@ -128,7 +128,7 @@ function RecentArticle({ article }) {
         <Grid
           container
           direction="column"
-          justify="flex-start"
+          justifyContent="flex-start"
           alignItems="flex-start"
           spacing={1}
         >
@@ -154,7 +154,7 @@ function RecentArticle({ article }) {
             <Grid
               container
               className={classes.trendingStats}
-              justify="space-between"
+              justifyContent="space-between"
               alignItems="baseline"
               style={xsDown ? { width: '100%', color: 'white' } : { width: '100%' }}
             >

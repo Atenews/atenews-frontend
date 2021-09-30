@@ -285,7 +285,7 @@ const Layout = ({ children, setDarkMode }) => {
                     {
                     trending.length === 0
                       ? (
-                        <Grid container justify="center" alignItems="center" spacing={2}>
+                        <Grid container justifyContent="center" alignItems="center" spacing={2}>
                           <Grid item>
                             <CircularProgress color={theme.palette.type === 'light' ? 'primary' : 'secondary'} style={{ margin: theme.spacing(2) }} />
                           </Grid>

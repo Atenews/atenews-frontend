@@ -122,7 +122,7 @@ export default function MenuAppBar({ closeButtomNav, setDarkMode }) {
     >
       <List>
         <ListItem button onClick={() => handleClickLink('/')}>
-          <Grid container style={{ width: '100%' }} justify="center">
+          <Grid container style={{ width: '100%' }} justifyContent="center">
             <Grid item>
               <div className={classes.logo} />
             </Grid>
@@ -341,7 +341,7 @@ export default function MenuAppBar({ closeButtomNav, setDarkMode }) {
           <IconButton edge="start" className={classes.menuButton} color="primary" aria-label="menu" onClick={toggleDrawer(true)}>
             <MenuIcon />
           </IconButton>
-          <Grid container style={{ width: '100%' }} justify="center">
+          <Grid container style={{ width: '100%' }} justifyContent="center">
             <Grid item>
               <div className={classes.logo} />
             </Grid>

@@ -19,7 +19,7 @@ const CustomError = ({ statusCode }) => (
       direction="column"
       spacing={0}
       alignItems="center"
-      justify="center"
+      justifyContent="center"
       style={{ minHeight: '50vh' }}
     >
       <Grid item>

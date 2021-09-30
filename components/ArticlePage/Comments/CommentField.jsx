@@ -174,7 +174,7 @@ export default function Page({ reply, slug, rootDetails }) {
         direction="column"
         spacing={0}
         alignItems="center"
-        justify="center"
+        justifyContent="center"
         style={{ marginBottom: theme.spacing(4) }}
       >
         <Grid item>

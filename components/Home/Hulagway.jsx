@@ -22,7 +22,7 @@ export default function Hulagway({ featuredPhoto }) {
 
   return (
     <div className={classes.section}>
-      <Grid container justify="center" alignItems="center" spacing={1} style={{ marginBottom: theme.spacing(4), paddingLeft: theme.spacing(8), paddingRight: theme.spacing(8) }}>
+      <Grid container justifyContent="center" alignItems="center" spacing={1} style={{ marginBottom: theme.spacing(4), paddingLeft: theme.spacing(8), paddingRight: theme.spacing(8) }}>
         <Grid item xs>
           <div style={{ backgroundColor: theme.palette.type === 'light' ? 'black' : 'white', height: 1, width: '100%' }} />
         </Grid>
@@ -44,7 +44,7 @@ export default function Hulagway({ featuredPhoto }) {
         <LazyLoadImage src={imageGenerator(featuredPhoto.featuredImage?.node.sourceUrl, 800)} alt="Featured" width="100%" style={{ width: '100%' }} effect="blur" />
       </div>
       <Typography variant="body1" component="div" style={{ padding: theme.spacing(2), textAlign: 'center' }}>
-        <Grid container justify="center">
+        <Grid container justifyContent="center">
           <Grid item>
             { /* eslint-disable-next-line react/no-danger */ }
             <div dangerouslySetInnerHTML={{ __html: featuredPhoto.content }} />

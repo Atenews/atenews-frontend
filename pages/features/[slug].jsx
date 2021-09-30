@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 import DefaultErrorPage from '@/components/404';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
-import articlePaths from '@/utils/serverProps/articlePaths';
-import articleStaticProps from '@/utils/serverProps/articleStaticProps';
+// import articlePaths from '@/utils/serverProps/articlePaths';
+import articleServerSideProps from '@/utils/serverProps/articleServerSideProps';
 
 import { decode } from 'html-entities';
 
@@ -37,7 +37,7 @@ export default function Page(args) {
   if (router.isFallback) {
     return (
       <div className={classes.contentContainer}>
-        <Grid container direction="row" justify="center">
+        <Grid container direction="row" justifyContent="center">
           <CircularProgress style={{ marginTop: 100, marginBottom: 100 }} />
         </Grid>
       </div>
@@ -79,7 +79,7 @@ export default function Page(args) {
           container
           spacing={0}
           alignItems="center"
-          justify="center"
+          justifyContent="center"
           style={{ minHeight: '100vh' }}
         >
           <Grid item>
@@ -93,5 +93,5 @@ export default function Page(args) {
 
 const categories = [4, 437, 31];
 
-export const getStaticPaths = async () => articlePaths(categories);
-export const getStaticProps = async (ctx) => articleStaticProps(ctx, categories);
+// export const getStaticPaths = async () => articlePaths(categories);
+export const getServerSideProps = async (ctx) => articleServerSideProps(ctx, categories);

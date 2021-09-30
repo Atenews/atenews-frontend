@@ -19,7 +19,7 @@ export default function LatestRelease() {
 
   return (
     <div className={classes.section}>
-      <Grid container justify="center" alignItems="center" spacing={1} style={{ marginBottom: theme.spacing(4), paddingLeft: theme.spacing(8), paddingRight: theme.spacing(8) }}>
+      <Grid container justifyContent="center" alignItems="center" spacing={1} style={{ marginBottom: theme.spacing(4), paddingLeft: theme.spacing(8), paddingRight: theme.spacing(8) }}>
         <Grid item xs>
           <div style={{ backgroundColor: theme.palette.type === 'light' ? 'black' : 'white', height: 1, width: '100%' }} />
         </Grid>
@@ -37,7 +37,7 @@ export default function LatestRelease() {
           <div style={{ backgroundColor: theme.palette.type === 'light' ? 'black' : 'white', height: 1, width: '100%' }} />
         </Grid>
       </Grid>
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
         <Grid item xs={12} sm={6}>
           <CardActionArea onClick={() => window.open('https://issuu.com/atenews/docs/atenewsvol66no2_2e8e798bcd31b8', '_blank')}>
             <Paper variant="outlined" style={{ borderRadius: 10, overflow: 'hidden' }}>

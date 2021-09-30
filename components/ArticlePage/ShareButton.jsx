@@ -66,7 +66,7 @@ export default function Page({ article }) {
         <DialogContent style={{ padding: theme.spacing(4), paddingTop: 0 }}>
           <Grid container spacing={4}>
             <Grid item>
-              <Grid container direction="column" justify="center" alignItems="center">
+              <Grid container direction="column" justifyContent="center" alignItems="center">
                 <Grid item>
                   <FacebookShareButton
                     url={window.location.href}
@@ -91,7 +91,7 @@ export default function Page({ article }) {
               </Grid>
             </Grid>
             <Grid item>
-              <Grid container direction="column" justify="center" alignItems="center">
+              <Grid container direction="column" justifyContent="center" alignItems="center">
                 <Grid item>
                   <TwitterShareButton
                     url={window.location.href}

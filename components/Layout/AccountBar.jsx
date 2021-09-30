@@ -177,7 +177,7 @@ export default function AccountBar({ setDarkMode }) {
             </Grid>
           </Grid>
         </animated.div>
-        <Grid component="div" container className={classes.account} justify="space-around" alignItems="center" wrap="nowrap">
+        <Grid component="div" container className={classes.account} justifyContent="space-around" alignItems="center" wrap="nowrap">
           <Grid item>
             <IconButton
               aria-label="Open Search Bar"

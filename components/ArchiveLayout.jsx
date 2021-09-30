@@ -117,7 +117,7 @@ export default function Page({
                   container
                   spacing={0}
                   alignItems="center"
-                  justify="center"
+                  justifyContent="center"
                 >
                   <Grid item>
                     <CircularProgress />
@@ -136,7 +136,7 @@ export default function Page({
           container
           spacing={0}
           alignItems="center"
-          justify="center"
+          justifyContent="center"
           style={{ minHeight: '100vh' }}
         >
           <Grid item>

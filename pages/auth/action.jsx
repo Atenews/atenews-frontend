@@ -47,7 +47,7 @@ const ActionAuth = () => {
   }, [router.query.oobCode]);
 
   return (
-    <Grid container justify="center" alignItems="center" spacing={2}>
+    <Grid container justifyContent="center" alignItems="center" spacing={2}>
       <Grid item>
         <CircularProgress color="primary" style={{ margin: theme.spacing(2) }} />
       </Grid>

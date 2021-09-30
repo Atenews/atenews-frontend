@@ -25,7 +25,7 @@ const Flair = ({ small }) => {
   return (
     <div className={classes.tag} style={small ? { height: 20 } : null}>
       <Typography variant="body2" component="div" style={small ? { fontSize: 10 } : null}>
-        <Grid container spacing={1} alignItems="center" wrap="nowrap" justify="center" style={{ height: 'max-content' }}>
+        <Grid container spacing={1} alignItems="center" wrap="nowrap" justifyContent="center" style={{ height: 'max-content' }}>
           <Grid item>
             <Grid container>
               <StarIcon style={small ? { fontSize: 18 } : null} />

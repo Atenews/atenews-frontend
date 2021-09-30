@@ -129,7 +129,7 @@ const ArticleCard = ({ article }) => {
                   </animated.div>
                 </Grid>
                 <Grid item xs={12} style={{ marginTop: theme.spacing(2) }}>
-                  <Grid container style={{ color: theme.palette.primary.main, width: '100%' }} spacing={2} justify="space-between" alignItems="center">
+                  <Grid container style={{ color: theme.palette.primary.main, width: '100%' }} spacing={2} justifyContent="space-between" alignItems="center">
                     <Grid item xs>
                       <ReactInfo
                         TextProps={{ style: { color: 'white' } }}

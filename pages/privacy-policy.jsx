@@ -57,7 +57,7 @@ export default function Page({ page }) {
           container
           spacing={0}
           alignItems="center"
-          justify="center"
+          justifyContent="center"
           style={{ minHeight: '100vh' }}
         >
           <Grid item>
@@ -69,7 +69,7 @@ export default function Page({ page }) {
   );
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   let res = {};
   try {
     const data = await WPGraphQL.request(
@@ -89,8 +89,8 @@ export const getStaticProps = async () => {
   }
   if (res) {
     if ('content' in res) {
-      return { props: { page: res }, revalidate: 10 };
+      return { props: { page: res } };
     }
   }
-  return { props: { page: null }, revalidate: 10 };
+  return { props: { page: null } };
 };

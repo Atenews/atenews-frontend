@@ -154,7 +154,7 @@ const ArticleGrid = ({ articles }) => {
                   width: '100%',
                 }}
                 spacing={2}
-                justify="space-between"
+                justifyContent="space-between"
                 alignItems="center"
               >
                 <Grid item xs>
@@ -196,7 +196,7 @@ const ArticleGrid = ({ articles }) => {
         </Grid>
       </Card>
 
-      <Grid container spacing={2} justify="space-between">
+      <Grid container spacing={2} justifyContent="space-between">
         { articles.map((article, i) => {
           if (i !== 0) {
             return (

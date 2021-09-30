@@ -113,7 +113,7 @@ const Column = ({ article }) => {
               </Grid>
             </Grid>
 
-            <Grid container spacing={2} component="div" className={classes.trendingStats} justify="flex-start">
+            <Grid container spacing={2} component="div" className={classes.trendingStats} justifyContent="flex-start">
               <Grid item xs>
                 <ReactInfo
                   IconProps={{ className: classes.trendingStatsText }}

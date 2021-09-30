@@ -89,7 +89,7 @@ export default handleViewport((props) => {
             <Avatar className={classes.avatar} src={imageGenerator(image, 60)} />
           </Grid>
           <Grid item>
-            <Grid container direction="column" justify="center">
+            <Grid container direction="column" justifyContent="center">
               <Grid item>
                 <Typography variant="body1">
                   {`${author.firstName} ${author.lastName || ''}`}

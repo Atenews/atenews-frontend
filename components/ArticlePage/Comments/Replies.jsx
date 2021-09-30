@@ -70,7 +70,7 @@ export default function Replies({
 
   if (loading) {
     return (
-      <Grid container direction="row" justify="center">
+      <Grid container direction="row" justifyContent="center">
         <CircularProgress style={{ marginTop: 20 }} />
       </Grid>
     );

@@ -9,7 +9,7 @@ export default async (req, res) => {
     const data = await WPGraphQL.request(
       gql`
         query Articles {
-          posts(first: 20, where: { categoryId: 21 }) {
+          posts(first: 50, where: { categoryId: 21 }) {
             nodes {
               title(format: RENDERED)
               slug

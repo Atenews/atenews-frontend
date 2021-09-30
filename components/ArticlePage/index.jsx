@@ -199,7 +199,7 @@ export default function Page({
         <>
           <Divider style={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(2) }} />
 
-          <Grid container spacing={3} justify="center" alignItems="center">
+          <Grid container spacing={3} justifyContent="center" alignItems="center">
             <Grid item>
               <Avatar
                 src={writerImages[post.coauthors.nodes[0].databaseId]}
@@ -243,7 +243,7 @@ export default function Page({
             direction="column"
             spacing={0}
             alignItems="center"
-            justify="center"
+            justifyContent="center"
             style={{ marginTop: theme.spacing(4) }}
           >
             <Grid item>

@@ -179,7 +179,7 @@ function RecentArticles({ articles }) {
                 </Grid>
                 <Grid
                   container
-                  justify="space-between"
+                  justifyContent="space-between"
                   spacing={2}
                   style={{ marginTop: theme.spacing(2) }}
                 >

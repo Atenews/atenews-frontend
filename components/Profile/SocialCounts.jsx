@@ -49,7 +49,7 @@ export default function SocialCounts({
                   <LikeIcon style={{ fontSize: 50 }} color={theme.palette.type === 'light' ? 'primary' : 'secondary'} />
                 </Grid>
                 <Grid item>
-                  <Grid container direction="column" justify="center">
+                  <Grid container direction="column" justifyContent="center">
                     <Grid item>
                       <Typography variant="h5" color={theme.palette.type === 'light' ? 'primary' : 'secondary'}>{profile.upvotesReceived || 0}</Typography>
                     </Grid>
@@ -71,7 +71,7 @@ export default function SocialCounts({
                   <DislikeIcon style={{ fontSize: 50 }} color={theme.palette.type === 'light' ? 'primary' : 'secondary'} />
                 </Grid>
                 <Grid item>
-                  <Grid container direction="column" justify="center">
+                  <Grid container direction="column" justifyContent="center">
                     <Grid item>
                       <Typography variant="h5" color={theme.palette.type === 'light' ? 'primary' : 'secondary'}>{profile.downvotesReceived || 0}</Typography>
                     </Grid>

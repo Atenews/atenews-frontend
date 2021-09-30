@@ -1,14 +1,14 @@
 import WPGraphQL from '@/utils/wpgraphql';
 import { gql } from 'graphql-request';
 
-const articleStaticProps = async (ctx, categories) => {
+const articleServerSideProps = async ({ params }, categories) => {
   let articleData = null;
 
   try {
     const tempData = await WPGraphQL.request(
       gql`
         query Article {
-          post( id: "${ctx.params.slug}" , idType: SLUG ) {
+          post( id: "${params.slug}" , idType: SLUG ) {
             title(format: RENDERED)
             slug
             date
@@ -57,7 +57,7 @@ const articleStaticProps = async (ctx, categories) => {
   if (articleData) {
     const articleCategories = articleData.categories.nodes;
     if (articleCategories.filter((cat) => categories.includes(cat.databaseId)).length === 0) {
-      return { notFound: true, revalidate: 1 };
+      return { notFound: true };
     }
     const data = await WPGraphQL.request(
       gql`
@@ -107,10 +107,9 @@ const articleStaticProps = async (ctx, categories) => {
         categories,
         pageInfo: data.posts.pageInfo,
       },
-      revalidate: 1,
     };
   }
-  return { notFound: true, revalidate: 1 };
+  return { notFound: true };
 };
 
-export default articleStaticProps;
+export default articleServerSideProps;

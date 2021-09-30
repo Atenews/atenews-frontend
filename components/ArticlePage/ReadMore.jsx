@@ -57,7 +57,7 @@ export default handleViewport((props) => {
                 container
                 spacing={0}
                 alignItems="center"
-                justify="center"
+                justifyContent="center"
               >
                 <Grid item>
                   <CircularProgress />
