@@ -41,7 +41,7 @@ const useStyles = makeStyles({
 });
 
 export default function Page({
-  articlesRaw, name, category, nofollow, pageInfo, query, categorySEO,
+  articlesRaw, categoryName, category, nofollow, pageInfo, query, categorySEO,
 }) {
   const classes = useStyles();
   const theme = useTheme();
@@ -102,7 +102,7 @@ export default function Page({
           </>
         ) : (
           <title>
-            {`${name} - Atenews`}
+            {`${categoryName} - Atenews`}
           </title>
         )}
       </Head>
@@ -111,10 +111,10 @@ export default function Page({
           <Grid container alignItems="center" style={{ marginBottom: theme.spacing(2) }} spacing={4}>
             <Grid item>
               <Hidden smDown>
-                <Typography variant="h3" component="h1">{name}</Typography>
+                <Typography variant="h3" component="h1">{categoryName}</Typography>
               </Hidden>
               <Hidden mdUp>
-                <Typography variant="h4" component="h1">{name}</Typography>
+                <Typography variant="h4" component="h1">{categoryName}</Typography>
               </Hidden>
             </Grid>
             {baseUrlMenu(router.pathname) !== '/search' && !nofollow ? (

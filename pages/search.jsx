@@ -8,7 +8,7 @@ import ArchiveLayout from '@/components/ArchiveLayout';
 export default function Page(props) {
   return (
     // eslint-disable-next-line react/destructuring-assignment
-    <ArchiveLayout {...props} name={`Search Results for "${props.query}"`} />
+    <ArchiveLayout {...props} />
   );
 }
 
@@ -60,6 +60,7 @@ export async function getServerSideProps({ query: rawQuery }) {
         articlesRaw: data.posts.nodes,
         pageInfo: data.posts.pageInfo,
         query,
+        categoryName: `Search Results for "${query}"`,
         category: 'search',
       },
     };

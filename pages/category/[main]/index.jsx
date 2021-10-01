@@ -6,7 +6,7 @@ import ArchiveLayout from '@/components/ArchiveLayout';
 
 export default function Page(props) {
   return (
-    <ArchiveLayout {...props} name={props.categoryName} />
+    <ArchiveLayout {...props} />
   );
 }
 
