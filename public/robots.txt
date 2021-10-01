@@ -1,4 +1,4 @@
-Sitemap: https://atenews.ph/api/posts-sitemap
+Sitemap: https://atenews.ph/sitemap_index.xml
 
 User-agent: *
 Allow: /*
