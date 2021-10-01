@@ -50,7 +50,7 @@ export default function Page({
 
   let fullHead;
   if (categorySEO) {
-    fullHead = parse(categorySEO?.fullHead);
+    fullHead = parse(categorySEO?.fullHead.replace('https://atenews.ph/wp-', 'https://wp.atenews.ph/wp-'));
   }
 
   // eslint-disable-next-line no-underscore-dangle

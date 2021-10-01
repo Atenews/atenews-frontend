@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
 export default function Page({ page }) {
   const classes = useStyles();
   const theme = useTheme();
-  const fullHead = parse(page.seo.fullHead);
+  const fullHead = parse(page.seo.fullHead.replace('https://atenews.ph/wp-', 'https://wp.atenews.ph/wp-'));
   const { loadingAuth } = useAuth();
 
   if (!page) {
