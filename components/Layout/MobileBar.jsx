@@ -17,6 +17,8 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import imageGenerator from '@/utils/imageGenerator';
 import { useAuth } from '@/utils/hooks/useAuth';
 
+import postFetch from '@/utils/postFetch';
+
 import {
   AppBar,
   Toolbar,
@@ -79,10 +81,42 @@ export default function MenuAppBar({ closeButtomNav, setDarkMode }) {
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
+  const [menus, setMenus] = React.useState([]);
+  const [menuLoading, setMenuLoading] = React.useState(true);
+
   const [sideMenu, setSideMenu] = React.useState(false);
   const [profileMenu, setProfileMenu] = React.useState(false);
 
   const [openSubMenu, setOpenSubMenu] = React.useState(null);
+
+  const flatListToHierarchical = (
+    data = [],
+    { idKey = 'id', parentKey = 'parentId', childrenKey = 'children' } = {},
+  ) => {
+    const tree = [];
+    const childrenOf = {};
+    data.forEach((item) => {
+      const newItem = { ...item };
+      const { [idKey]: id, [parentKey]: parentId = 0 } = newItem;
+      childrenOf[id] = childrenOf[id] || [];
+      newItem[childrenKey] = childrenOf[id];
+      if (parentId) {
+        childrenOf[parentId] = childrenOf[parentId] || [];
+        childrenOf[parentId].push(newItem);
+      } else {
+        tree.push(newItem);
+      }
+    });
+    return tree;
+  };
+
+  React.useEffect(() => {
+    setMenuLoading(true);
+    postFetch('/api/graphql/getMenus').then((res) => res.json()).then((x) => {
+      setMenus(flatListToHierarchical(x.menus));
+      setMenuLoading(false);
+    });
+  }, []);
 
   const toggleDrawer = (open) => (event) => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -128,122 +162,39 @@ export default function MenuAppBar({ closeButtomNav, setDarkMode }) {
             </Grid>
           </Grid>
         </ListItem>
-        <ListItem button onClick={() => handleSubMenu('News')}>
-          <ListItemIcon>
-            <ChevronRightIcon />
-          </ListItemIcon>
-          <ListItemText primary="News" />
-          { openSubMenu === 'News' ? <ExpandLess /> : <ExpandMore /> }
-        </ListItem>
-        <Collapse in={openSubMenu === 'News'} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested} onClick={() => handleClickLink('/news/university')}>
+        { !menuLoading ? (
+          <>
+            {menus.map((menu) => (
+              <div key={menu.id}>
+                <ListItem key={`${menu.id}-item`} button onClick={() => handleSubMenu(menu.id)}>
+                  <ListItemIcon>
+                    <ChevronRightIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={menu.label} />
+                  { openSubMenu === menu.id ? <ExpandLess /> : <ExpandMore /> }
+                </ListItem>
+                <Collapse key={`${menu.id}-collapse`} in={openSubMenu === menu.id} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    {menu.children.map((child) => (
+                      <ListItem button key={child.id} className={classes.nested} onClick={() => handleClickLink(child.url.replace('https://atenews.ph', ''))}>
+                        <ListItemIcon>
+                          <ChevronRightIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={child.label} />
+                      </ListItem>
+                    ))}
+                  </List>
+                </Collapse>
+              </div>
+            ))}
+            <ListItem button onClick={() => handleClickLink('/staff')}>
               <ListItemIcon>
                 <ChevronRightIcon />
               </ListItemIcon>
-              <ListItemText primary="University" />
+              <ListItemText primary="Staff" />
             </ListItem>
-            <ListItem button className={classes.nested} onClick={() => handleClickLink('/news/local')}>
-              <ListItemIcon>
-                <ChevronRightIcon />
-              </ListItemIcon>
-              <ListItemText primary="Local" />
-            </ListItem>
-            <ListItem button className={classes.nested} onClick={() => handleClickLink('/news/national')}>
-              <ListItemIcon>
-                <ChevronRightIcon />
-              </ListItemIcon>
-              <ListItemText primary="National" />
-            </ListItem>
-            <ListItem button className={classes.nested} onClick={() => handleClickLink('/news/sports')}>
-              <ListItemIcon>
-                <ChevronRightIcon />
-              </ListItemIcon>
-              <ListItemText primary="Sports" />
-            </ListItem>
-          </List>
-        </Collapse>
-        <ListItem button onClick={() => handleSubMenu('Features')}>
-          <ListItemIcon>
-            <ChevronRightIcon />
-          </ListItemIcon>
-          <ListItemText primary="Features" />
-          { openSubMenu === 'Features' ? <ExpandLess /> : <ExpandMore /> }
-        </ListItem>
-        <Collapse in={openSubMenu === 'Features'} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested} onClick={() => handleClickLink('/features')}>
-              <ListItemIcon>
-                <ChevronRightIcon />
-              </ListItemIcon>
-              <ListItemText primary="Features" />
-            </ListItem>
-            <ListItem button className={classes.nested} onClick={() => handleClickLink('/features/montage')}>
-              <ListItemIcon>
-                <ChevronRightIcon />
-              </ListItemIcon>
-              <ListItemText primary="Montage" />
-            </ListItem>
-            <ListItem button className={classes.nested} onClick={() => handleClickLink('/features/artists')}>
-              <ListItemIcon>
-                <ChevronRightIcon />
-              </ListItemIcon>
-              <ListItemText primary="Artists" />
-            </ListItem>
-          </List>
-        </Collapse>
-        <ListItem button onClick={() => handleSubMenu('Opinion')}>
-          <ListItemIcon>
-            <ChevronRightIcon />
-          </ListItemIcon>
-          <ListItemText primary="Opinion" />
-          { openSubMenu === 'Opinion' ? <ExpandLess /> : <ExpandMore /> }
-        </ListItem>
-        <Collapse in={openSubMenu === 'Opinion'} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested} onClick={() => handleClickLink('/opinion/column')}>
-              <ListItemIcon>
-                <ChevronRightIcon />
-              </ListItemIcon>
-              <ListItemText primary="Column" />
-            </ListItem>
-            <ListItem button className={classes.nested} onClick={() => handleClickLink('/opinion/editorial')}>
-              <ListItemIcon>
-                <ChevronRightIcon />
-              </ListItemIcon>
-              <ListItemText primary="Editorial" />
-            </ListItem>
-            <ListItem button className={classes.nested} onClick={() => handleClickLink('/opinion/blueblood')}>
-              <ListItemIcon>
-                <ChevronRightIcon />
-              </ListItemIcon>
-              <ListItemText primary="Blueblood" />
-            </ListItem>
-          </List>
-        </Collapse>
-        <ListItem button onClick={() => handleSubMenu('Photos')}>
-          <ListItemIcon>
-            <ChevronRightIcon />
-          </ListItemIcon>
-          <ListItemText primary="Photos" />
-          { openSubMenu === 'Photos' ? <ExpandLess /> : <ExpandMore /> }
-        </ListItem>
-        <Collapse in={openSubMenu === 'Photos'} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested} onClick={() => handleClickLink('/photos/featured')}>
-              <ListItemIcon>
-                <ChevronRightIcon />
-              </ListItemIcon>
-              <ListItemText primary="Featured Photos" />
-            </ListItem>
-          </List>
-        </Collapse>
-        <ListItem button onClick={() => handleClickLink('/staff')}>
-          <ListItemIcon>
-            <ChevronRightIcon />
-          </ListItemIcon>
-          <ListItemText primary="Staff" />
-        </ListItem>
+          </>
+        ) : null }
       </List>
     </div>
   );

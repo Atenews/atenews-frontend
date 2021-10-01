@@ -1,7 +1,7 @@
 import WPGraphQL from '@/utils/wpgraphql';
 import { gql } from 'graphql-request';
 
-const articleServerSideProps = async ({ params }, categories) => {
+const articleServerSideProps = async ({ params }) => {
   let articleData = null;
 
   try {
@@ -12,6 +12,11 @@ const articleServerSideProps = async ({ params }, categories) => {
             title(format: RENDERED)
             slug
             date
+            seo {
+              fullHead
+              metaDesc
+              title
+            }
             postViews
             coauthors {
               nodes {
@@ -56,13 +61,17 @@ const articleServerSideProps = async ({ params }, categories) => {
   }
   if (articleData) {
     const articleCategories = articleData.categories.nodes;
-    if (articleCategories.filter((cat) => categories.includes(cat.databaseId)).length === 0) {
+    /* if (articleCategories.filter((cat) => categories.includes(cat.databaseId)).length === 0) {
       return { notFound: true };
-    }
+    } */
+    const relatedCategories = articleCategories.reduce((accumulator, current) => {
+      accumulator.push(current.databaseId);
+      return accumulator;
+    }, []);
     const data = await WPGraphQL.request(
       gql`
         query Articles {
-          posts(first: 5, where: { notIn: [${articleData.databaseId}], categoryIn: [${categories.toString()}] }) {
+          posts(first: 5, where: { notIn: [${articleData.databaseId}], categoryIn: [${relatedCategories.toString()}] }) {
             pageInfo {
               hasNextPage
               hasPreviousPage
@@ -104,7 +113,7 @@ const articleServerSideProps = async ({ params }, categories) => {
       props: {
         post: articleData,
         relatedPosts: data.posts.nodes,
-        categories,
+        categories: articleCategories,
         pageInfo: data.posts.pageInfo,
       },
     };

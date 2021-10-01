@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { NextSeo } from 'next-seo';
+import Head from 'next/head';
+import parse from 'html-react-parser';
 import DefaultErrorPage from '@/components/404';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import WPGraphQL from '@/utils/wpgraphql';
 import { gql } from 'graphql-request';
 
-import { decode } from 'html-entities';
 import CustomPage from '@/components/CustomPage';
 
 import { Grid } from '@material-ui/core';
@@ -24,6 +24,7 @@ const useStyles = makeStyles(() => ({
 export default function Page({ page }) {
   const classes = useStyles();
   const theme = useTheme();
+  const fullHead = parse(page.seo.fullHead);
   const { loadingAuth } = useAuth();
 
   if (!page) {
@@ -34,22 +35,12 @@ export default function Page({ page }) {
 
   return (
     <div className={classes.container}>
-      <NextSeo
-        title={`${decode(page.title)} - Atenews`}
-        openGraph={{
-          title: `${decode(page.title)} - Atenews`,
-          images: [
-            {
-              url: '/default-thumbnail.jpg',
-            },
-          ],
-          type: 'article',
-        }}
-        twitter={{
-          handle: '@atenews',
-          cardType: 'summary_large_image',
-        }}
-      />
+      <Head>
+        <title>
+          { page.seo.title }
+        </title>
+        { fullHead }
+      </Head>
       { !loadingAuth ? (
         <CustomPage page={page} />
       ) : (
@@ -79,6 +70,10 @@ export const getServerSideProps = async () => {
             content
             title
             date
+            seo {
+              fullHead
+              title
+            }
           }
         }             
       `,

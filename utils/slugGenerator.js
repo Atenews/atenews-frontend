@@ -1,5 +1,5 @@
-const generator = (article) => {
-  let category = '';
+const generator = (article) => `/${article.slug}`;
+/* let category = '';
   let condition = null;
   if (article.categories?.nodes) {
     condition = parseInt(article.categories.nodes[0].databaseId, 10);
@@ -36,8 +36,6 @@ const generator = (article) => {
       category = '/photos';
       break;
     default:
-  }
-  return `${category}/${article.slug}`;
-};
+  } */
 
 export default generator;

@@ -2,7 +2,9 @@ import React from 'react';
 
 import dynamic from 'next/dynamic';
 
-import { NextSeo } from 'next-seo';
+import Head from 'next/head';
+import parse from 'html-react-parser';
+
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import {
@@ -39,12 +41,17 @@ const useStyles = makeStyles({
 });
 
 export default function Page({
-  articlesRaw, name, category, nofollow, pageInfo, query,
+  articlesRaw, name, category, nofollow, pageInfo, query, categorySEO,
 }) {
   const classes = useStyles();
   const theme = useTheme();
   const router = useRouter();
   const { loadingAuth } = useAuth();
+
+  let fullHead;
+  if (categorySEO) {
+    fullHead = parse(categorySEO?.fullHead);
+  }
 
   // eslint-disable-next-line no-underscore-dangle
   const [articles, setArticles] = React.useState(articlesRaw);
@@ -85,10 +92,20 @@ export default function Page({
 
   return (
     <div className={classes.container}>
-      <NextSeo
-        title={`${name} - Atenews`}
-        description={`Welcome to the official student publication of AdDU. Here is a list of ${name} written by Atenews.`}
-      />
+      <Head>
+        {categorySEO ? (
+          <>
+            <title>
+              { categorySEO.title }
+            </title>
+            { fullHead }
+          </>
+        ) : (
+          <title>
+            {`${name} - Atenews`}
+          </title>
+        )}
+      </Head>
       { !loadingAuth ? (
         <>
           <Grid container alignItems="center" style={{ marginBottom: theme.spacing(2) }} spacing={4}>

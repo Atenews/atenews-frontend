@@ -5,6 +5,8 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import { Typography, CardActionArea } from '@material-ui/core';
 
+import { useCategory } from '@/utils/hooks/useCategory';
+
 const useStyles = makeStyles((theme) => ({
   tag: {
     width: 'max-content',
@@ -26,65 +28,21 @@ const Tag = ({ type, clickable }) => {
   const [url, setURL] = React.useState('');
   const [color, setColor] = React.useState(theme.palette.atenews.news);
 
+  const { categories } = useCategory();
+
   React.useEffect(() => {
-    switch (parseInt(type.term_id || type.databaseId || type.termId, 10)) {
-      case 3:
-      case 20:
-      case 18:
-      case 19:
-      case 7:
-        if (type.slug !== 'news') {
-          setURL(`/news/${type.slug}`);
-        } else {
-          setURL('/news');
-        }
-        setColor(theme.palette.atenews.news);
-        setText(type.name || type.cat_name);
-        break;
-      case 4:
-      case 437:
-        if (type.slug !== 'features') {
-          setURL(`/features/${type.slug}`);
-        } else {
-          setURL('/features');
-        }
-        setColor(theme.palette.atenews.features);
-        setText(type.name || type.cat_name);
-        break;
-      case 13:
-      case 21:
-      case 428:
-      case 590:
-        if (type.slug !== 'opinion') {
-          setURL(`/opinion/${type.slug === 'columns' ? 'column' : type.slug}`);
-        } else {
-          setURL('/opinion');
-        }
-        setColor(theme.palette.atenews.highlight);
-        setText(type.name || type.cat_name);
-        break;
-      case 31:
-        if (type.slug !== 'features') {
-          setURL(`/features/${type.slug}`);
-        } else {
-          setURL('/features');
-        }
-        setColor(theme.palette.atenews.montage);
-        setText(type.name || type.cat_name);
-        break;
-      case 430:
-      case 431:
-        if (type.slug !== 'photos') {
-          setURL(`/photos/${type.slug === 'featured-photos' ? 'featured' : type.slug}`);
-        } else {
-          setURL('/photos');
-        }
-        setColor(theme.palette.atenews.diversions);
-        setText(type.name || type.cat_name);
-        break;
-      default:
-    }
+    setColor(theme.palette.atenews.main);
+    setText(type.name || type.cat_name);
+    setURL(`/category/${type.slug}`);
   }, [type]);
+
+  React.useEffect(() => {
+    const currentCategory = categories.find((cat) => type.slug === cat.slug);
+    if (currentCategory) {
+      setText(currentCategory.name);
+      setColor(currentCategory.description);
+    }
+  }, [categories]);
 
   return (
     <CardActionArea

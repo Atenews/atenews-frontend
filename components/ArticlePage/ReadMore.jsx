@@ -31,8 +31,13 @@ export default handleViewport((props) => {
   }, [relatedPosts]);
 
   const next = () => {
+    const relatedCategories = categories.reduce((accumulator, current) => {
+      accumulator.push(current.databaseId);
+      return accumulator;
+    }, []);
+
     postFetch('/api/graphql/getSuggestions', {
-      categories: JSON.stringify(categories),
+      categories: JSON.stringify(relatedCategories),
       cursor,
       articleId: postId,
     }).then((res) => res.json()).then((x) => {

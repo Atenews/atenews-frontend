@@ -6,12 +6,10 @@ import ArchiveLayout from '@/components/ArchiveLayout';
 
 export default function Page(props) {
   return (
-    <ArchiveLayout {...props} name="Column" />
+    <ArchiveLayout {...props} name={props.categoryName} />
   );
 }
 
-const CATEGORY_ID = 21;
-
-export async function getServerSideProps() {
-  return listServerSideProps(CATEGORY_ID);
+export async function getServerSideProps(ctx) {
+  return listServerSideProps(ctx.params.sub);
 }

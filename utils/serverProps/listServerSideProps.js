@@ -1,8 +1,27 @@
 import WPGraphQL from '@/utils/wpgraphql';
 import { gql } from 'graphql-request';
 
-const listServerSideProps = async (CATEGORY_ID) => {
+const listServerSideProps = async (CATEGORY_SLUG) => {
   try {
+    const categoryData = await WPGraphQL.request(
+      gql`
+        query Category {
+          category( id: "${CATEGORY_SLUG}", idType: SLUG ) {
+            databaseId
+            name
+            uri
+            seo {
+              fullHead
+              title
+            }
+          }
+        }
+      `,
+    );
+    const CATEGORY_ID = categoryData.category.databaseId;
+    if (!CATEGORY_ID) {
+      return { notFound: true };
+    }
     const data = await WPGraphQL.request(
       gql`
         query Articles {
@@ -47,12 +66,14 @@ const listServerSideProps = async (CATEGORY_ID) => {
     return {
       props: {
         articlesRaw: data.posts.nodes,
+        categoryName: categoryData.category.name,
         category: CATEGORY_ID,
+        categorySEO: categoryData.category.seo,
         pageInfo: data.posts.pageInfo,
       },
     };
   } catch (err) {
-    return { props: { articlesRaw: [], category: CATEGORY_ID } };
+    return { notFound: true };
   }
 };
 

@@ -6,6 +6,9 @@ import { Typography } from '@material-ui/core';
 import Menu from '@/components/Layout/Menu';
 
 import SubMenu from '@/components/Layout/SubMenu';
+import { useCategory } from '@/utils/hooks/useCategory';
+
+import postFetch from '@/utils/postFetch';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -36,14 +39,57 @@ export default function Navigation() {
   const classes = useStyles();
   const router = useRouter();
   const theme = useTheme();
+  const { category, categories } = useCategory();
 
   const [activeMenu, setActiveMenu] = React.useState('/');
+  const [menus, setMenus] = React.useState([]);
+  const [menuLoading, setMenuLoading] = React.useState(true);
 
   const baseUrlMenu = (url) => (url !== '/' ? `${url.split('/').slice(0, 2).join('/')}` : '/');
 
+  const flatListToHierarchical = (
+    data = [],
+    { idKey = 'id', parentKey = 'parentId', childrenKey = 'children' } = {},
+  ) => {
+    const tree = [];
+    const childrenOf = {};
+    data.forEach((item) => {
+      const newItem = { ...item };
+      const { [idKey]: id, [parentKey]: parentId = 0 } = newItem;
+      childrenOf[id] = childrenOf[id] || [];
+      newItem[childrenKey] = childrenOf[id];
+      if (parentId) {
+        childrenOf[parentId] = childrenOf[parentId] || [];
+        childrenOf[parentId].push(newItem);
+      } else {
+        tree.push(newItem);
+      }
+    });
+    return tree;
+  };
+
+  React.useEffect(() => {
+    setMenuLoading(true);
+    postFetch('/api/graphql/getMenus').then((res) => res.json()).then((x) => {
+      setMenus(flatListToHierarchical(x.menus));
+      setMenuLoading(false);
+    });
+  }, []);
+
   React.useEffect(() => {
     setActiveMenu(baseUrlMenu(router.pathname));
-  }, [router.pathname]);
+  }, [router.pathname, category]);
+
+  const isActiveCondition = (menu) => {
+    const isListPage = window.location.href.split('/')[4] === menu.url.split('/')[4];
+    const slugs = [];
+    slugs.push(menu.url.split('/').pop());
+    menu.children.forEach((child) => {
+      slugs.push(child.url.split('/').pop());
+    });
+    const isArticle = slugs.includes(category[0]?.slug);
+    return isListPage || isArticle;
+  };
 
   const handleClick = (url) => {
     router.push(url);
@@ -76,64 +122,32 @@ export default function Navigation() {
         active={activeMenu === '/' || activeMenu === '/profile' || activeMenu === '/auth'}
         onClick={() => handleClick('/')}
       />
+      { !menuLoading ? (
+        <>
+          {menus.map((menu) => (
+            <Menu
+              key={menu.id}
+              color={categories.find((cat) => menu.url.split('/').pop() === cat.slug)?.description || theme.palette.atenews.main}
+              label={<Typography variant="body1">{menu.label}</Typography>}
+              active={isActiveCondition(menu)}
+              onClick={() => handleClick(menu.url.replace('https://atenews.ph', ''))}
+            >
+              <div className={classes.submenu}>
+                {menu.children.map((child) => (
+                  <SubMenu key={child.id} label={<Typography variant="body1">{child.label}</Typography>} color={categories.find((cat) => child.url.split('/').pop() === cat.slug)?.description || theme.palette.atenews.main} onClick={() => handleClick(child.url.replace('https://atenews.ph', ''))} />
+                ))}
+              </div>
+            </Menu>
+          ))}
 
-      <Menu
-        color={theme.palette.atenews.news}
-        label={<Typography variant="body1">News</Typography>}
-        active={activeMenu === '/news'}
-        onClick={() => handleClick('/news')}
-      >
-        <div className={classes.submenu}>
-          <SubMenu label={<Typography variant="body1">University</Typography>} color={theme.palette.atenews.news} onClick={() => handleClick('/news/university')} />
-          <SubMenu label={<Typography variant="body1">Local</Typography>} color={theme.palette.atenews.news} onClick={() => handleClick('/news/local')} />
-          <SubMenu label={<Typography variant="body1">National</Typography>} color={theme.palette.atenews.news} onClick={() => handleClick('/news/national')} />
-          <SubMenu label={<Typography variant="body1">Sports</Typography>} color={theme.palette.atenews.news} onClick={() => handleClick('/news/sports')} />
-        </div>
-      </Menu>
-
-      <Menu
-        color={theme.palette.atenews.features}
-        label={<Typography variant="body1">Features</Typography>}
-        active={activeMenu === '/features'}
-        onClick={() => handleClick('/features')}
-      >
-        <div className={classes.submenu}>
-          <SubMenu label={<Typography variant="body1">Features</Typography>} color={theme.palette.atenews.features} onClick={() => handleClick('/features')} />
-          <SubMenu label={<Typography variant="body1">Montage</Typography>} color={theme.palette.atenews.features} onClick={() => handleClick('/features/montage')} />
-          <SubMenu label={<Typography variant="body1">Artists</Typography>} color={theme.palette.atenews.features} onClick={() => handleClick('/features/artists')} />
-        </div>
-      </Menu>
-
-      <Menu
-        color={theme.palette.atenews.highlight}
-        label={<Typography variant="body1">Opinion</Typography>}
-        active={activeMenu === '/opinion'}
-        onClick={() => handleClick('/opinion')}
-      >
-        <div className={classes.submenu}>
-          <SubMenu label={<Typography variant="body1">Column</Typography>} color={theme.palette.atenews.highlight} onClick={() => handleClick('/opinion/column')} />
-          <SubMenu label={<Typography variant="body1">Editorial</Typography>} color={theme.palette.atenews.highlight} onClick={() => handleClick('/opinion/editorial')} />
-          <SubMenu label={<Typography variant="body1">Blueblood</Typography>} color={theme.palette.atenews.highlight} onClick={() => handleClick('/opinion/blueblood')} />
-        </div>
-      </Menu>
-
-      <Menu
-        color={theme.palette.atenews.diversions}
-        label={<Typography variant="body1">Photos</Typography>}
-        active={activeMenu === '/photos'}
-        onClick={() => handleClick('/photos')}
-      >
-        <div className={classes.submenu}>
-          <SubMenu label={<Typography variant="body1">Featured Photos</Typography>} color={theme.palette.atenews.diversions} onClick={() => handleClick('/photos/featured')} />
-        </div>
-      </Menu>
-
-      <Menu
-        color={theme.palette.primary.main}
-        label={<Typography variant="body1">Staff</Typography>}
-        active={activeMenu === '/staff'}
-        onClick={() => handleClick('/staff')}
-      />
+          <Menu
+            color={theme.palette.primary.main}
+            label={<Typography variant="body1">Staff</Typography>}
+            active={activeMenu === '/staff'}
+            onClick={() => handleClick('/staff')}
+          />
+        </>
+      ) : null }
     </div>
   );
 }

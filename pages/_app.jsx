@@ -17,6 +17,7 @@ import { TrendingProvider } from '@/utils/hooks/useTrending';
 import { AuthProvider } from '@/utils/hooks/useAuth';
 import { ErrorProvider } from '@/utils/hooks/useSnackbar';
 import { CacheProvider } from '@/utils/hooks/useCache';
+import { CategoryProvider } from '@/utils/hooks/useCategory';
 
 import { CssBaseline } from '@material-ui/core';
 
@@ -102,20 +103,22 @@ export default function MyApp(props) {
             <ErrorProvider>
               <AuthProvider>
                 <TrendingProvider>
-                  <Layout setDarkMode={setDarkMode}>
-                    <ToastContainer
-                      position="bottom-center"
-                      autoClose={5000}
-                      hideProgressBar={false}
-                      newestOnTop
-                      closeOnClick
-                      rtl={false}
-                      pauseOnFocusLoss
-                      draggable
-                      pauseOnHover
-                    />
-                    <Component {...pageProps} />
-                  </Layout>
+                  <CategoryProvider>
+                    <Layout setDarkMode={setDarkMode}>
+                      <ToastContainer
+                        position="bottom-center"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                      />
+                      <Component {...pageProps} />
+                    </Layout>
+                  </CategoryProvider>
                 </TrendingProvider>
               </AuthProvider>
             </ErrorProvider>
