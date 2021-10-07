@@ -192,6 +192,7 @@ export async function getServerSideProps({ query }) {
               title(format: RENDERED)
               slug
               date
+              postViews
               coauthors {
                 nodes {
                   firstName
@@ -219,6 +220,7 @@ export async function getServerSideProps({ query }) {
               title(format: RENDERED)
               slug
               date
+              postViews
               databaseId
               featuredImage {
                 node {
@@ -247,6 +249,7 @@ export async function getServerSideProps({ query }) {
               title(format: RENDERED)
               slug
               date
+              postViews
               databaseId
               featuredImage {
                 node {
@@ -302,6 +305,7 @@ export async function getServerSideProps({ query }) {
               databaseId
               date
               slug
+              postViews
               featuredImage {
                 node {
                   sourceUrl(size: LARGE)
@@ -330,6 +334,7 @@ export async function getServerSideProps({ query }) {
               databaseId
               date
               slug
+              postViews
               featuredImage {
                 node {
                   sourceUrl(size: LARGE)

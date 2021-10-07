@@ -116,7 +116,12 @@ const Trending = ({ articles }) => {
           <Paper variant="outlined" square className={classes.trendingHead}>
             <Typography variant="h5">Trending</Typography>
           </Paper>
-          {
+          <Grid container justifyContent="center" alignItems="center" spacing={2}>
+            <Grid item>
+              <Typography variant="body1" style={{ marginBottom: '2rem' }}>Currently not available.</Typography>
+            </Grid>
+          </Grid>
+          { /*
             articles.length === 0
               ? (
                 <Grid container justifyContent="center" alignItems="center" spacing={2}>
@@ -145,7 +150,7 @@ const Trending = ({ articles }) => {
                   </Paper>
                 </CardActionArea>
               ))
-          }
+                */}
         </Grid>
       </div>
     </Hidden>

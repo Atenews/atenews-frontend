@@ -231,7 +231,7 @@ function RecentArticle({ article }) {
                       className={classes.trendingStatsText}
                       variant="subtitle2"
                     >
-                      {socialStats ? socialStats.viewsCount || 0 : 0}
+                      {article.postViews || 0}
                     </Typography>
                   </Grid>
                 </Grid>

@@ -171,7 +171,7 @@ const Article = ({ article, topImage }) => {
                             <VisibilityIcon />
                           </Grid>
                           <Grid item>
-                            <Typography variant="subtitle2">{socialStats ? socialStats.viewsCount || 0 : 0}</Typography>
+                            <Typography variant="subtitle2">{article.postViews || 0}</Typography>
                           </Grid>
                         </Grid>
                       </Grid>
@@ -272,7 +272,7 @@ const Article = ({ article, topImage }) => {
                             <VisibilityIcon />
                           </Grid>
                           <Grid item>
-                            <Typography variant="subtitle2">{socialStats ? socialStats.viewsCount || 0 : 0}</Typography>
+                            <Typography variant="subtitle2">{article.postViews || 0}</Typography>
                           </Grid>
                         </Grid>
                       </Grid>
