@@ -4,12 +4,12 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import useWindowDimensions from '@/utils/useWindowDimensions';
-import slugGenerator from '@/utils/slugGenerator';
+// import slugGenerator from '@/utils/slugGenerator';
 
-import Tag from '@/components/General/Tag';
+// import Tag from '@/components/General/Tag';
 
 import {
-  Typography, Paper, Grid, CardActionArea, Hidden, CircularProgress,
+  Typography, Paper, Grid, Hidden,
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -72,10 +72,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Trending = ({ articles }) => {
+const Trending = (/*{ articles }*/) => {
   const classes = useStyles();
-  const theme = useTheme();
-  const router = useRouter();
+  // const theme = useTheme();
+  // const router = useRouter();
 
   const [topPosition, setTopPosition] = React.useState(0);
 
@@ -144,7 +144,12 @@ const Trending = ({ articles }) => {
                         { article.categories ? <Tag type={article.categories[0]} /> : null }
                       </Grid>
                       <Grid item xs={12}>
-                        <Typography variant="body1" component="div" className={classes.threeLineText} dangerouslySetInnerHTML={{ __html: article.title }} />
+                        <Typography 
+                          variant="body1" 
+                          component="div" 
+                          className={classes.threeLineText} 
+                          dangerouslySetInnerHTML={{ __html: article.title }} 
+                        />
                       </Grid>
                     </Grid>
                   </Paper>
