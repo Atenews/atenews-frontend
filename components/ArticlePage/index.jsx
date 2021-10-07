@@ -136,7 +136,7 @@ export default function Page({
         </Grid>
         <Grid item>
           <Typography variant="body2">
-            {`${article?.viewsCount || 0} views`}
+            {`${post.postViews || 0} views`}
           </Typography>
         </Grid>
       </Grid>
