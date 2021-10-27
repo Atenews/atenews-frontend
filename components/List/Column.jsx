@@ -151,7 +151,7 @@ const Column = ({ article }) => {
                     <VisibilityIcon className={classes.trendingStatsText} />
                   </Grid>
                   <Grid item>
-                    <Typography className={classes.trendingStatsText} variant="subtitle2">{socialStats ? socialStats.viewsCount || 0 : 0}</Typography>
+                    <Typography className={classes.trendingStatsText} variant="subtitle2">{article.postViews || 0}</Typography>
                   </Grid>
                 </Grid>
               </Grid>

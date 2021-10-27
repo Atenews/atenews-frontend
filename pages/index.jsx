@@ -2,10 +2,10 @@ import React from 'react';
 
 import dynamic from 'next/dynamic';
 
-import { NextSeo } from 'next-seo';
 import { useTheme } from '@mui/material/styles';
-
 import { makeStyles } from '@mui/styles';
+import Head from 'next/head';
+import parse from 'html-react-parser';
 
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
@@ -67,8 +67,10 @@ export default function Home({
   mode,
   oobCode,
   continueUrl,
+  homepage,
 }) {
   const classes = useStyles();
+  const fullHead = parse(homepage.seo.fullHead.replace('https://atenews.ph/wp-', 'https://wp.atenews.ph/wp-'));
   const theme = useTheme();
   const trending = useTrending();
   const {
@@ -109,24 +111,12 @@ export default function Home({
 
   return (
     <div className={classes.container}>
-      <NextSeo
-        title="Atenews"
-        description="The official student publication of the Ateneo de Davao University"
-        openGraph={{
-          title: 'Atenews',
-          description: 'The official student publication of the Ateneo de Davao University',
-          images: [
-            {
-              url: '/default-thumbnail.jpg',
-            },
-          ],
-          type: 'article',
-        }}
-        twitter={{
-          handle: '@atenews',
-          cardType: 'summary_large_image',
-        }}
-      />
+      <Head>
+        <title>
+          { homepage.seo.title }
+        </title>
+        { fullHead }
+      </Head>
       { !loadingAuth ? (
         <>
           <div className={classes.header}>
@@ -193,11 +183,17 @@ export async function getServerSideProps({ query }) {
     const data = await WPGraphQL.request(
       gql`
         query Home {
+          home: homepage {
+            seo {
+              fullHead
+            }
+          }
           recentArticles: posts(first: 5) {
             nodes {
               title(format: RENDERED)
               slug
               date
+              postViews
               coauthors {
                 nodes {
                   firstName
@@ -225,6 +221,7 @@ export async function getServerSideProps({ query }) {
               title(format: RENDERED)
               slug
               date
+              postViews
               databaseId
               featuredImage {
                 node {
@@ -253,6 +250,7 @@ export async function getServerSideProps({ query }) {
               title(format: RENDERED)
               slug
               date
+              postViews
               databaseId
               featuredImage {
                 node {
@@ -308,6 +306,7 @@ export async function getServerSideProps({ query }) {
               databaseId
               date
               slug
+              postViews
               featuredImage {
                 node {
                   sourceUrl(size: LARGE)
@@ -336,6 +335,7 @@ export async function getServerSideProps({ query }) {
               databaseId
               date
               slug
+              postViews
               featuredImage {
                 node {
                   sourceUrl(size: LARGE)
@@ -371,6 +371,7 @@ export async function getServerSideProps({ query }) {
         featuredPhoto: data.featuredPhoto.nodes[0],
         editorial: data.editorial.nodes[0],
         columns: data.columns.nodes,
+        homepage: data.home,
         mode: 'mode' in query ? query.mode : null,
         oobCode: 'oobCode' in query ? query.oobCode : null,
         continueUrl: 'continueUrl' in query ? query.continueUrl : null,
