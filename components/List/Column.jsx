@@ -1,12 +1,15 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import { useRouter } from 'next/router';
 
-import AccountIcon from '@material-ui/icons/AccountCircle';
-import ClockIcon from '@material-ui/icons/AccessTime';
-import CommentIcon from '@material-ui/icons/CommentOutlined';
-import ShareIcon from '@material-ui/icons/ShareOutlined';
-import VisibilityIcon from '@material-ui/icons/Visibility';
+import {
+  AccountCircle as AccountIcon,
+  AccessTime as ClockIcon,
+  Visibility as VisibilityIcon,
+  CommentOutlined as CommentIcon,
+  ShareOutlined as ShareIcon,
+} from '@mui/icons-material';
 
 import ReactInfo from '@/components/Social/ReactInfo';
 
@@ -17,7 +20,7 @@ import imageGenerator from '@/utils/imageGenerator';
 
 import {
   Typography, Paper, Grid, CardActionArea, Avatar,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import useFirebaseDatabase from '@/utils/hooks/useFirebaseDatabase';
 
@@ -29,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   trendingStats: {
     width: '100%',
-    color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white',
+    color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white',
     padding: theme.spacing(0.5),
   },
   trendingStatsText: {
@@ -90,7 +93,7 @@ const Column = ({ article }) => {
             <Typography variant="h6" component="div" className={classes.twoLineText} style={{ marginBottom: theme.spacing(1) }} dangerouslySetInnerHTML={{ __html: article.title }} />
             <Grid container spacing={1}>
               <Grid item sm={12}>
-                <Grid container spacing={1} wrap="nowrap" style={{ color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white' }}>
+                <Grid container spacing={1} wrap="nowrap" style={{ color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white' }}>
                   <Grid item>
                     <AccountIcon />
                   </Grid>
@@ -102,7 +105,7 @@ const Column = ({ article }) => {
                 </Grid>
               </Grid>
               <Grid item sm={12}>
-                <Grid container spacing={1} wrap="nowrap" style={{ color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white' }}>
+                <Grid container spacing={1} wrap="nowrap" style={{ color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white' }}>
                   <Grid item>
                     <ClockIcon />
                   </Grid>

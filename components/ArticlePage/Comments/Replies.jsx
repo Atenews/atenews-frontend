@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid, CircularProgress } from '@material-ui/core';
+import { Grid, CircularProgress } from '@mui/material';
 
 import Template from '@/components/ArticlePage/Comments/Template';
 import firebase from '@/utils/firebase';

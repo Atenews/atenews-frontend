@@ -1,9 +1,8 @@
 import React from 'react';
 import Head from 'next/head';
-import { ThemeProvider } from '@material-ui/core/styles';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import DateFnsUtils from '@date-io/date-fns';
+import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
+
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import Layout from '@/components/Layout/Layout';
 import theme from '@/styles/theme';
@@ -19,7 +18,7 @@ import { ErrorProvider } from '@/utils/hooks/useSnackbar';
 import { CacheProvider } from '@/utils/hooks/useCache';
 import { CategoryProvider } from '@/utils/hooks/useCategory';
 
-import { CssBaseline } from '@material-ui/core';
+import { CssBaseline } from '@mui/material';
 
 import firebase from '@/utils/firebase';
 
@@ -95,10 +94,10 @@ export default function MyApp(props) {
       <Head>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover" />
       </Head>
-      <ThemeProvider theme={theme(darkMode)}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme(darkMode)}>
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
           <CacheProvider>
             <ErrorProvider>
               <AuthProvider>
@@ -123,8 +122,8 @@ export default function MyApp(props) {
               </AuthProvider>
             </ErrorProvider>
           </CacheProvider>
-        </MuiPickersUtilsProvider>
-      </ThemeProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </>
   );
 }

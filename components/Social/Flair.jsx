@@ -1,9 +1,9 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 
-import StarIcon from '@material-ui/icons/Star';
+import { Star as StarIcon } from '@mui/icons-material';
 
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   tag: {

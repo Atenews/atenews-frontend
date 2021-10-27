@@ -1,11 +1,15 @@
 import React from 'react';
 
-import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import withStyles from '@mui/styles/withStyles';
 import { formatDistanceToNow } from 'date-fns';
 
-import LikeIcon from '@material-ui/icons/ArrowUpwardRounded';
-import DislikeIcon from '@material-ui/icons/ArrowDownwardRounded';
-import CommentIcon from '@material-ui/icons/CommentOutlined';
+import {
+  ArrowUpwardRounded as LikeIcon,
+  ArrowDownwardRounded as DislikeIcon,
+  CommentOutlined as CommentIcon,
+} from '@mui/icons-material';
 
 import Button from '@/components/General/Button';
 import Flair from '@/components/Social/Flair';
@@ -21,7 +25,7 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import imageGenerator from '@/utils/imageGenerator';
 import firebase from '@/utils/firebase';
@@ -32,7 +36,7 @@ import { useArticle } from '@/utils/hooks/useArticle';
 const Paper = withStyles((theme) => ({
   root: {
     borderRadius: 30,
-    backgroundColor: theme.palette.type === 'light' ? '#F0F2F5' : theme.palette.background.paper,
+    backgroundColor: theme.palette.mode === 'light' ? '#F0F2F5' : theme.palette.background.paper,
     padding: theme.spacing(2),
   },
 }))(StockPaper);
@@ -247,7 +251,7 @@ const CommentReplyTemplate = ({
                 <Button
                   variant={vote === 'up' ? 'contained' : 'text'}
                   style={{ padding: 0 }}
-                  color={theme.palette.type === 'light' ? 'primary' : 'secondary'}
+                  color={theme.palette.mode === 'light' ? 'primary' : 'secondary'}
                   size="small"
                   onClick={() => { handleVote('up'); }}
                   disabled={!profile}
@@ -264,7 +268,7 @@ const CommentReplyTemplate = ({
                 <Button
                   variant={vote === 'down' ? 'contained' : 'text'}
                   style={{ padding: 0 }}
-                  color={theme.palette.type === 'light' ? 'primary' : 'secondary'}
+                  color={theme.palette.mode === 'light' ? 'primary' : 'secondary'}
                   size="small"
                   onClick={() => { handleVote('down'); }}
                   disabled={!profile}
@@ -283,7 +287,7 @@ const CommentReplyTemplate = ({
                     <Button
                       style={{ padding: 0 }}
                       variant="text"
-                      color={theme.palette.type === 'light' ? 'primary' : 'secondary'}
+                      color={theme.palette.mode === 'light' ? 'primary' : 'secondary'}
                       size="small"
                       onClick={getReplies}
                     >

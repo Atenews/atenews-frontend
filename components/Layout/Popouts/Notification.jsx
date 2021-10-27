@@ -1,6 +1,6 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AnnouncementIcon from '@material-ui/icons/Announcement';
+import { makeStyles } from '@mui/styles';
+import { Announcement as AnnouncementIcon } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 
 import {
@@ -12,7 +12,7 @@ import {
   ListItemText,
   ListSubheader,
   Button,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 

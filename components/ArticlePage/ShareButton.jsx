@@ -1,10 +1,12 @@
 import React from 'react';
 
-import { useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
 
-import ShareIcon from '@material-ui/icons/ShareOutlined';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import FacebookIcon from '@material-ui/icons/Facebook';
+import {
+  Facebook as FacebookIcon,
+  Twitter as TwitterIcon,
+  ShareOutlined as ShareIcon,
+} from '@mui/icons-material';
 
 import {
   Button,
@@ -17,7 +19,7 @@ import {
   DialogActions,
   Typography,
   useMediaQuery,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import {
   FacebookShareButton,
@@ -32,7 +34,7 @@ export default function Page({ article }) {
   const fbShareRef = React.useRef();
   const twitterShareRef = React.useRef();
 
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -48,7 +50,7 @@ export default function Page({ article }) {
         aria-label="Share article"
         onClick={handleClickOpen}
         variant="text"
-        color={theme.palette.type === 'light' ? 'primary' : 'secondary'}
+        color={theme.palette.mode === 'light' ? 'primary' : 'secondary'}
         size="large"
         fullWidth
         style={{ height: '100%' }}
@@ -73,7 +75,7 @@ export default function Page({ article }) {
                     ref={fbShareRef}
                     onShareWindowClose={handleClose}
                   />
-                  <IconButton onClick={() => fbShareRef.current.click()}>
+                  <IconButton onClick={() => fbShareRef.current.click()} size="large">
                     <Avatar
                       style={{
                         width: 60,
@@ -98,7 +100,7 @@ export default function Page({ article }) {
                     ref={twitterShareRef}
                     onShareWindowClose={handleClose}
                   />
-                  <IconButton onClick={() => twitterShareRef.current.click()}>
+                  <IconButton onClick={() => twitterShareRef.current.click()} size="large">
                     <Avatar
                       style={{
                         width: 60,

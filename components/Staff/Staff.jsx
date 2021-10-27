@@ -1,11 +1,13 @@
 import React from 'react';
 
 import { useRouter } from 'next/router';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+
+import { makeStyles } from '@mui/styles';
 
 import {
   Typography, Paper, Grid, CardActionArea, Avatar,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import useFirestore from '@/utils/hooks/useFirestore';
 import { useError } from '@/utils/hooks/useSnackbar';
@@ -21,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   trendingStats: {
     width: '100%',
-    color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white',
+    color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white',
     padding: theme.spacing(0.5),
   },
   trendingStatsText: {
@@ -94,7 +96,7 @@ const Column = ({ details }) => {
           <Grid item xs>
             <Typography variant="h6">{details.display_name}</Typography>
             {details.roles.map((role) => (!rolesIgnore.includes(role) ? (
-              <Typography variant="body1" style={{ color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white' }}>{humanRole(role)}</Typography>
+              <Typography variant="body1" style={{ color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white' }}>{humanRole(role)}</Typography>
             ) : null)) }
           </Grid>
         </Grid>

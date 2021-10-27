@@ -1,18 +1,22 @@
 import React from 'react';
 
 import { NextSeo } from 'next-seo';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+
+import { makeStyles } from '@mui/styles';
 
 import Contact from '@/components/Staff/Contact';
 import Staff from '@/components/Staff/Staff';
 
-import PhoneIcon from '@material-ui/icons/Phone';
-import MailIcon from '@material-ui/icons/Mail';
-import MapIcon from '@material-ui/icons/PinDrop';
+import {
+  Phone as PhoneIcon,
+  Mail as MailIcon,
+  PinDrop as MapIcon,
+} from '@mui/icons-material';
 
 import WP from '@/utils/wordpress';
 
-import { Typography, Grid, Hidden } from '@material-ui/core';
+import { Typography, Grid, Hidden } from '@mui/material';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 
@@ -122,7 +126,7 @@ export default function Home({ staffs: staffsRaw }) {
       { !loadingAuth ? (
         <>
           <div className={classes.header}>
-            <img src={theme.palette.type === 'dark' ? '/atenews-footer.svg' : '/atenews-header.svg'} alt="Atenews Header" height="35" />
+            <img src={theme.palette.mode === 'dark' ? '/atenews-footer.svg' : '/atenews-header.svg'} alt="Atenews Header" height="35" />
             <Typography variant="subtitle2" style={{ fontSize: '0.7rem' }}>
               The official student publication of the Ateneo de Davao University
             </Typography>
@@ -130,7 +134,7 @@ export default function Home({ staffs: staffsRaw }) {
           <Contact />
           <Typography variant="h4" style={{ marginBottom: theme.spacing(2) }}>About</Typography>
           <Typography variant="body1" component="div" style={{ marginBottom: theme.spacing(4) }}>
-            <b style={{ color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white' }}>Atenews</b>
+            <b style={{ color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white' }}>Atenews</b>
             {' '}
             is the official student publication of Ateneo de Davao University that
             aims to advance students&apos; level of consciousness on significant
@@ -186,7 +190,7 @@ export default function Home({ staffs: staffsRaw }) {
             <Typography variant="h4" style={{ marginBottom: theme.spacing(4), marginTop: theme.spacing(8) }}>Contact Us</Typography>
             <Grid container>
               <Grid item xs={12} sm={8}>
-                <Grid container direction="column" spacing={2} style={{ color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white' }}>
+                <Grid container direction="column" spacing={2} style={{ color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white' }}>
                   <Grid item>
                     <Grid container spacing={2}>
                       <Grid item>
@@ -236,7 +240,7 @@ export default function Home({ staffs: staffsRaw }) {
           style={{ minHeight: '100vh' }}
         >
           <Grid item>
-            <img src={theme.palette.type === 'light' ? '/logo-blue.png' : '/logo.png'} alt="Atenews Logo" width="100" />
+            <img src={theme.palette.mode === 'light' ? '/logo-blue.png' : '/logo.png'} alt="Atenews Logo" width="100" />
           </Grid>
         </Grid>
       ) }

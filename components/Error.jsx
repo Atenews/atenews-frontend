@@ -2,7 +2,7 @@ import React from 'react';
 
 import Head from 'next/head';
 
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@mui/material';
 
 const CustomError = ({ statusCode }) => (
   <>

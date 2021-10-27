@@ -4,14 +4,16 @@ import { useRouter } from 'next/router';
 
 import handleViewport from 'react-in-viewport';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+
+import { makeStyles } from '@mui/styles';
 
 import {
   Typography,
   Avatar,
   Grid,
   CardActionArea,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import { useError } from '@/utils/hooks/useSnackbar';
 import { useArticle } from '@/utils/hooks/useArticle';
@@ -97,7 +99,7 @@ export default handleViewport((props) => {
               </Grid>
               <Grid item>
                 {author.roles.nodes.map((role) => (!rolesIgnore.includes(role.name) ? (
-                  <Typography key={role.name} variant="subtitle2" style={{ color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white' }}><i>{humanRole(role.name)}</i></Typography>
+                  <Typography key={role.name} variant="subtitle2" style={{ color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white' }}><i>{humanRole(role.name)}</i></Typography>
                 ) : null)) }
               </Grid>
             </Grid>

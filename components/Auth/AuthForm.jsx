@@ -1,13 +1,19 @@
 import React from 'react';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+
+import { makeStyles } from '@mui/styles';
 
 import Button from '@/components/General/Button';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import FacebookIcon from '@material-ui/icons/Facebook';
+
+import {
+  Twitter as TwitterIcon,
+  Facebook as FacebookIcon,
+} from '@mui/icons-material';
+
 import {
   Paper, Grid, TextField, Divider,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import { useError } from '@/utils/hooks/useSnackbar';
 import { useAuth } from '@/utils/hooks/useAuth';

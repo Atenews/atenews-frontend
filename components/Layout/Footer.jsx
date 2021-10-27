@@ -1,11 +1,15 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
 
-import FacebookIcon from '@material-ui/icons/Facebook';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import InstagramIcon from '@material-ui/icons/Instagram';
+import { makeStyles } from '@mui/styles';
 
-import { IconButton, Grid, Typography } from '@material-ui/core';
+import {
+  Facebook as FacebookIcon,
+  Twitter as TwitterIcon,
+  Instagram as InstagramIcon,
+} from '@mui/icons-material';
+
+import { IconButton, Grid, Typography } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -29,31 +33,43 @@ export default function Header() {
             {' '}
             {(new Date()).getFullYear()}
             {' '}
-            <b style={{ color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white' }}>Atenews</b>
+            <b style={{ color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white' }}>Atenews</b>
           </Typography>
           <Grid item container direction="row" spacing={4} justifyContent="center" style={{ marginTop: theme.spacing(1) }}>
             <Grid item>
-              <IconButton color={theme.palette.type === 'light' ? 'primary' : 'secondary'} onClick={() => window.open('https://www.facebook.com/atenews', '_blank')}>
+              <IconButton
+                color={theme.palette.mode === 'light' ? 'primary' : 'secondary'}
+                onClick={() => window.open('https://www.facebook.com/atenews', '_blank')}
+                size="large"
+              >
                 <FacebookIcon />
               </IconButton>
             </Grid>
             <Grid item>
-              <IconButton color={theme.palette.type === 'light' ? 'primary' : 'secondary'} onClick={() => window.open('https://twitter.com/atenews', '_blank')}>
+              <IconButton
+                color={theme.palette.mode === 'light' ? 'primary' : 'secondary'}
+                onClick={() => window.open('https://twitter.com/atenews', '_blank')}
+                size="large"
+              >
                 <TwitterIcon />
               </IconButton>
             </Grid>
             <Grid item>
-              <IconButton color={theme.palette.type === 'light' ? 'primary' : 'secondary'} onClick={() => window.open('https://instagram.com/atenews', '_blank')}>
+              <IconButton
+                color={theme.palette.mode === 'light' ? 'primary' : 'secondary'}
+                onClick={() => window.open('https://instagram.com/atenews', '_blank')}
+                size="large"
+              >
                 <InstagramIcon />
               </IconButton>
             </Grid>
           </Grid>
           <Typography variant="caption">
-            <a href="/terms-and-conditions" style={{ color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white' }}>Terms and Conditions</a>
+            <a href="/terms-and-conditions" style={{ color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white' }}>Terms and Conditions</a>
           </Typography>
           {'    '}
           <Typography variant="caption">
-            <a href="/privacy-policy" style={{ color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white' }}>Privacy Policy</a>
+            <a href="/privacy-policy" style={{ color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white' }}>Privacy Policy</a>
           </Typography>
         </Grid>
       </Grid>

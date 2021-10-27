@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Grid, CircularProgress } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
+import { Grid, CircularProgress } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 import { useRouter } from 'next/router';
 import { useError } from '@/utils/hooks/useSnackbar';

@@ -3,7 +3,9 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import DefaultErrorPage from '@/components/404';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+
+import { makeStyles } from '@mui/styles';
 
 import { useError } from '@/utils/hooks/useSnackbar';
 
@@ -13,7 +15,7 @@ import {
   Card,
   CardContent,
   TextField,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import firebase from '@/utils/firebase';
 
@@ -138,7 +140,7 @@ export default function Page({ mode, oobCode, continueUrl }) {
           style={{ minHeight: '100vh' }}
         >
           <Grid item>
-            <img src={theme.palette.type === 'light' ? '/logo-blue.png' : '/logo.png'} alt="Atenews Logo" width="100" />
+            <img src={theme.palette.mode === 'light' ? '/logo-blue.png' : '/logo.png'} alt="Atenews Logo" width="100" />
           </Grid>
         </Grid>
       ) }

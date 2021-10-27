@@ -1,14 +1,18 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
 
-import AccountIcon from '@material-ui/icons/AccountCircle';
-import ClockIcon from '@material-ui/icons/AccessTime';
-import VisibilityIcon from '@material-ui/icons/Visibility';
+import { makeStyles } from '@mui/styles';
 
-import CommentIcon from '@material-ui/icons/CommentOutlined';
-import ShareIcon from '@material-ui/icons/ShareOutlined';
+import {
+  AccountCircle as AccountIcon,
+  AccessTime as ClockIcon,
+  Visibility as VisibilityIcon,
+  CommentOutlined as CommentIcon,
+  ShareOutlined as ShareIcon,
+} from '@mui/icons-material';
+
 import ReactInfo from '@/components/Social/ReactInfo';
 
 import { useSpring, animated } from 'react-spring';
@@ -18,7 +22,7 @@ import slugGenerator from '@/utils/slugGenerator';
 
 import {
   Typography, Grid, Card, CardContent, CardActionArea,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import imageGenerator from '@/utils/imageGenerator';
 import coauthors from '@/utils/coauthors';

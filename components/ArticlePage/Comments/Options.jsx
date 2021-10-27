@@ -1,8 +1,11 @@
 import React from 'react';
 
-import { useTheme } from '@material-ui/core/styles';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import TrashIcon from '@material-ui/icons/Delete';
+import { useTheme } from '@mui/material/styles';
+
+import {
+  MoreHoriz as MoreHorizIcon,
+  Delete as TrashIcon,
+} from '@mui/icons-material';
 
 import {
   IconButton,
@@ -13,7 +16,7 @@ import {
   ListItemText,
   Paper,
   ClickAwayListener,
-} from '@material-ui/core';
+} from '@mui/material';
 
 const Options = ({ onDelete }) => {
   const theme = useTheme();
@@ -34,7 +37,12 @@ const Options = ({ onDelete }) => {
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
       <div>
-        <IconButton style={{ marginLeft: theme.spacing(1) }} onClick={handleClick} ref={buttonRef}>
+        <IconButton
+          style={{ marginLeft: theme.spacing(1) }}
+          onClick={handleClick}
+          ref={buttonRef}
+          size="large"
+        >
           <MoreHorizIcon />
         </IconButton>
         <Popper

@@ -1,15 +1,20 @@
 import React from 'react';
 
-import { useTheme, makeStyles } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+
+import { makeStyles } from '@mui/styles';
 
 import Button from '@/components/General/Button';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import FacebookIcon from '@material-ui/icons/Facebook';
+
+import {
+  Twitter as TwitterIcon,
+  Facebook as FacebookIcon,
+} from '@mui/icons-material';
 
 import {
   Grid,
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 
@@ -74,7 +79,7 @@ export default function ConnectButtons({ loading, profile }) {
                 <div className={classes.iconStats}>
                   <Grid container spacing={1}>
                     <Grid item>
-                      <TwitterIcon color={theme.palette.type === 'light' ? 'primary' : 'secondary'} />
+                      <TwitterIcon color={theme.palette.mode === 'light' ? 'primary' : 'secondary'} />
                     </Grid>
                     <Grid item>
                       <Typography variant="body1">{`@${profile.twitterUsername}`}</Typography>
@@ -109,7 +114,7 @@ export default function ConnectButtons({ loading, profile }) {
                 <div className={classes.iconStats}>
                   <Grid container spacing={1}>
                     <Grid item>
-                      <FacebookIcon color={theme.palette.type === 'light' ? 'primary' : 'secondary'} />
+                      <FacebookIcon color={theme.palette.mode === 'light' ? 'primary' : 'secondary'} />
                     </Grid>
                     <Grid item>
                       <Typography variant="body1">{profile.facebookUsername}</Typography>

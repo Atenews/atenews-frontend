@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 import dynamic from 'next/dynamic';
 
 const Navigation = dynamic(import('@/components/Layout/Navigation'));
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     top: 0,
     zIndex: 1100,
     background: theme.palette.background.default,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       display: 'none',
     },
   },
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 20,
   },
   desktop: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       display: 'none',
     },
   },

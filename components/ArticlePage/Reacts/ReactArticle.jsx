@@ -1,8 +1,10 @@
 import React from 'react';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
 
-import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import { makeStyles } from '@mui/styles';
+
+import { InsertEmoticon as InsertEmoticonIcon } from '@mui/icons-material';
 
 import {
   Grid,
@@ -15,7 +17,7 @@ import {
   Grow,
   Popper,
   Tooltip,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 import { useArticle } from '@/utils/hooks/useArticle';
@@ -198,7 +200,7 @@ const ReactArticle = ({
   return (
     <ClickAwayListener onClickAway={handlePopoverClose}>
       <div>
-        <Button variant="text" color={theme.palette.type === 'light' ? 'primary' : 'secondary'} size="large" fullWidth onClick={handlePopoverOpen}>
+        <Button variant="text" color={theme.palette.mode === 'light' ? 'primary' : 'secondary'} size="large" fullWidth onClick={handlePopoverOpen}>
           <ButtonIcon />
           { buttonText === 'React' ? buttonText
             : <b>{buttonText}</b>}

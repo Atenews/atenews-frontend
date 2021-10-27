@@ -3,14 +3,16 @@ import React from 'react';
 import Head from 'next/head';
 import parse from 'html-react-parser';
 import DefaultErrorPage from '@/components/404';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+
+import { makeStyles } from '@mui/styles';
 
 import WPGraphQL from '@/utils/wpgraphql';
 import { gql } from 'graphql-request';
 
 import CustomPage from '@/components/CustomPage';
 
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 
@@ -52,7 +54,7 @@ export default function Page({ page }) {
           style={{ minHeight: '100vh' }}
         >
           <Grid item>
-            <img src={theme.palette.type === 'light' ? '/logo-blue.png' : '/logo.png'} alt="Atenews Logo" width="100" />
+            <img src={theme.palette.mode === 'light' ? '/logo-blue.png' : '/logo.png'} alt="Atenews Logo" width="100" />
           </Grid>
         </Grid>
       ) }

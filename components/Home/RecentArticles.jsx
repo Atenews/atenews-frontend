@@ -1,5 +1,6 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import { useRouter } from 'next/router';
 
 import Tag from '@/components/General/Tag';
@@ -7,8 +8,10 @@ import Link from '@/components/General/Link';
 
 import RecentArticle from '@/components/Home/RecentArticle';
 
-import AccountIcon from '@material-ui/icons/AccountCircle';
-import ClockIcon from '@material-ui/icons/AccessTime';
+import {
+  AccountCircle as AccountIcon,
+  AccessTime as ClockIcon,
+} from '@mui/icons-material';
 
 import { animated, useSpring } from 'react-spring';
 import { formatDistanceToNow } from 'date-fns';
@@ -18,7 +21,7 @@ import coauthors from '@/utils/coauthors';
 
 import {
   Typography, Paper, Grid, CardActionArea, Hidden,
-} from '@material-ui/core';
+} from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   bannerImage: {
@@ -59,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   trendingStats: {
-    color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white',
+    color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white',
   },
   trendingStatsText: {
     fontSize: '0.8rem',
@@ -137,7 +140,7 @@ function RecentArticles({ articles }) {
       }}
       variant="outlined"
     >
-      <Hidden xsDown>
+      <Hidden smDown>
         <Grid
           item
           md={8}

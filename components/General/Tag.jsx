@@ -1,9 +1,11 @@
 import React from 'react';
 
 import { useRouter } from 'next/router';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
 
-import { Typography, CardActionArea } from '@material-ui/core';
+import { makeStyles } from '@mui/styles';
+
+import { Typography, CardActionArea } from '@mui/material';
 
 import { useCategory } from '@/utils/hooks/useCategory';
 

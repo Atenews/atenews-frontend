@@ -1,15 +1,19 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+
+import { makeStyles } from '@mui/styles';
 
 import Link from '@/components/General/Link';
 
-import AccountIcon from '@material-ui/icons/AccountCircle';
-import ClockIcon from '@material-ui/icons/AccessTime';
-import CommentIcon from '@material-ui/icons/CommentOutlined';
-import ShareIcon from '@material-ui/icons/ShareOutlined';
-import VisibilityIcon from '@material-ui/icons/Visibility';
+import {
+  AccountCircle as AccountIcon,
+  AccessTime as ClockIcon,
+  Visibility as VisibilityIcon,
+  CommentOutlined as CommentIcon,
+  ShareOutlined as ShareIcon,
+} from '@mui/icons-material';
 
 import ReactInfo from '@/components/Social/ReactInfo';
 import ArticleCard from '@/components/Home/ArticleCard';
@@ -22,7 +26,7 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
 import {
   Typography, Grid, Card, CardMedia, CardContent, CardActionArea, Hidden,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import useFirebaseDatabase from '@/utils/hooks/useFirebaseDatabase';
 
@@ -31,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white',
+    color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white',
     padding: theme.spacing(0.5),
   },
   trendingStatsText: {
@@ -105,7 +109,7 @@ const ArticleGrid = ({ articles }) => {
               </CardActionArea>
             </Grid>
           </Hidden>
-          <Hidden xsDown>
+          <Hidden smDown>
             <Grid item sm={6} component={CardActionArea} className={classes.bannerImage} style={{ backgroundImage: `url(${imageGenerator(articles[0].featuredImage?.node.sourceUrl, 600)})` }} onClick={() => router.push(slugGenerator(articles[0]))} />
           </Hidden>
           <Grid item xs={12} sm={6} style={{ padding: theme.spacing(1) }}>
@@ -115,7 +119,7 @@ const ArticleGrid = ({ articles }) => {
                 container
                 style={
                   {
-                    color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white',
+                    color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white',
                     marginTop: theme.spacing(1),
                   }
                 }
@@ -149,7 +153,7 @@ const ArticleGrid = ({ articles }) => {
               <Grid
                 container
                 style={{
-                  color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white',
+                  color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white',
                   marginTop: theme.spacing(2),
                   width: '100%',
                 }}

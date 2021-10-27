@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
 
 import Tag from '@/components/General/Tag';
 
@@ -9,7 +9,7 @@ import {
   Hidden,
   Divider,
   List,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import IndividualWriter from '@/components/ArticlePage/SideWriter/IndividualWriter';
 
@@ -19,7 +19,7 @@ const SideWriter = ({
   const theme = useTheme();
 
   return (
-    <Hidden smDown>
+    <Hidden mdDown>
       <List>
         <Typography>Written by:</Typography>
         { authors.map((author, i) => (

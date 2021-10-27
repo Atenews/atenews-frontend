@@ -1,6 +1,8 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+
+import { makeStyles } from '@mui/styles';
 
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import useWindowDimensions from '@/utils/useWindowDimensions';
@@ -10,7 +12,7 @@ import Tag from '@/components/General/Tag';
 
 import {
   Typography, Paper, Grid, CardActionArea, Hidden, CircularProgress,
-} from '@material-ui/core';
+} from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -19,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     right: 10,
   },
   trendingHead: {
-    color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white',
+    color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white',
     padding: 20,
     height: 65,
     textAlign: 'center',
@@ -110,7 +112,7 @@ const Trending = ({ articles }) => {
   });
 
   return (
-    <Hidden smDown>
+    <Hidden mdDown>
       <div className={classes.container} style={{ top: `calc((80px + 4vh) - ${topPosition}px)` }} ref={rootRef}>
         <Grid container spacing={0} component={Paper} variant="outlined" style={{ borderRadius: 10, overflow: 'hidden' }}>
           <Paper variant="outlined" square className={classes.trendingHead}>

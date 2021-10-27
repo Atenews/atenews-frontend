@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import {
   Typography, CardActionArea, Grid, Paper,
-} from '@material-ui/core';
+} from '@mui/material';
 
 const useStyles = makeStyles(() => ({
   section: {
@@ -21,7 +22,7 @@ export default function LatestRelease() {
     <div className={classes.section}>
       <Grid container justifyContent="center" alignItems="center" spacing={1} style={{ marginBottom: theme.spacing(4), paddingLeft: theme.spacing(8), paddingRight: theme.spacing(8) }}>
         <Grid item xs>
-          <div style={{ backgroundColor: theme.palette.type === 'light' ? 'black' : 'white', height: 1, width: '100%' }} />
+          <div style={{ backgroundColor: theme.palette.mode === 'light' ? 'black' : 'white', height: 1, width: '100%' }} />
         </Grid>
         <Grid item xs>
           <Typography
@@ -34,7 +35,7 @@ export default function LatestRelease() {
           </Typography>
         </Grid>
         <Grid item xs>
-          <div style={{ backgroundColor: theme.palette.type === 'light' ? 'black' : 'white', height: 1, width: '100%' }} />
+          <div style={{ backgroundColor: theme.palette.mode === 'light' ? 'black' : 'white', height: 1, width: '100%' }} />
         </Grid>
       </Grid>
       <Grid container justifyContent="center">

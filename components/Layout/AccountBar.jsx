@@ -1,9 +1,14 @@
 import React from 'react';
 
 import { useRouter } from 'next/router';
-import { makeStyles, withStyles, useTheme } from '@material-ui/core/styles';
-import BellIcon from '@material-ui/icons/Notifications';
-import SearchIcon from '@material-ui/icons/Search';
+import { useTheme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import withStyles from '@mui/styles/withStyles';
+
+import {
+  Notifications as BellIcon,
+  Search as SearchIcon,
+} from '@mui/icons-material';
 
 import { useSpring, animated } from 'react-spring';
 
@@ -17,7 +22,7 @@ import {
   TextField as StockTextField,
   InputAdornment,
   Badge,
-} from '@material-ui/core';
+} from '@mui/material';
 import { useAuth } from '@/utils/hooks/useAuth';
 import imageGenerator from '@/utils/imageGenerator';
 
@@ -165,8 +170,8 @@ export default function AccountBar({ setDarkMode }) {
                   InputProps={{
                     endAdornment: (
                       <InputAdornment>
-                        <IconButton type="submit" aria-label="Search">
-                          <SearchIcon color={theme.palette.type === 'light' ? 'primary' : 'secondary'} />
+                        <IconButton type="submit" aria-label="Search" size="large">
+                          <SearchIcon color={theme.palette.mode === 'light' ? 'primary' : 'secondary'} />
                         </IconButton>
                       </InputAdornment>
                     ),
@@ -182,7 +187,7 @@ export default function AccountBar({ setDarkMode }) {
             <IconButton
               aria-label="Open Search Bar"
               className={classes.button}
-              color={theme.palette.type === 'light' ? 'primary' : 'secondary'}
+              color={theme.palette.mode === 'light' ? 'primary' : 'secondary'}
               onClick={() => {
                 if (searchOpened) {
                   set({ width: '0vw', opacity: 0 });
@@ -193,6 +198,7 @@ export default function AccountBar({ setDarkMode }) {
                   setSearchOpened(true);
                 }
               }}
+              size="large"
             >
               <SearchIcon />
             </IconButton>
@@ -204,8 +210,9 @@ export default function AccountBar({ setDarkMode }) {
                   aria-label="Open notifications"
                   className={classes.button}
                   ref={notifButton}
-                  color={theme.palette.type === 'light' ? 'primary' : 'secondary'}
+                  color={theme.palette.mode === 'light' ? 'primary' : 'secondary'}
                   onClick={() => setNotifActive((prev) => !prev)}
+                  size="large"
                 >
                   <Badge color="primary" badgeContent={newNotif}>
                     <BellIcon />
@@ -220,8 +227,9 @@ export default function AccountBar({ setDarkMode }) {
                 aria-label="Open account settings"
                 ref={accountButton}
                 className={classes.button}
-                color={theme.palette.type === 'light' ? 'primary' : 'secondary'}
+                color={theme.palette.mode === 'light' ? 'primary' : 'secondary'}
                 onClick={() => setAccountActive((prev) => !prev)}
+                size="large"
               >
                 <Avatar
                   src={imageGenerator(profile.photoURL, 40)}
@@ -232,7 +240,7 @@ export default function AccountBar({ setDarkMode }) {
               <Button
                 aria-label="Open account settings"
                 ref={accountButton}
-                color={theme.palette.type === 'light' ? 'primary' : 'secondary'}
+                color={theme.palette.mode === 'light' ? 'primary' : 'secondary'}
                 onClick={() => setAccountActive((prev) => !prev)}
               >
                 Login

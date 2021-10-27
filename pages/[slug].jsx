@@ -4,12 +4,14 @@ import Head from 'next/head';
 import parse from 'html-react-parser';
 import { useRouter } from 'next/router';
 import DefaultErrorPage from '@/components/404';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+
+import { makeStyles } from '@mui/styles';
 
 // import articlePaths from '@/utils/serverProps/articlePaths';
 import articleServerSideProps from '@/utils/serverProps/articleServerSideProps';
 
-import { Grid, CircularProgress } from '@material-ui/core';
+import { Grid, CircularProgress } from '@mui/material';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 import { ArticleProvider } from '@/utils/hooks/useArticle';
@@ -80,7 +82,7 @@ export default function Page(args) {
           style={{ minHeight: '100vh' }}
         >
           <Grid item>
-            <img src={theme.palette.type === 'light' ? '/logo-blue.png' : '/logo.png'} alt="Atenews Logo" width="100" />
+            <img src={theme.palette.mode === 'light' ? '/logo-blue.png' : '/logo.png'} alt="Atenews Logo" width="100" />
           </Grid>
         </Grid>
       ) }

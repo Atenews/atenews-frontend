@@ -2,10 +2,14 @@ import React from 'react';
 
 import dynamic from 'next/dynamic';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import ScheduleIcon from '@material-ui/icons/Schedule';
-import ChromeReaderModeIcon from '@material-ui/icons/ChromeReaderMode';
-import VisibilityIcon from '@material-ui/icons/Visibility';
+import { useTheme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+
+import {
+  Schedule as ScheduleIcon,
+  ChromeReaderMode as ChromeReaderModeIcon,
+  Visibility as VisibilityIcon,
+} from '@mui/icons-material';
 
 import { format } from 'date-fns';
 
@@ -23,7 +27,7 @@ import {
   List,
   Hidden,
   Avatar,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import readingTime from 'reading-time';
 
@@ -106,7 +110,7 @@ export default function Page({
 
   return (
     <div className={classes.container} key={post.databaseId}>
-      <Hidden smDown>
+      <Hidden mdDown>
         <Typography variant="h3" component="h1" dangerouslySetInnerHTML={{ __html: post.title }} />
       </Hidden>
       <Hidden mdUp>
@@ -143,7 +147,7 @@ export default function Page({
       <Paper
         elevation={0}
         style={{
-          marginBottom: theme.spacing(2), marginTop: theme.spacing(2), backgroundColor: theme.palette.type === 'dark' ? theme.palette.background.paper : '#F0F2F5', borderRadius: 0,
+          marginBottom: theme.spacing(2), marginTop: theme.spacing(2), backgroundColor: theme.palette.mode === 'dark' ? theme.palette.background.paper : '#F0F2F5', borderRadius: 0,
         }}
       >
         <LazyLoadImage src={imageGenerator(post.featuredImage?.node.sourceUrl, 800)} alt={post.featuredImage?.node.caption} width="100%" effect="opacity" />

@@ -1,16 +1,21 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+
+import { makeStyles } from '@mui/styles';
 
 import Tag from '@/components/General/Tag';
-import CommentIcon from '@material-ui/icons/CommentOutlined';
-import ShareIcon from '@material-ui/icons/ShareOutlined';
-import VisibilityIcon from '@material-ui/icons/Visibility';
+
+import {
+  Visibility as VisibilityIcon,
+  CommentOutlined as CommentIcon,
+  ShareOutlined as ShareIcon,
+} from '@mui/icons-material';
 
 import ReactInfo from '@/components/Social/ReactInfo';
 
 import {
   Typography, Paper, Grid, useMediaQuery,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import useFirebaseDatabase from '@/utils/hooks/useFirebaseDatabase';
 
@@ -54,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
     borderLeft: 0,
   },
   trendingStats: {
-    color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white',
+    color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white',
   },
   trendingStatsText: {
     fontSize: '0.8rem',
@@ -90,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
 function RecentArticle({ article }) {
   const classes = useStyles();
   const theme = useTheme();
-  const xsDown = useMediaQuery(theme.breakpoints.down('xs'));
+  const xsDown = useMediaQuery(theme.breakpoints.down('sm'));
   const { getDocument } = useFirebaseDatabase();
 
   const [socialStats, setSocialStats] = React.useState(null);

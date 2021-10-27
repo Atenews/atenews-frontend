@@ -4,7 +4,7 @@ import handleViewport from 'react-in-viewport';
 
 import {
   Grid,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import IndividualWriter from '@/components/ArticlePage/IndividualWriter';
 

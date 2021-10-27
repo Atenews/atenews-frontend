@@ -1,5 +1,6 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import { useRouter } from 'next/router';
 
 import {
@@ -8,7 +9,7 @@ import {
   ListItemAvatar,
   ListItemText,
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import { useError } from '@/utils/hooks/useSnackbar';
 import imageGenerator from '@/utils/imageGenerator';
@@ -73,7 +74,7 @@ const IndividualWriter = ({ author }) => {
           <Typography
             key={`indi_${role.name}`}
             variant="subtitle2"
-            style={{ color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white' }}
+            style={{ color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white' }}
           >
             <i>{humanRole(role.name)}</i>
           </Typography>

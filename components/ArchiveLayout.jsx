@@ -5,11 +5,13 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import parse from 'html-react-parser';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+
+import { makeStyles } from '@mui/styles';
 
 import {
   Typography, Grid, Hidden, CircularProgress,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import { useTrending } from '@/utils/hooks/useTrending';
 import { useRouter } from 'next/router';
@@ -110,7 +112,7 @@ export default function Page({
         <>
           <Grid container alignItems="center" style={{ marginBottom: theme.spacing(2) }} spacing={4}>
             <Grid item>
-              <Hidden smDown>
+              <Hidden mdDown>
                 <Typography variant="h3" component="h1">{categoryName}</Typography>
               </Hidden>
               <Hidden mdUp>
@@ -157,7 +159,7 @@ export default function Page({
           style={{ minHeight: '100vh' }}
         >
           <Grid item>
-            <img src={theme.palette.type === 'light' ? '/logo-blue.png' : '/logo.png'} alt="Atenews Logo" width="100" />
+            <img src={theme.palette.mode === 'light' ? '/logo-blue.png' : '/logo.png'} alt="Atenews Logo" width="100" />
           </Grid>
         </Grid>
       ) }

@@ -1,14 +1,16 @@
 import React from 'react';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
 
-import AvatarGroup from '@material-ui/lab/AvatarGroup';
+import { makeStyles } from '@mui/styles';
+
+import AvatarGroup from '@mui/material/AvatarGroup';
 
 import { useArticle } from '@/utils/hooks/useArticle';
 
 import {
   Typography, Grid, Card, CardContent, Avatar, Grow, Popper,
-} from '@material-ui/core';
+} from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   reacts: {

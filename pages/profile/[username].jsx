@@ -3,7 +3,9 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 
 import { NextSeo } from 'next-seo';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+
+import { makeStyles } from '@mui/styles';
 
 import DefaultErrorPage from '@/components/404';
 
@@ -14,7 +16,7 @@ import {
   Tabs,
   Tab,
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import WPGraphQL from '@/utils/wpgraphql';
 import { gql } from 'graphql-request';
@@ -463,7 +465,7 @@ export default function Home({ profile, cdnKey, staffArticles }) {
             style={{ minHeight: '100vh' }}
           >
             <Grid item>
-              <img src={theme.palette.type === 'light' ? '/logo-blue.png' : '/logo.png'} alt="Atenews Logo" width="100" />
+              <img src={theme.palette.mode === 'light' ? '/logo-blue.png' : '/logo.png'} alt="Atenews Logo" width="100" />
             </Grid>
           </Grid>
         ) }

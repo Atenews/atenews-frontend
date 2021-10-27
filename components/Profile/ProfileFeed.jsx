@@ -1,12 +1,14 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import { useRouter } from 'next/router';
 
-import ClockIcon from '@material-ui/icons/AccessTime';
-
-import LikeIcon from '@material-ui/icons/ArrowUpwardRounded';
-import DislikeIcon from '@material-ui/icons/ArrowDownwardRounded';
-import CommentIcon from '@material-ui/icons/CommentOutlined';
+import {
+  AccessTime as ClockIcon,
+  ArrowUpwardRounded as LikeIcon,
+  ArrowDownwardRounded as DislikeIcon,
+  CommentOutlined as CommentIcon,
+} from '@mui/icons-material';
 
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import imageGenerator from '@/utils/imageGenerator';
@@ -18,7 +20,7 @@ import { formatDistanceToNow } from 'date-fns';
 
 import {
   Typography, Paper, Grid, CardActionArea, CircularProgress, Avatar,
-} from '@material-ui/core';
+} from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   trendingItem: {
@@ -158,7 +160,7 @@ const ProfileFeed = ({ comment }) => {
         <Grid container spacing={2} alignItems="center" wrap="nowrap">
           {'upvoteCount' in feedStats ? (
             <Grid item>
-              <Grid container direction="column" style={{ color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white' }} alignItems="center">
+              <Grid container direction="column" style={{ color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white' }} alignItems="center">
                 <Grid item>
                   <Typography variant="subtitle2">{feedStats.upvoteCount}</Typography>
                 </Grid>
@@ -181,7 +183,7 @@ const ProfileFeed = ({ comment }) => {
                   container
                   spacing={1}
                   wrap="nowrap"
-                  style={{ color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white' }}
+                  style={{ color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white' }}
                   alignItems="center"
                 >
                   <Grid item>
@@ -200,7 +202,7 @@ const ProfileFeed = ({ comment }) => {
                 </Grid>
               </Grid>
               <Grid item sm={12}>
-                <Grid container spacing={1} wrap="nowrap" style={{ color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white' }}>
+                <Grid container spacing={1} wrap="nowrap" style={{ color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white' }}>
                   <Grid item>
                     <ClockIcon />
                   </Grid>

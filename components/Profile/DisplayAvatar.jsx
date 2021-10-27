@@ -1,17 +1,17 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 
 import {
   Avatar,
   CircularProgress,
   IconButton,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import { useError } from '@/utils/hooks/useSnackbar';
 import firebase from '@/utils/firebase';
 
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import { AddCircle as AddCircleIcon } from '@mui/icons-material';
 
 import { useSpring, animated } from 'react-spring';
 
@@ -91,6 +91,7 @@ export default function DisplayAvatar({ editMode, profile, cdnKey }) {
         onMouseOver={() => { set({ opacity: 0.8 }); }}
         onMouseOut={() => { set({ opacity: 0 }); }}
         style={{ position: 'relative' }}
+        size="large"
       >
         <Avatar className={classes.avatar} src={photoURL && !uploadingPhoto ? photoURL.replace('_normal', '') : ''}>
           {uploadingPhoto ? (

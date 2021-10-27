@@ -7,9 +7,9 @@ import {
   Typography,
   Grid,
   CircularProgress,
-} from '@material-ui/core';
+} from '@mui/material';
 
-import { useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 import postFetch from '@/utils/postFetch';

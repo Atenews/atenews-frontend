@@ -1,8 +1,9 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import { useTheme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import { Typography } from '@mui/material';
 import Menu from '@/components/Layout/Menu';
 
 import SubMenu from '@/components/Layout/SubMenu';
@@ -99,7 +100,7 @@ export default function Navigation() {
     if (activeMenu === '/' || activeMenu === '/profile' || activeMenu === '/auth') {
       return 'url("/logo.png")';
     }
-    if (theme.palette.type === 'dark') {
+    if (theme.palette.mode === 'dark') {
       return 'url("/logo.png")';
     }
     return 'url("/logo-blue.png")';

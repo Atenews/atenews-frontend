@@ -1,5 +1,7 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+
+import { makeStyles } from '@mui/styles';
 
 import {
   Paper,
@@ -9,12 +11,15 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-} from '@material-ui/core';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import Brightness7Icon from '@material-ui/icons/Brightness7';
-import NightsStayIcon from '@material-ui/icons/NightsStay';
-import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+} from '@mui/material';
+
+import {
+  AccountCircle as AccountCircleIcon,
+  ExitToApp as ExitToAppIcon,
+  Brightness7 as Brightness7Icon,
+  NightsStay as NightsStayIcon,
+  SupervisorAccount as SupervisorAccountIcon,
+} from '@mui/icons-material';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 import AuthForm from '@/components/Auth/AuthForm';
@@ -106,7 +111,7 @@ const PopoutView = ({ close, setDarkMode }) => {
           )}
           className={classes.list}
         >
-          { theme.palette.type === 'dark' ? (
+          { theme.palette.mode === 'dark' ? (
             <ListItem button onClick={() => { setDarkMode(false); }}>
               <ListItemIcon>
                 <Brightness7Icon />

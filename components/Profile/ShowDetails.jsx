@@ -1,15 +1,17 @@
 import React from 'react';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
 
-import MailIcon from '@material-ui/icons/Mail';
+import { makeStyles } from '@mui/styles';
+
+import { Mail as MailIcon } from '@mui/icons-material';
 
 import Flair from '@/components/Social/Flair';
 
 import {
   Typography,
   Grid,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 
@@ -60,7 +62,7 @@ export default function ShowDetails({
             <div className={classes.iconStats}>
               <Grid container spacing={1} wrap="nowrap">
                 <Grid item>
-                  <MailIcon color={theme.palette.type === 'light' ? 'primary' : 'secondary'} />
+                  <MailIcon color={theme.palette.mode === 'light' ? 'primary' : 'secondary'} />
                 </Grid>
                 <Grid item>
                   <Typography variant="body1">{email || 'Processing...'}</Typography>

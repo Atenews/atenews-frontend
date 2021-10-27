@@ -1,13 +1,16 @@
 import React from 'react';
 
-import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+
+import { makeStyles } from '@mui/styles';
+import withStyles from '@mui/styles/withStyles';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 import { useError } from '@/utils/hooks/useSnackbar';
 import firebase from '@/utils/firebase';
 import imageGenerator from '@/utils/imageGenerator';
 
-import SendIcon from '@material-ui/icons/Send';
+import { Send as SendIcon } from '@mui/icons-material';
 import { isMobile } from 'react-device-detect';
 
 import localforage from 'localforage';
@@ -22,7 +25,7 @@ import {
   InputAdornment,
   Grid,
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 
 const TextField = withStyles({
   root: {
@@ -205,13 +208,13 @@ export default function Page({ reply, slug, rootDetails }) {
               value={content}
               multiline
               rows={1}
-              rowsMax={5}
+              maxRows={5}
               fullWidth
               InputProps={{
                 endAdornment: (
                   <InputAdornment>
-                    <IconButton type="submit">
-                      <SendIcon color={theme.palette.type === 'light' ? 'primary' : 'secondary'} />
+                    <IconButton type="submit" size="large">
+                      <SendIcon color={theme.palette.mode === 'light' ? 'primary' : 'secondary'} />
                     </IconButton>
                   </InputAdornment>
                 ),

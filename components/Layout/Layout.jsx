@@ -1,13 +1,18 @@
 import React from 'react';
-import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import withStyles from '@mui/styles/withStyles';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 
-import HomeIcon from '@material-ui/icons/Home';
-import NotificationIcon from '@material-ui/icons/Notifications';
-import SearchIcon from '@material-ui/icons/Search';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import AnnouncementIcon from '@material-ui/icons/Announcement';
+import {
+  Home as HomeIcon,
+  Notifications as NotificationIcon,
+  Search as SearchIcon,
+  AccountCircle as AccountCircleIcon,
+  Announcement as AnnouncementIcon,
+} from '@mui/icons-material';
+
 import slugGenerator from '@/utils/slugGenerator';
 
 import { useAuth } from '@/utils/hooks/useAuth';
@@ -36,7 +41,7 @@ import {
   ListSubheader,
   Badge,
   Button,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import Footer from '@/components/Layout/Footer';
 import Header from '@/components/Layout/Header';
@@ -62,10 +67,10 @@ const useStyles = makeStyles((theme) => ({
   },
   contentContainer: {
     width: '50%',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('lg')]: {
       width: '60%',
     },
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       width: '90%',
     },
     margin: 'auto',
@@ -73,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
   },
   homeContainer: {
     width: '60%',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       width: '90%',
     },
     minHeight: 500,
@@ -98,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
   trendingHead: {
-    color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white',
+    color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white',
     padding: 20,
     height: 65,
     textAlign: 'center',
@@ -270,8 +275,8 @@ const Layout = ({ children, setDarkMode }) => {
                     InputProps={{
                       endAdornment: (
                         <InputAdornment>
-                          <IconButton onClick={submitSearch}>
-                            <SearchIcon color={theme.palette.type === 'light' ? 'primary' : 'secondary'} />
+                          <IconButton onClick={submitSearch} size="large">
+                            <SearchIcon color={theme.palette.mode === 'light' ? 'primary' : 'secondary'} />
                           </IconButton>
                         </InputAdornment>
                       ),
@@ -287,7 +292,7 @@ const Layout = ({ children, setDarkMode }) => {
                       ? (
                         <Grid container justifyContent="center" alignItems="center" spacing={2}>
                           <Grid item>
-                            <CircularProgress color={theme.palette.type === 'light' ? 'primary' : 'secondary'} style={{ margin: theme.spacing(2) }} />
+                            <CircularProgress color={theme.palette.mode === 'light' ? 'primary' : 'secondary'} style={{ margin: theme.spacing(2) }} />
                           </Grid>
                         </Grid>
                       )

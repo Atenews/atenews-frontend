@@ -1,6 +1,6 @@
 {
   "name": "atenews-frontend",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -12,11 +12,11 @@
     "find:unused": "next-unused"
   },
   "dependencies": {
-    "@date-io/date-fns": "^2.11.0",
-    "@material-ui/core": "^4.12.2",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/lab": "^4.0.0-alpha.60",
-    "@material-ui/pickers": "^3.3.10",
+    "@emotion/react": "^11.5.0",
+    "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.5",
+    "@mui/material": "^5.0.6",
+    "@mui/styles": "^5.0.2",
     "@n8tb1t/use-scroll-position": "^2.0.3",
     "date-fns": "^2.22.1",
     "dotenv": "^10.0.0",
@@ -28,14 +28,14 @@
     "html-entities": "^2.3.2",
     "html-react-parser": "^1.4.0",
     "localforage": "^1.9.0",
-    "next": "11.0.1",
-    "next-pwa": "^5.2.24",
-    "next-seo": "^4.26.0",
+    "next": "^12.0.1",
+    "next-pwa": "^5.4.0",
+    "next-seo": "^4.28.1",
     "node-fetch": "^2.6.1",
     "nprogress": "^0.2.0",
-    "react": "17.0.2",
+    "react": "^17.0.2",
     "react-device-detect": "^1.17.0",
-    "react-dom": "17.0.2",
+    "react-dom": "^17.0.2",
     "react-in-viewport": "^1.0.0-alpha.17",
     "react-infinite-scroll-component": "^6.1.0",
     "react-lazy-load-image-component": "^1.5.1",
@@ -50,8 +50,6 @@
     "wpapi": "^1.2.2"
   },
   "devDependencies": {
-    "@material-ui/codemod": "^4.5.0",
-    "babel-plugin-import": "^1.13.3",
     "eslint": "^7.31.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-next": "^11.0.1",

@@ -1,18 +1,19 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import { useRouter } from 'next/router';
 
-import MenuIcon from '@material-ui/icons/Menu';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import Brightness7Icon from '@material-ui/icons/Brightness7';
-import NightsStayIcon from '@material-ui/icons/NightsStay';
-import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import {
+  Menu as MenuIcon,
+  ExpandLess,
+  ExpandMore,
+  AccountCircle as AccountCircleIcon,
+  ChevronRight as ChevronRightIcon,
+  ExitToApp as ExitToAppIcon,
+  Brightness7 as Brightness7Icon,
+  NightsStay as NightsStayIcon,
+  SupervisorAccount as SupervisorAccountIcon,
+} from '@mui/icons-material';
 
 import imageGenerator from '@/utils/imageGenerator';
 import { useAuth } from '@/utils/hooks/useAuth';
@@ -34,7 +35,7 @@ import {
   Collapse,
   Divider,
   Hidden,
-} from '@material-ui/core';
+} from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginLeft: theme.spacing(0.5),
-    color: theme.palette.type === 'dark' ? 'white' : theme.palette.primary.main,
+    color: theme.palette.mode === 'dark' ? 'white' : theme.palette.primary.main,
   },
   account: {
     display: 'flex',
@@ -58,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
     width: 65,
   },
   logo: {
-    backgroundImage: theme.palette.type === 'dark' ? 'url("/logo.png")' : 'url("/logo-blue.png")',
+    backgroundImage: theme.palette.mode === 'dark' ? 'url("/logo.png")' : 'url("/logo-blue.png")',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'contain',
@@ -260,7 +261,7 @@ export default function MenuAppBar({ closeButtomNav, setDarkMode }) {
           </ListSubheader>
         )}
       >
-        {theme.palette.type === 'dark' ? (
+        {theme.palette.mode === 'dark' ? (
           <ListItem button onClick={() => setDarkMode(false)}>
             <ListItemIcon>
               <Brightness7Icon />
@@ -285,11 +286,18 @@ export default function MenuAppBar({ closeButtomNav, setDarkMode }) {
         elevation={0}
         variant="outlined"
         style={{
-          borderLeft: 0, borderRight: 0, borderTop: 0, backgroundColor: theme.palette.type === 'light' ? 'white' : theme.palette.background.paper,
+          borderLeft: 0, borderRight: 0, borderTop: 0, backgroundColor: theme.palette.mode === 'light' ? 'white' : theme.palette.background.paper,
         }}
       >
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="primary" aria-label="menu" onClick={toggleDrawer(true)}>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="primary"
+            aria-label="menu"
+            onClick={toggleDrawer(true)}
+            size="large"
+          >
             <MenuIcon />
           </IconButton>
           <Grid container style={{ width: '100%' }} justifyContent="center">
@@ -303,6 +311,7 @@ export default function MenuAppBar({ closeButtomNav, setDarkMode }) {
               color="primary"
               onClick={toggleProfileMenu(true)}
               disabled={!profile}
+              size="large"
             >
               {profile
                 ? (

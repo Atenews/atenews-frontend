@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+
+import { makeStyles } from '@mui/styles';
+import withStyles from '@mui/styles/withStyles';
 
 import DeleteAccountButton from '@/components/Profile/DeleteAccountButton';
 
@@ -15,7 +18,7 @@ import {
   DialogContent,
   DialogTitle,
   Grid,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import { useError } from '@/utils/hooks/useSnackbar';
 import firebase from '@/utils/firebase';

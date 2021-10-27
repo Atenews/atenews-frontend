@@ -1,9 +1,13 @@
 import React from 'react';
 
 import Button from '@/components/General/Button';
-import FollowIcon from '@material-ui/icons/Add';
-import UnfollowIcon from '@material-ui/icons/Remove';
-import { useTheme } from '@material-ui/core/styles';
+
+import {
+  Add as FollowIcon,
+  Remove as UnfollowIcon,
+} from '@mui/icons-material';
+
+import { useTheme } from '@mui/material/styles';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 
@@ -78,7 +82,7 @@ export default function FollowButton({ category }) {
     <Button
       variant="contained"
       elevation={0}
-      color={theme.palette.type === 'light' ? 'primary' : 'secondary'}
+      color={theme.palette.mode === 'light' ? 'primary' : 'secondary'}
       size="small"
       onClick={() => toggleUnfollowed()}
     >

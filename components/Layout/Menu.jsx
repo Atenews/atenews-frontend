@@ -1,7 +1,8 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import { useSpring, animated } from 'react-spring';
-import { CardActionArea } from '@material-ui/core';
+import { CardActionArea } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   selector: {
@@ -91,7 +92,7 @@ export default function Menu({
     if (active) {
       return 'white';
     }
-    if (theme.palette.type === 'dark') {
+    if (theme.palette.mode === 'dark') {
       return 'white';
     }
     return theme.palette.primary.main;

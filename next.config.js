@@ -1,7 +1,6 @@
 const withPWA = require('next-pwa');
 
 module.exports = withPWA({
-  webpack5: true,
   compress: false,
   pwa: {
     dest: 'public',

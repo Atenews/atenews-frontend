@@ -1,11 +1,15 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
 
-import PhoneIcon from '@material-ui/icons/Phone';
-import MailIcon from '@material-ui/icons/Mail';
-import MapIcon from '@material-ui/icons/PinDrop';
+import { makeStyles } from '@mui/styles';
 
-import { Typography, Grid, Hidden } from '@material-ui/core';
+import {
+  Phone as PhoneIcon,
+  Mail as MailIcon,
+  PinDrop as MapIcon,
+} from '@mui/icons-material';
+
+import { Typography, Grid, Hidden } from '@mui/material';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -20,8 +24,8 @@ const Contact = () => {
   const theme = useTheme();
 
   return (
-    <Hidden smDown>
-      <div className={classes.container} style={{ top: 'calc(80px + 4vh)', color: theme.palette.type === 'light' ? theme.palette.primary.main : 'white' }}>
+    <Hidden mdDown>
+      <div className={classes.container} style={{ top: 'calc(80px + 4vh)', color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white' }}>
         <Typography variant="h6" style={{ marginBottom: theme.spacing(2) }}>Contact Us</Typography>
         <Grid container direction="column" spacing={2}>
           <Grid item>

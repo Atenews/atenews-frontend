@@ -1,10 +1,12 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+
+import { makeStyles } from '@mui/styles';
 
 import {
   Typography, Grid,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import Title from '@/components/Home/Title';
 

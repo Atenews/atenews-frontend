@@ -1,13 +1,15 @@
 import React from 'react';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+
+import { makeStyles } from '@mui/styles';
 
 import { format } from 'date-fns';
 
 import {
   Typography,
   Hidden,
-} from '@material-ui/core';
+} from '@mui/material';
 
 const useStyles = makeStyles(() => ({
   account: {
@@ -44,7 +46,7 @@ export default function Page({ page }) {
 
   return (
     <div className={classes.container}>
-      <Hidden smDown>
+      <Hidden mdDown>
         <Typography variant="h3" component="h1" dangerouslySetInnerHTML={{ __html: page.title }} />
       </Hidden>
       <Hidden mdUp>

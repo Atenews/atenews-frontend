@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 
-import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import { InsertEmoticon as InsertEmoticonIcon } from '@mui/icons-material';
 
 import {
   Typography, Grid, Card, CardContent, Avatar, Grow, Popper,
-} from '@material-ui/core';
+} from '@mui/material';
 
 const useStyles = makeStyles(() => ({
   reacts: {

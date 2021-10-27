@@ -1,8 +1,11 @@
 import React from 'react';
 
-import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
 
-import MailIcon from '@material-ui/icons/Mail';
+import { makeStyles } from '@mui/styles';
+import withStyles from '@mui/styles/withStyles';
+
+import { Mail as MailIcon } from '@mui/icons-material';
 
 import Flair from '@/components/Social/Flair';
 
@@ -12,7 +15,7 @@ import {
   InputAdornment,
   FormControl,
   FormHelperText,
-} from '@material-ui/core';
+} from '@mui/material';
 import {
   testDisplayName, testUsername, testBio, testEmail,
 } from '@/utils/regexTests';
@@ -96,7 +99,7 @@ export default function EditDetails({
             value={bio}
             multiline
             rows={4}
-            rowsMax={4}
+            maxRows={4}
             fullWidth
             error={!(testBio(bio))}
             onChange={(e) => setBio(e.target.value)}
@@ -110,7 +113,7 @@ export default function EditDetails({
             <div className={classes.iconStats}>
               <Grid container spacing={1}>
                 <Grid item>
-                  <MailIcon color={theme.palette.type === 'light' ? 'primary' : 'secondary'} />
+                  <MailIcon color={theme.palette.mode === 'light' ? 'primary' : 'secondary'} />
                 </Grid>
                 <Grid item>
                   <FormControl>
