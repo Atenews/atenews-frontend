@@ -22,6 +22,12 @@ module.exports = {
     'react/forbid-prop-types': 'off',
     'react/prop-types': 'off',
     'no-restricted-syntax': 'off',
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: ['@mui/*/*/*', '!@mui/material/test-utils/*'],
+      },
+    ],
     'react/no-array-index-key': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
     'jsx-a11y/no-static-element-interactions': 'off',
