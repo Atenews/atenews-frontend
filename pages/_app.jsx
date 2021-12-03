@@ -4,11 +4,14 @@ import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
 
+import Router from 'next/router';
+import NProgress from 'nprogress';
+import { CssBaseline } from '@mui/material';
+import localforage from 'localforage';
+import { ToastContainer } from 'react-toastify';
 import Layout from '@/components/Layout/Layout';
 import theme from '@/styles/theme';
-import Router from 'next/router';
 
-import NProgress from 'nprogress';
 import '@/styles/nprogress.css';
 import '@/styles/main.css';
 
@@ -18,13 +21,8 @@ import { ErrorProvider } from '@/utils/hooks/useSnackbar';
 import { CacheProvider } from '@/utils/hooks/useCache';
 import { CategoryProvider } from '@/utils/hooks/useCategory';
 
-import { CssBaseline } from '@mui/material';
-
 import firebase from '@/utils/firebase';
 
-import localforage from 'localforage';
-
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 NProgress.configure({

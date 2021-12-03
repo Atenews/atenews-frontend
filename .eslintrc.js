@@ -22,6 +22,7 @@ module.exports = {
     'react/forbid-prop-types': 'off',
     'react/prop-types': 'off',
     'no-restricted-syntax': 'off',
+    'import/extensions': 'off',
     'no-restricted-imports': [
       'error',
       {

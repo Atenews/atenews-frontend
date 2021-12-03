@@ -2,8 +2,8 @@ import {
   useEffect, useState, createContext, useContext,
 } from 'react';
 
-import firebase from '@/utils/firebase';
 import localforage from 'localforage';
+import firebase from '@/utils/firebase';
 import useFirestore from './useFirestore';
 import { useError } from './useSnackbar';
 

@@ -1,5 +1,5 @@
-import admin from '@/utils/firebaseAdmin';
 import fetch from 'node-fetch';
+import admin from '@/utils/firebaseAdmin';
 
 export default async (req, res) => {
   const { accessToken } = (await admin.firestore().collection('keys').doc('facebook').get()).data();

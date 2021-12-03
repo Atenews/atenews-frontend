@@ -1,8 +1,8 @@
 import { SitemapStream, streamToPromise } from 'sitemap';
+import { gql } from 'graphql-request';
 import slugGenerator from '@/utils/slugGenerator';
 
 import WPGraphQL from '@/utils/wpgraphql';
-import { gql } from 'graphql-request';
 
 export default async (req, res) => {
   try {

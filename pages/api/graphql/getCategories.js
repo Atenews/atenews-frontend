@@ -1,5 +1,5 @@
-import WPGraphQL from '@/utils/wpgraphql';
 import { gql } from 'graphql-request';
+import WPGraphQL from '@/utils/wpgraphql';
 
 export default async (req, res) => {
   if (req.method !== 'POST') {

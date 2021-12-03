@@ -9,18 +9,17 @@ import parse from 'html-react-parser';
 
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
-import WPGraphQL from '@/utils/wpgraphql';
 import { gql } from 'graphql-request';
-
-import { useTrending } from '@/utils/hooks/useTrending';
-import { useAuth } from '@/utils/hooks/useAuth';
 import { useRouter } from 'next/router';
-import { useError } from '@/utils/hooks/useSnackbar';
-import firebase from '@/utils/firebase';
-
 import {
   Typography, Grid,
 } from '@mui/material';
+import WPGraphQL from '@/utils/wpgraphql';
+
+import { useTrending } from '@/utils/hooks/useTrending';
+import { useAuth } from '@/utils/hooks/useAuth';
+import { useError } from '@/utils/hooks/useSnackbar';
+import firebase from '@/utils/firebase';
 
 import RecentArticles from '@/components/Home/RecentArticles';
 

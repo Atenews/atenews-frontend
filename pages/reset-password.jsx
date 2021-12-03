@@ -2,20 +2,19 @@ import React from 'react';
 
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import DefaultErrorPage from '@/components/404';
 import { useTheme } from '@mui/material/styles';
-
 import { makeStyles } from '@mui/styles';
-
-import { useError } from '@/utils/hooks/useSnackbar';
-
-import Button from '@/components/General/Button';
 import {
   Grid,
   Card,
   CardContent,
   TextField,
 } from '@mui/material';
+import DefaultErrorPage from '@/components/404';
+
+import { useError } from '@/utils/hooks/useSnackbar';
+
+import Button from '@/components/General/Button';
 
 import firebase from '@/utils/firebase';
 

@@ -2,9 +2,8 @@ import {
   useState, createContext, useContext, useEffect,
 } from 'react';
 
-import firebase from '@/utils/firebase';
-
 import { toast } from 'react-toastify';
+import firebase from '@/utils/firebase';
 
 export const ErrorContext = createContext();
 
@@ -20,7 +19,7 @@ export const ErrorProvider = ({ children }) => {
       });
 
       toast.error(error, {
-        position: "bottom-center",
+        position: 'bottom-center',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -38,7 +37,7 @@ export const ErrorProvider = ({ children }) => {
         success,
       });
       toast.success(success, {
-        position: "bottom-center",
+        position: 'bottom-center',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -56,7 +55,7 @@ export const ErrorProvider = ({ children }) => {
         warning,
       });
       toast.warning(warning, {
-        position: "bottom-center",
+        position: 'bottom-center',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,

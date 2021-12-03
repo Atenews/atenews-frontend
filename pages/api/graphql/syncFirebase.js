@@ -1,7 +1,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-await-in-loop */
-import WPGraphQL from '@/utils/wpgraphql';
 import { gql } from 'graphql-request';
+import WPGraphQL from '@/utils/wpgraphql';
 import firebase from '@/utils/firebase';
 
 const getViewCount = (post) => new Promise((resolve, reject) => {
@@ -18,7 +18,7 @@ const getViewCount = (post) => new Promise((resolve, reject) => {
 export default async (req, res) => {
   const asyncForEach = async (array, callback) => {
     for (let index = 0; index < array.length; index++) {
-      await callback(array[index], index, array).catch((err) => console.log(err));
+      await callback(array[index], index, array).catch();
     }
   };
 

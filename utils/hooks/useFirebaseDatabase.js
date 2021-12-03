@@ -1,5 +1,5 @@
-import firebase from '@/utils/firebase';
 import useSWR from 'swr';
+import firebase from '@/utils/firebase';
 
 const useFirestore = () => {
   const getDocument = (documentPath, onUpdate) => {

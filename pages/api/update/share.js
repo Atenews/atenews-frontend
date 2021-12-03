@@ -1,5 +1,5 @@
-import admin from '@/utils/firebaseAdmin';
 import fetch from 'node-fetch';
+import admin from '@/utils/firebaseAdmin';
 import trendFunction from '@/utils/trendFunction';
 import slugGenerator from '@/utils/slugGenerator';
 

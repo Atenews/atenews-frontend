@@ -2,17 +2,17 @@ import React from 'react';
 
 import Head from 'next/head';
 import parse from 'html-react-parser';
-import DefaultErrorPage from '@/components/404';
 import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
 
-import WPGraphQL from '@/utils/wpgraphql';
 import { gql } from 'graphql-request';
+import { Grid } from '@mui/material';
+import WPGraphQL from '@/utils/wpgraphql';
 
 import CustomPage from '@/components/CustomPage';
 
-import { Grid } from '@mui/material';
+import DefaultErrorPage from '@/components/404';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 

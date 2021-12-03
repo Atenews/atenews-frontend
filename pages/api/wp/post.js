@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
+import { decode } from 'html-entities';
 import admin from '@/utils/firebaseAdmin';
 import trendFunction from '@/utils/trendFunction';
-import { decode } from 'html-entities';
 
 export default async (req, res) => {
   const {

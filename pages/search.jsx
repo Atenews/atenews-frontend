@@ -1,7 +1,7 @@
 import React from 'react';
 
-import WPGraphQL from '@/utils/wpgraphql';
 import { gql } from 'graphql-request';
+import WPGraphQL from '@/utils/wpgraphql';
 
 import ArchiveLayout from '@/components/ArchiveLayout';
 

@@ -7,8 +7,6 @@ import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
 
-import DefaultErrorPage from '@/components/404';
-
 import {
   Grid,
   Divider,
@@ -17,9 +15,12 @@ import {
   Tab,
   Typography,
 } from '@mui/material';
+import { gql } from 'graphql-request';
+import SwipeableViews from 'react-swipeable-views';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import DefaultErrorPage from '@/components/404';
 
 import WPGraphQL from '@/utils/wpgraphql';
-import { gql } from 'graphql-request';
 
 import { useError } from '@/utils/hooks/useSnackbar';
 import { useAuth } from '@/utils/hooks/useAuth';
@@ -27,9 +28,6 @@ import { useTrending } from '@/utils/hooks/useTrending';
 import firebaseAdmin from '@/utils/firebaseAdmin';
 import firebase from '@/utils/firebase';
 import postFetch from '@/utils/postFetch';
-
-import SwipeableViews from 'react-swipeable-views';
-import InfiniteScroll from 'react-infinite-scroll-component';
 
 const ProfileFeed = dynamic(import('@/components/Profile/ProfileFeed'));
 const Trending = dynamic(import('@/components/Home/Trending'));

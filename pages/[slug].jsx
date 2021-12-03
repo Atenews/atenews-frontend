@@ -3,15 +3,15 @@ import React from 'react';
 import Head from 'next/head';
 import parse from 'html-react-parser';
 import { useRouter } from 'next/router';
-import DefaultErrorPage from '@/components/404';
 import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
 
 // import articlePaths from '@/utils/serverProps/articlePaths';
+import { Grid, CircularProgress } from '@mui/material';
 import articleServerSideProps from '@/utils/serverProps/articleServerSideProps';
 
-import { Grid, CircularProgress } from '@mui/material';
+import DefaultErrorPage from '@/components/404';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 import { ArticleProvider } from '@/utils/hooks/useArticle';

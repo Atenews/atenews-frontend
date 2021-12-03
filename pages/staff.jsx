@@ -5,18 +5,16 @@ import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
 
-import Contact from '@/components/Staff/Contact';
-import Staff from '@/components/Staff/Staff';
-
 import {
   Phone as PhoneIcon,
   Mail as MailIcon,
   PinDrop as MapIcon,
 } from '@mui/icons-material';
+import { Typography, Grid, Hidden } from '@mui/material';
+import Contact from '@/components/Staff/Contact';
+import Staff from '@/components/Staff/Staff';
 
 import WP from '@/utils/wordpress';
-
-import { Typography, Grid, Hidden } from '@mui/material';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 
