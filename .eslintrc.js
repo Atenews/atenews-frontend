@@ -6,6 +6,7 @@ module.exports = {
   },
   extends: [
     'plugin:react/recommended',
+    'plugin:@next/next/recommended',
     'airbnb',
   ],
   parserOptions: {
@@ -23,6 +24,8 @@ module.exports = {
     'react/prop-types': 'off',
     'no-restricted-syntax': 'off',
     'import/extensions': 'off',
+    '@next/next/no-img-element': 'off',
+    'import/order': 'off',
     'no-restricted-imports': [
       'error',
       {
