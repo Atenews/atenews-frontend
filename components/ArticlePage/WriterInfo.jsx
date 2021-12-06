@@ -2,9 +2,7 @@ import React from 'react';
 
 import handleViewport from 'react-in-viewport';
 
-import {
-  Grid,
-} from '@mui/material';
+import Grid from '@mui/material/Grid';
 
 import IndividualWriter from '@/components/ArticlePage/IndividualWriter';
 

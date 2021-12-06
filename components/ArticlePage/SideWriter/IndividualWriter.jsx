@@ -3,13 +3,11 @@ import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import { useRouter } from 'next/router';
 
-import {
-  Avatar,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Typography,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemText from '@mui/material/ListItemText';
+import Avatar from '@mui/material/Avatar';
 
 import { useError } from '@/utils/hooks/useSnackbar';
 import imageGenerator from '@/utils/imageGenerator';

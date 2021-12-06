@@ -2,16 +2,14 @@ import React from 'react';
 
 import { makeStyles } from '@mui/styles';
 
-import {
-  Avatar,
-  CircularProgress,
-  IconButton,
-} from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import CircularProgress from '@mui/material/CircularProgress';
+import IconButton from '@mui/material/IconButton';
 
 import { useError } from '@/utils/hooks/useSnackbar';
 import firebase from '@/utils/firebase';
 
-import { AddCircle as AddCircleIcon } from '@mui/icons-material';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 import { useSpring, animated } from 'react-spring';
 

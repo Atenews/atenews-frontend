@@ -7,7 +7,9 @@ import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 
 import { gql } from 'graphql-request';
-import { Grid } from '@mui/material';
+
+import Grid from '@mui/material/Grid';
+
 import WPGraphQL from '@/utils/wpgraphql';
 
 import CustomPage from '@/components/CustomPage';

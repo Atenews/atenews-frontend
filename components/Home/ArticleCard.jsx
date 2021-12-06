@@ -5,13 +5,11 @@ import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
 
-import {
-  AccountCircle as AccountIcon,
-  AccessTime as ClockIcon,
-  Visibility as VisibilityIcon,
-  CommentOutlined as CommentIcon,
-  ShareOutlined as ShareIcon,
-} from '@mui/icons-material';
+import AccountIcon from '@mui/icons-material/AccountCircle';
+import ClockIcon from '@mui/icons-material/AccessTime';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import CommentIcon from '@mui/icons-material/CommentOutlined';
+import ShareIcon from '@mui/icons-material/ShareOutlined';
 
 import ReactInfo from '@/components/Social/ReactInfo';
 
@@ -20,9 +18,11 @@ import { useSpring, animated } from 'react-spring';
 import { formatDistanceToNow } from 'date-fns';
 import slugGenerator from '@/utils/slugGenerator';
 
-import {
-  Typography, Grid, Card, CardContent, CardActionArea,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import Grid from '@mui/material/Grid';
+import CardContent from '@mui/material/CardContent';
+import CardActionArea from '@mui/material/CardActionArea';
 
 import imageGenerator from '@/utils/imageGenerator';
 import coauthors from '@/utils/coauthors';

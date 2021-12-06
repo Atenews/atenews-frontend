@@ -5,24 +5,21 @@ import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import withStyles from '@mui/styles/withStyles';
 
-import {
-  Notifications as BellIcon,
-  Search as SearchIcon,
-} from '@mui/icons-material';
+import BellIcon from '@mui/icons-material/Notifications';
+import SearchIcon from '@mui/icons-material/Search';
 
 import { useSpring, animated } from 'react-spring';
 
-import {
-  IconButton,
-  Button,
-  Popper,
-  ClickAwayListener,
-  Avatar,
-  Grid,
-  TextField as StockTextField,
-  InputAdornment,
-  Badge,
-} from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import Popper from '@mui/material/Popper';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Avatar from '@mui/material/Avatar';
+import Grid from '@mui/material/Grid';
+import StockTextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import Badge from '@mui/material/Badge';
+
 import { useAuth } from '@/utils/hooks/useAuth';
 import imageGenerator from '@/utils/imageGenerator';
 

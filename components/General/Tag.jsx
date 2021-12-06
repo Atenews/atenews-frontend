@@ -5,7 +5,8 @@ import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
 
-import { Typography, CardActionArea } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import CardActionArea from '@mui/material/CardActionArea';
 
 import { useCategory } from '@/utils/hooks/useCategory';
 

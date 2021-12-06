@@ -6,10 +6,8 @@ import { makeStyles } from '@mui/styles';
 
 import { format } from 'date-fns';
 
-import {
-  Typography,
-  Hidden,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Hidden from '@mui/material/Hidden';
 
 const useStyles = makeStyles(() => ({
   account: {

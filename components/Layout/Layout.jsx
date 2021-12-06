@@ -5,43 +5,39 @@ import withStyles from '@mui/styles/withStyles';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 
-import {
-  Home as HomeIcon,
-  Notifications as NotificationIcon,
-  Search as SearchIcon,
-  AccountCircle as AccountCircleIcon,
-  Announcement as AnnouncementIcon,
-} from '@mui/icons-material';
+import HomeIcon from '@mui/icons-material/Home';
+import NotificationIcon from '@mui/icons-material/Notifications';
+import SearchIcon from '@mui/icons-material/Search';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AnnouncementIcon from '@mui/icons-material/Announcement';
 
 import slugGenerator from '@/utils/slugGenerator';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 import { useTrending } from '@/utils/hooks/useTrending';
 
-import {
-  Hidden,
-  BottomNavigation,
-  BottomNavigationAction,
-  IconButton,
-  Paper,
-  Dialog,
-  AppBar,
-  Grid,
-  Typography,
-  Slide,
-  CardActionArea,
-  TextField as StockTextField,
-  InputAdornment,
-  CircularProgress,
-  List,
-  ListItem,
-  ListItemAvatar,
-  Avatar,
-  ListItemText,
-  ListSubheader,
-  Badge,
-  Button,
-} from '@mui/material';
+import Hidden from '@mui/material/Hidden';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import IconButton from '@mui/material/IconButton';
+import Paper from '@mui/material/Paper';
+import Dialog from '@mui/material/Dialog';
+import AppBar from '@mui/material/AppBar';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Slide from '@mui/material/Slide';
+import CardActionArea from '@mui/material/CardActionArea';
+import StockTextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import CircularProgress from '@mui/material/CircularProgress';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+import Badge from '@mui/material/Badge';
+import Button from '@mui/material/Button';
 
 import Footer from '@/components/Layout/Footer';
 import Header from '@/components/Layout/Header';

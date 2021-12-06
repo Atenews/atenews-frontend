@@ -3,39 +3,35 @@ import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import { useRouter } from 'next/router';
 
-import {
-  Menu as MenuIcon,
-  ExpandLess,
-  ExpandMore,
-  AccountCircle as AccountCircleIcon,
-  ChevronRight as ChevronRightIcon,
-  ExitToApp as ExitToAppIcon,
-  Brightness7 as Brightness7Icon,
-  NightsStay as NightsStayIcon,
-  SupervisorAccount as SupervisorAccountIcon,
-} from '@mui/icons-material';
+import MenuIcon from '@mui/icons-material/Menu';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import NightsStayIcon from '@mui/icons-material/NightsStay';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 
 import imageGenerator from '@/utils/imageGenerator';
 import { useAuth } from '@/utils/hooks/useAuth';
 
 import postFetch from '@/utils/postFetch';
 
-import {
-  AppBar,
-  Toolbar,
-  Grid,
-  Avatar,
-  IconButton,
-  SwipeableDrawer,
-  List,
-  ListSubheader,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Collapse,
-  Divider,
-  Hidden,
-} from '@mui/material';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Grid from '@mui/material/Grid';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import List from '@mui/material/List';
+import ListSubheader from '@mui/material/ListSubheader';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Collapse from '@mui/material/Collapse';
+import Divider from '@mui/material/Divider';
+import Hidden from '@mui/material/Hidden';
 
 const useStyles = makeStyles((theme) => ({
   root: {

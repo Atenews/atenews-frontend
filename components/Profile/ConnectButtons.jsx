@@ -6,15 +6,11 @@ import { makeStyles } from '@mui/styles';
 
 import Button from '@/components/General/Button';
 
-import {
-  Twitter as TwitterIcon,
-  Facebook as FacebookIcon,
-} from '@mui/icons-material';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
-import {
-  Grid,
-  Typography,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 

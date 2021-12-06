@@ -3,11 +3,9 @@ import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
 
-import {
-  Phone as PhoneIcon,
-  Mail as MailIcon,
-  PinDrop as MapIcon,
-} from '@mui/icons-material';
+import PhoneIcon from '@mui/icons-material/Phone';
+import MailIcon from '@mui/icons-material/Mail';
+import MapIcon from '@mui/icons-material/PinDrop';
 
 import { Typography, Grid, Hidden } from '@mui/material';
 

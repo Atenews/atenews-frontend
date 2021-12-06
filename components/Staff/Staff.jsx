@@ -5,9 +5,11 @@ import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
 
-import {
-  Typography, Paper, Grid, CardActionArea, Avatar,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import CardActionArea from '@mui/material/CardActionArea';
+import Avatar from '@mui/material/Avatar';
 
 import useFirestore from '@/utils/hooks/useFirestore';
 import { useError } from '@/utils/hooks/useSnackbar';

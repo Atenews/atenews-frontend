@@ -4,9 +4,8 @@ import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-import {
-  Typography, Grid,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 
 import imageGenerator from '@/utils/imageGenerator';
 import coauthors from '@/utils/coauthors';

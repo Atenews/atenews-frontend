@@ -6,14 +6,13 @@ import { makeStyles } from '@mui/styles';
 
 import Button from '@/components/General/Button';
 
-import {
-  Twitter as TwitterIcon,
-  Facebook as FacebookIcon,
-} from '@mui/icons-material';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
-import {
-  Paper, Grid, TextField, Divider,
-} from '@mui/material';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import Divider from '@mui/material/Divider';
 
 import { useError } from '@/utils/hooks/useSnackbar';
 import { useAuth } from '@/utils/hooks/useAuth';

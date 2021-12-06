@@ -10,9 +10,10 @@ import useWindowDimensions from '@/utils/useWindowDimensions';
 
 // import Tag from '@/components/General/Tag';
 
-import {
-  Typography, Paper, Grid, Hidden,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import Hidden from '@mui/material/Hidden';
 
 const useStyles = makeStyles((theme) => ({
   container: {

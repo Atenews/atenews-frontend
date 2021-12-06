@@ -4,17 +4,13 @@ import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
 
-import {
-  ArrowUpwardRounded as LikeIcon,
-  ArrowDownwardRounded as DislikeIcon,
-} from '@mui/icons-material';
+import LikeIcon from '@mui/icons-material/ArrowUpwardRounded';
+import DislikeIcon from '@mui/icons-material/ArrowDownwardRounded';
 
-import {
-  Typography,
-  Grid,
-  Card,
-  CardContent,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 const useStyles = makeStyles((theme) => ({
   iconStats: {

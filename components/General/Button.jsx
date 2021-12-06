@@ -1,6 +1,6 @@
 import React from 'react';
 import withStyles from '@mui/styles/withStyles';
-import { Button } from '@mui/material';
+import Button from '@mui/material/Button';
 
 // We can inject some CSS into the DOM.
 const styles = {

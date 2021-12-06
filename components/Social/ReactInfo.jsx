@@ -2,11 +2,15 @@ import React from 'react';
 
 import { makeStyles } from '@mui/styles';
 
-import { InsertEmoticon as InsertEmoticonIcon } from '@mui/icons-material';
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 
-import {
-  Typography, Grid, Card, CardContent, Avatar, Grow, Popper,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Avatar from '@mui/material/Avatar';
+import Grow from '@mui/material/Grow';
+import Popper from '@mui/material/Popper';
 
 const useStyles = makeStyles(() => ({
   reacts: {

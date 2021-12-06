@@ -11,9 +11,10 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
 import { gql } from 'graphql-request';
 import { useRouter } from 'next/router';
-import {
-  Typography, Grid,
-} from '@mui/material';
+
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+
 import WPGraphQL from '@/utils/wpgraphql';
 
 import { useTrending } from '@/utils/hooks/useTrending';

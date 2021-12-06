@@ -10,22 +10,20 @@ import { useError } from '@/utils/hooks/useSnackbar';
 import firebase from '@/utils/firebase';
 import imageGenerator from '@/utils/imageGenerator';
 
-import { Send as SendIcon } from '@mui/icons-material';
+import SendIcon from '@mui/icons-material/Send';
 import { isMobile } from 'react-device-detect';
 
 import localforage from 'localforage';
 
-import {
-  IconButton,
-  Avatar,
-  TextField as StockTextField,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  InputAdornment,
-  Grid,
-  Typography,
-} from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import Avatar from '@mui/material/Avatar';
+import StockTextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import Grid from '@mui/material/Grid';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Typography from '@mui/material/Typography';
 
 const TextField = withStyles({
   root: {

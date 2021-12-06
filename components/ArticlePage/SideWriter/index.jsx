@@ -3,13 +3,11 @@ import { useTheme } from '@mui/material/styles';
 
 import Tag from '@/components/General/Tag';
 
-import {
-  Typography,
-  Grid,
-  Hidden,
-  Divider,
-  List,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import Hidden from '@mui/material/Hidden';
 
 import IndividualWriter from '@/components/ArticlePage/SideWriter/IndividualWriter';
 

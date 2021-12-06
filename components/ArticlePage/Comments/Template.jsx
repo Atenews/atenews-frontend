@@ -5,27 +5,23 @@ import { makeStyles } from '@mui/styles';
 import withStyles from '@mui/styles/withStyles';
 import { formatDistanceToNow } from 'date-fns';
 
-import {
-  ArrowUpwardRounded as LikeIcon,
-  ArrowDownwardRounded as DislikeIcon,
-  CommentOutlined as CommentIcon,
-} from '@mui/icons-material';
-
 import Button from '@/components/General/Button';
 import Flair from '@/components/Social/Flair';
 import Link from '@/components/General/Link';
 import Options from '@/components/ArticlePage/Comments/Options';
 
-import {
-  Typography,
-  Avatar,
-  Grid,
-  Paper as StockPaper,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-} from '@mui/material';
+import LikeIcon from '@mui/icons-material/ArrowUpwardRounded';
+import DislikeIcon from '@mui/icons-material/ArrowDownwardRounded';
+import CommentIcon from '@mui/icons-material/CommentOutlined';
+
+import Typography from '@mui/material/Typography';
+import StockPaper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import Avatar from '@mui/material/Avatar';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemText from '@mui/material/ListItemText';
 
 import imageGenerator from '@/utils/imageGenerator';
 import firebase from '@/utils/firebase';

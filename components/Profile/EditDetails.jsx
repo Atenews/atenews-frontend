@@ -5,17 +5,16 @@ import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import withStyles from '@mui/styles/withStyles';
 
-import { Mail as MailIcon } from '@mui/icons-material';
+import MailIcon from '@mui/icons-material/Mail';
 
 import Flair from '@/components/Social/Flair';
 
-import {
-  Grid,
-  TextField as StockTextField,
-  InputAdornment,
-  FormControl,
-  FormHelperText,
-} from '@mui/material';
+import Grid from '@mui/material/Grid';
+import StockTextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+
 import {
   testDisplayName, testUsername, testBio, testEmail,
 } from '@/utils/regexTests';

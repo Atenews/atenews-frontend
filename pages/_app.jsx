@@ -6,7 +6,9 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 import Router from 'next/router';
 import NProgress from 'nprogress';
-import { CssBaseline } from '@mui/material';
+
+import CssBaseline from '@mui/material/CssBaseline';
+
 import localforage from 'localforage';
 import { ToastContainer } from 'react-toastify';
 import Layout from '@/components/Layout/Layout';

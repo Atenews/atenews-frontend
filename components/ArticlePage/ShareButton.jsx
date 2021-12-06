@@ -2,24 +2,20 @@ import React from 'react';
 
 import { useTheme } from '@mui/material/styles';
 
-import {
-  Facebook as FacebookIcon,
-  Twitter as TwitterIcon,
-  ShareOutlined as ShareIcon,
-} from '@mui/icons-material';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import ShareIcon from '@mui/icons-material/ShareOutlined';
 
-import {
-  Button,
-  Dialog,
-  Avatar,
-  Grid,
-  IconButton,
-  DialogContent,
-  DialogTitle,
-  DialogActions,
-  Typography,
-  useMediaQuery,
-} from '@mui/material';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import Grid from '@mui/material/Grid';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogActions from '@mui/material/DialogActions';
+import Typography from '@mui/material/Typography';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import {
   FacebookShareButton,

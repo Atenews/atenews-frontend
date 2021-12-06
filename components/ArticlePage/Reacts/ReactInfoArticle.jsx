@@ -8,9 +8,13 @@ import AvatarGroup from '@mui/material/AvatarGroup';
 
 import { useArticle } from '@/utils/hooks/useArticle';
 
-import {
-  Typography, Grid, Card, CardContent, Avatar, Grow, Popper,
-} from '@mui/material';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Grid from '@mui/material/Grid';
+import Avatar from '@mui/material/Avatar';
+import Grow from '@mui/material/Grow';
+import Popper from '@mui/material/Popper';
+import Typography from '@mui/material/Typography';
 
 const useStyles = makeStyles((theme) => ({
   reacts: {

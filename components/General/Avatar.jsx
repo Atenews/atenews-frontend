@@ -1,6 +1,6 @@
 import React from 'react';
 import withStyles from '@mui/styles/withStyles';
-import { Avatar } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
 
 // We can inject some CSS into the DOM.
 const styles = {

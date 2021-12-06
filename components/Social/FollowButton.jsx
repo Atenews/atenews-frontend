@@ -2,10 +2,8 @@ import React from 'react';
 
 import Button from '@/components/General/Button';
 
-import {
-  Add as FollowIcon,
-  Remove as UnfollowIcon,
-} from '@mui/icons-material';
+import FollowIcon from '@mui/icons-material/Add';
+import UnfollowIcon from '@mui/icons-material/Remove';
 
 import { useTheme } from '@mui/material/styles';
 

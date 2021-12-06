@@ -3,13 +3,11 @@ import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import { useRouter } from 'next/router';
 
-import {
-  AccountCircle as AccountIcon,
-  AccessTime as ClockIcon,
-  Visibility as VisibilityIcon,
-  CommentOutlined as CommentIcon,
-  ShareOutlined as ShareIcon,
-} from '@mui/icons-material';
+import AccountIcon from '@mui/icons-material/AccountCircle';
+import ClockIcon from '@mui/icons-material/AccessTime';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import CommentIcon from '@mui/icons-material/CommentOutlined';
+import ShareIcon from '@mui/icons-material/ShareOutlined';
 
 import ReactInfo from '@/components/Social/ReactInfo';
 
@@ -18,9 +16,11 @@ import coauthors from '@/utils/coauthors';
 import slugGenerator from '@/utils/slugGenerator';
 import imageGenerator from '@/utils/imageGenerator';
 
-import {
-  Typography, Paper, Grid, CardActionArea, Avatar,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import Avatar from '@mui/material/Avatar';
+import CardActionArea from '@mui/material/CardActionArea';
 
 import useFirebaseDatabase from '@/utils/hooks/useFirebaseDatabase';
 

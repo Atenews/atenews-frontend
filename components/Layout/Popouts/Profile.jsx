@@ -3,23 +3,19 @@ import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
 
-import {
-  Paper,
-  Divider,
-  ListSubheader,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from '@mui/material';
+import Paper from '@mui/material/Paper';
+import Divider from '@mui/material/Divider';
+import ListSubheader from '@mui/material/ListSubheader';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 
-import {
-  AccountCircle as AccountCircleIcon,
-  ExitToApp as ExitToAppIcon,
-  Brightness7 as Brightness7Icon,
-  NightsStay as NightsStayIcon,
-  SupervisorAccount as SupervisorAccountIcon,
-} from '@mui/icons-material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import NightsStayIcon from '@mui/icons-material/NightsStay';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 import AuthForm from '@/components/Auth/AuthForm';

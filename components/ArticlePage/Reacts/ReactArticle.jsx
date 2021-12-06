@@ -4,20 +4,18 @@ import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
 
-import { InsertEmoticon as InsertEmoticonIcon } from '@mui/icons-material';
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 
-import {
-  Grid,
-  Card,
-  CardContent,
-  CardActionArea,
-  Avatar,
-  Button,
-  ClickAwayListener,
-  Grow,
-  Popper,
-  Tooltip,
-} from '@mui/material';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Grid from '@mui/material/Grid';
+import Avatar from '@mui/material/Avatar';
+import CardActionArea from '@mui/material/CardActionArea';
+import Button from '@mui/material/Button';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Grow from '@mui/material/Grow';
+import Popper from '@mui/material/Popper';
+import Tooltip from '@mui/material/Tooltip';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 import { useArticle } from '@/utils/hooks/useArticle';

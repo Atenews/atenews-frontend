@@ -4,14 +4,12 @@ import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
 
-import { Mail as MailIcon } from '@mui/icons-material';
+import MailIcon from '@mui/icons-material/Mail';
 
 import Flair from '@/components/Social/Flair';
 
-import {
-  Typography,
-  Grid,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 

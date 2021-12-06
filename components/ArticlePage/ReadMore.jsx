@@ -3,11 +3,9 @@ import React from 'react';
 import Article from '@/components/List/Article';
 import handleViewport from 'react-in-viewport';
 
-import {
-  Typography,
-  Grid,
-  CircularProgress,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
+import Grid from '@mui/material/Grid';
 
 import { useTheme } from '@mui/material/styles';
 

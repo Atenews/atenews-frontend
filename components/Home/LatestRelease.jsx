@@ -4,9 +4,10 @@ import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-import {
-  Typography, CardActionArea, Grid, Paper,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import CardActionArea from '@mui/material/CardActionArea';
 
 const useStyles = makeStyles(() => ({
   section: {

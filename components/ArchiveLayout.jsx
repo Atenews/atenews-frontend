@@ -9,9 +9,10 @@ import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
 
-import {
-  Typography, Grid, Hidden, CircularProgress,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Hidden from '@mui/material/Hidden';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import { useTrending } from '@/utils/hooks/useTrending';
 import { useRouter } from 'next/router';

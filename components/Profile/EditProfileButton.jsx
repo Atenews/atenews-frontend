@@ -9,16 +9,14 @@ import DeleteAccountButton from '@/components/Profile/DeleteAccountButton';
 
 import Button from '@/components/General/Button';
 
-import {
-  TextField as StockTextField,
-  FormControl,
-  FormHelperText,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Grid,
-} from '@mui/material';
+import StockTextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import Grid from '@mui/material/Grid';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
 
 import { useError } from '@/utils/hooks/useSnackbar';
 import firebase from '@/utils/firebase';

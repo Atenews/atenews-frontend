@@ -7,13 +7,11 @@ import { makeStyles } from '@mui/styles';
 
 import Link from '@/components/General/Link';
 
-import {
-  AccountCircle as AccountIcon,
-  AccessTime as ClockIcon,
-  Visibility as VisibilityIcon,
-  CommentOutlined as CommentIcon,
-  ShareOutlined as ShareIcon,
-} from '@mui/icons-material';
+import AccountIcon from '@mui/icons-material/AccountCircle';
+import ClockIcon from '@mui/icons-material/AccessTime';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import CommentIcon from '@mui/icons-material/CommentOutlined';
+import ShareIcon from '@mui/icons-material/ShareOutlined';
 
 import ReactInfo from '@/components/Social/ReactInfo';
 
@@ -23,9 +21,13 @@ import imageGenerator from '@/utils/imageGenerator';
 import coauthors from '@/utils/coauthors';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
-import {
-  Typography, Hidden, Grid, Card, CardMedia, CardContent, CardActionArea,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Hidden from '@mui/material/Hidden';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import CardActionArea from '@mui/material/CardActionArea';
 
 import useFirebaseDatabase from '@/utils/hooks/useFirebaseDatabase';
 

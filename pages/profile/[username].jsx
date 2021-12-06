@@ -7,14 +7,13 @@ import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
 
-import {
-  Grid,
-  Divider,
-  CircularProgress,
-  Tabs,
-  Tab,
-  Typography,
-} from '@mui/material';
+import Grid from '@mui/material/Grid';
+import Divider from '@mui/material/Divider';
+import CircularProgress from '@mui/material/CircularProgress';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+
 import { gql } from 'graphql-request';
 import SwipeableViews from 'react-swipeable-views';
 import InfiniteScroll from 'react-infinite-scroll-component';

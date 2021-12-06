@@ -2,21 +2,17 @@ import React from 'react';
 
 import { useTheme } from '@mui/material/styles';
 
-import {
-  MoreHoriz as MoreHorizIcon,
-  Delete as TrashIcon,
-} from '@mui/icons-material';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import TrashIcon from '@mui/icons-material/Delete';
 
-import {
-  IconButton,
-  Popper,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Paper,
-  ClickAwayListener,
-} from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import Popper from '@mui/material/Popper';
+import Paper from '@mui/material/Paper';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 
 const Options = ({ onDelete }) => {
   const theme = useTheme();

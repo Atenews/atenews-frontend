@@ -5,12 +5,6 @@ import dynamic from 'next/dynamic';
 import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 
-import {
-  Schedule as ScheduleIcon,
-  ChromeReaderMode as ChromeReaderModeIcon,
-  Visibility as VisibilityIcon,
-} from '@mui/icons-material';
-
 import { format } from 'date-fns';
 
 import { CSSTransition } from 'react-transition-group';
@@ -19,15 +13,17 @@ import { LazyLoadImage, LazyLoadComponent } from 'react-lazy-load-image-componen
 import imageGenerator from '@/utils/imageGenerator';
 import { useArticle } from '@/utils/hooks/useArticle';
 
-import {
-  Typography,
-  Paper,
-  Grid,
-  Divider,
-  List,
-  Hidden,
-  Avatar,
-} from '@mui/material';
+import ScheduleIcon from '@mui/icons-material/Schedule';
+import ChromeReaderModeIcon from '@mui/icons-material/ChromeReaderMode';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import Avatar from '@mui/material/Avatar';
+import Hidden from '@mui/material/Hidden';
 
 import readingTime from 'reading-time';
 

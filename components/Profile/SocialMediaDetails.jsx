@@ -4,15 +4,11 @@ import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
 
-import {
-  Twitter as TwitterIcon,
-  Facebook as FacebookIcon,
-} from '@mui/icons-material';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
-import {
-  Grid,
-  Typography,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 
 const useStyles = makeStyles((theme) => ({
   iconStats: {

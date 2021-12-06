@@ -5,17 +5,16 @@ import { makeStyles } from '@mui/styles';
 
 import Tag from '@/components/General/Tag';
 
-import {
-  Visibility as VisibilityIcon,
-  CommentOutlined as CommentIcon,
-  ShareOutlined as ShareIcon,
-} from '@mui/icons-material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import CommentIcon from '@mui/icons-material/CommentOutlined';
+import ShareIcon from '@mui/icons-material/ShareOutlined';
 
 import ReactInfo from '@/components/Social/ReactInfo';
 
-import {
-  Typography, Paper, Grid, useMediaQuery,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import useFirebaseDatabase from '@/utils/hooks/useFirebaseDatabase';
 

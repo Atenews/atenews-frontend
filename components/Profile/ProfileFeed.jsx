@@ -3,12 +3,10 @@ import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import { useRouter } from 'next/router';
 
-import {
-  AccessTime as ClockIcon,
-  ArrowUpwardRounded as LikeIcon,
-  ArrowDownwardRounded as DislikeIcon,
-  CommentOutlined as CommentIcon,
-} from '@mui/icons-material';
+import ClockIcon from '@mui/icons-material/AccessTime';
+import LikeIcon from '@mui/icons-material/ArrowUpwardRounded';
+import DislikeIcon from '@mui/icons-material/ArrowDownwardRounded';
+import CommentIcon from '@mui/icons-material/CommentOutlined';
 
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import imageGenerator from '@/utils/imageGenerator';
@@ -18,9 +16,12 @@ import firebase from '@/utils/firebase';
 
 import { formatDistanceToNow } from 'date-fns';
 
-import {
-  Typography, Paper, Grid, CardActionArea, CircularProgress, Avatar,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import CardActionArea from '@mui/material/CardActionArea';
+import CircularProgress from '@mui/material/CircularProgress';
+import Avatar from '@mui/material/Avatar';
 
 const useStyles = makeStyles((theme) => ({
   trendingItem: {

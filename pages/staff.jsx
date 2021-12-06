@@ -5,12 +5,14 @@ import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
 
-import {
-  Phone as PhoneIcon,
-  Mail as MailIcon,
-  PinDrop as MapIcon,
-} from '@mui/icons-material';
-import { Typography, Grid, Hidden } from '@mui/material';
+import PhoneIcon from '@mui/icons-material/Phone';
+import MailIcon from '@mui/icons-material/Mail';
+import MapIcon from '@mui/icons-material/PinDrop';
+
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Hidden from '@mui/material/Hidden';
+
 import Contact from '@/components/Staff/Contact';
 import Staff from '@/components/Staff/Staff';
 

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 import Menu from '@/components/Layout/Menu';
 
 import SubMenu from '@/components/Layout/SubMenu';

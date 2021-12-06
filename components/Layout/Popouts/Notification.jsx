@@ -1,18 +1,18 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
-import { Announcement as AnnouncementIcon } from '@mui/icons-material';
+
+import AnnouncementIcon from '@mui/icons-material/Announcement';
+
 import { useRouter } from 'next/router';
 
-import {
-  Paper,
-  List,
-  ListItem,
-  ListItemAvatar,
-  Avatar,
-  ListItemText,
-  ListSubheader,
-  Button,
-} from '@mui/material';
+import Paper from '@mui/material/Paper';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+import Button from '@mui/material/Button';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 

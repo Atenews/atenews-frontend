@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { Grid, CircularProgress } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import CircularProgress from '@mui/material/CircularProgress';
+
 import { useTheme } from '@mui/material/styles';
 
 import { useRouter } from 'next/router';

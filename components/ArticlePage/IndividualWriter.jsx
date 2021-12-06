@@ -8,12 +8,10 @@ import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
 
-import {
-  Typography,
-  Avatar,
-  Grid,
-  CardActionArea,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
+import Grid from '@mui/material/Grid';
+import CardActionArea from '@mui/material/CardActionArea';
 
 import { useError } from '@/utils/hooks/useSnackbar';
 import { useArticle } from '@/utils/hooks/useArticle';

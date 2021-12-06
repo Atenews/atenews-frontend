@@ -8,10 +8,8 @@ import Link from '@/components/General/Link';
 
 import RecentArticle from '@/components/Home/RecentArticle';
 
-import {
-  AccountCircle as AccountIcon,
-  AccessTime as ClockIcon,
-} from '@mui/icons-material';
+import AccountIcon from '@mui/icons-material/AccountCircle';
+import ClockIcon from '@mui/icons-material/AccessTime';
 
 import { animated, useSpring } from 'react-spring';
 import { formatDistanceToNow } from 'date-fns';
@@ -19,9 +17,11 @@ import slugGenerator from '@/utils/slugGenerator';
 import imageGenerator from '@/utils/imageGenerator';
 import coauthors from '@/utils/coauthors';
 
-import {
-  Typography, Paper, Grid, CardActionArea, Hidden,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import CardActionArea from '@mui/material/CardActionArea';
+import Hidden from '@mui/material/Hidden';
 
 const useStyles = makeStyles((theme) => ({
   bannerImage: {
