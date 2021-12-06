@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
@@ -65,11 +66,15 @@ export default function Header() {
             </Grid>
           </Grid>
           <Typography variant="caption">
-            <a href="/terms-and-conditions" style={{ color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white' }}>Terms and Conditions</a>
+            <Link href="/terms-and-conditions">
+              <a style={{ color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white' }}>Terms and Conditions</a>
+            </Link>
           </Typography>
           {'    '}
           <Typography variant="caption">
-            <a href="/privacy-policy" style={{ color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white' }}>Privacy Policy</a>
+            <Link href="/privacy-policy">
+              <a style={{ color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white' }}>Privacy Policy</a>
+            </Link>
           </Typography>
         </Grid>
       </Grid>
