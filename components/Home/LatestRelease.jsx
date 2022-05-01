@@ -41,7 +41,7 @@ export default function LatestRelease() {
       </Grid>
       <Grid container justifyContent="center">
         <Grid item xs={12} sm={6}>
-          <CardActionArea onClick={() => window.open('https://issuu.com/atenews/docs/atenewsvol66no2_2e8e798bcd31b8', '_blank')}>
+          <CardActionArea onClick={() => window.open('https://issuu.com/atenews/docs/elections_issue_2022', '_blank')}>
             <Paper variant="outlined" style={{ borderRadius: 10, overflow: 'hidden' }}>
               <LazyLoadImage src="/issuu-demo.png" alt="Issuu" style={{ width: '100%' }} effect="blur" />
             </Paper>
