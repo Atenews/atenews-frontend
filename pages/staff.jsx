@@ -71,9 +71,9 @@ export default function Home({ staffs: staffsRaw }) {
     });
 
     setEditors([
-      staffsRaw.find((staff) => (staff.roles.includes('editor-in-chief'))),
-      staffsRaw.find((staff) => (staff.roles.includes('associate_editor'))),
-      staffsRaw.find((staff) => (staff.roles.includes('managing_editor'))),
+      ...staffsRaw.filter((staff) => (staff.roles.includes('editor-in-chief'))),
+      ...staffsRaw.filter((staff) => (staff.roles.includes('associate_editor'))),
+      ...staffsRaw.filter((staff) => (staff.roles.includes('managing_editor'))),
       ...nonBigThreeEditors,
     ]);
 
