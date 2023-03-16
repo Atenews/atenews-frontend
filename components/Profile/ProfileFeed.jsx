@@ -12,8 +12,6 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import imageGenerator from '@/utils/imageGenerator';
 import slugGenerator from '@/utils/slugGenerator';
 
-import firebase from '@/utils/firebase';
-
 import { formatDistanceToNow } from 'date-fns';
 
 import Typography from '@mui/material/Typography';
@@ -96,48 +94,6 @@ const ProfileFeed = ({ comment }) => {
         return null;
     }
   };
-
-  React.useEffect(() => {
-    firebase.database().ref(`articles/${comment.articleSlug}`).once('value').then((doc) => {
-      const ret = { ...doc.val() };
-      const backup = ret.categories;
-
-      if (ret.categories) {
-        ret.categories = Object.keys(backup).map((keyCat) => backup[keyCat]);
-      }
-      setArticle(ret);
-    });
-    switch (comment.type) {
-      case 'comment':
-        setDescription('Made a comment on ');
-        firebase.firestore().collection('comments').doc(comment.id).get()
-          .then((doc) => {
-            if (doc.exists) {
-              setFeedStats(doc.data());
-            }
-          });
-        break;
-      case 'reply':
-        setDescription('Made a reply on ');
-        firebase.firestore().collection('replies').doc(comment.id).get()
-          .then((doc) => {
-            if (doc.exists) {
-              setFeedStats(doc.data());
-            }
-          });
-        break;
-      case 'react':
-        setDescription('Reacted on ');
-        firebase.firestore().collection('reacts').doc(comment.id).get()
-          .then((doc) => {
-            if (doc.exists) {
-              setFeedStats(doc.data());
-            }
-          });
-        break;
-      default:
-    }
-  }, []);
 
   if (!feedStats || !article) {
     return (

@@ -16,10 +16,6 @@ import { useError } from '@/utils/hooks/useSnackbar';
 
 import Button from '@/components/General/Button';
 
-import firebase from '@/utils/firebase';
-
-import { useAuth } from '@/utils/hooks/useAuth';
-
 const useStyles = makeStyles(() => ({
   contentContainer: {
     width: '90%',
@@ -30,7 +26,6 @@ const useStyles = makeStyles(() => ({
 export default function Page({ mode, oobCode, continueUrl }) {
   const classes = useStyles();
   const theme = useTheme();
-  const { loadingAuth } = useAuth();
   const router = useRouter();
 
   const [loading, setLoading] = React.useState(false);
@@ -51,23 +46,6 @@ export default function Page({ mode, oobCode, continueUrl }) {
     e.preventDefault();
     if (password && confirmPassword) {
       setLoading(true);
-      firebase.auth().verifyPasswordResetCode(oobCode).then(() => {
-        firebase.auth().confirmPasswordReset(oobCode, password).then(() => {
-          setSuccess('Success! You may now login using your new password!');
-          setLoading(false);
-          if (continueUrl) {
-            router.push(continueUrl);
-          } else {
-            router.push('/');
-          }
-        }).catch((err) => {
-          setError(err.message);
-          setLoading(false);
-        });
-      }).catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
     } else {
       setError('All fields are required!');
     }
@@ -90,59 +68,43 @@ export default function Page({ mode, oobCode, continueUrl }) {
           cardType: 'summary_large_image',
         }}
       />
-      { !loadingAuth ? (
-        <>
-          <Card variant="outlined" style={{ marginTop: theme.spacing(8) }}>
-            <CardContent>
-              <form onSubmit={handleReset}>
-                <Grid container spacing={2} alignItems="center" direction="column">
-                  <Grid item style={{ width: '100%' }}>
-                    <TextField
-                      type="password"
-                      variant="outlined"
-                      label="New password"
-                      fullWidth
-                      required
-                      error={!(testPassword()) && password !== ''}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      disabled={loading}
-                    />
-                  </Grid>
-                  <Grid item style={{ width: '100%' }}>
-                    <TextField
-                      type="password"
-                      variant="outlined"
-                      label="Confirm new password"
-                      fullWidth
-                      required
-                      error={password !== confirmPassword}
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      disabled={loading}
-                    />
-                  </Grid>
-                  <Grid item style={{ width: '100%' }}>
-                    <Button type="submit" variant="contained" color="primary" size="small" fullWidth disabled={loading}>Reset Password</Button>
-                  </Grid>
-                </Grid>
-              </form>
-            </CardContent>
-          </Card>
-        </>
-      ) : (
-        <Grid
-          container
-          spacing={0}
-          alignItems="center"
-          justifyContent="center"
-          style={{ minHeight: '100vh' }}
-        >
-          <Grid item>
-            <img src={theme.palette.mode === 'light' ? '/logo-blue.png' : '/logo.png'} alt="Atenews Logo" width="100" />
-          </Grid>
-        </Grid>
-      ) }
+      <Card variant="outlined" style={{ marginTop: theme.spacing(8) }}>
+        <CardContent>
+          <form onSubmit={handleReset}>
+            <Grid container spacing={2} alignItems="center" direction="column">
+              <Grid item style={{ width: '100%' }}>
+                <TextField
+                  type="password"
+                  variant="outlined"
+                  label="New password"
+                  fullWidth
+                  required
+                  error={!(testPassword()) && password !== ''}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  disabled={loading}
+                />
+              </Grid>
+              <Grid item style={{ width: '100%' }}>
+                <TextField
+                  type="password"
+                  variant="outlined"
+                  label="Confirm new password"
+                  fullWidth
+                  required
+                  error={password !== confirmPassword}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  disabled={loading}
+                />
+              </Grid>
+              <Grid item style={{ width: '100%' }}>
+                <Button type="submit" variant="contained" color="primary" size="small" fullWidth disabled={loading}>Reset Password</Button>
+              </Grid>
+            </Grid>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
 }

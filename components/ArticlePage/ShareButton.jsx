@@ -67,7 +67,7 @@ export default function Page({ article }) {
               <Grid container direction="column" justifyContent="center" alignItems="center">
                 <Grid item>
                   <FacebookShareButton
-                    url={window.location.href}
+                    url={window?.location.href}
                     ref={fbShareRef}
                     onShareWindowClose={handleClose}
                   />
@@ -92,7 +92,7 @@ export default function Page({ article }) {
               <Grid container direction="column" justifyContent="center" alignItems="center">
                 <Grid item>
                   <TwitterShareButton
-                    url={window.location.href}
+                    url={window?.location.href}
                     ref={twitterShareRef}
                     onShareWindowClose={handleClose}
                   />

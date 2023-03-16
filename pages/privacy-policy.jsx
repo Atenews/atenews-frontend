@@ -16,8 +16,6 @@ import CustomPage from '@/components/CustomPage';
 
 import DefaultErrorPage from '@/components/404';
 
-import { useAuth } from '@/utils/hooks/useAuth';
-
 const useStyles = makeStyles(() => ({
   contentContainer: {
     width: '90%',
@@ -29,7 +27,6 @@ export default function Page({ page }) {
   const classes = useStyles();
   const theme = useTheme();
   const fullHead = parse(page.seo.fullHead.replace('https://atenews.ph/wp-', 'https://wp.atenews.ph/wp-'));
-  const { loadingAuth } = useAuth();
 
   if (!page) {
     return (
@@ -45,21 +42,7 @@ export default function Page({ page }) {
         </title>
         { fullHead }
       </Head>
-      { !loadingAuth ? (
-        <CustomPage page={page} />
-      ) : (
-        <Grid
-          container
-          spacing={0}
-          alignItems="center"
-          justifyContent="center"
-          style={{ minHeight: '100vh' }}
-        >
-          <Grid item>
-            <img src={theme.palette.mode === 'light' ? '/logo-blue.png' : '/logo.png'} alt="Atenews Logo" width="100" />
-          </Grid>
-        </Grid>
-      ) }
+      <CustomPage page={page} />
     </div>
   );
 }

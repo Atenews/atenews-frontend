@@ -11,10 +11,7 @@ import Flair from '@/components/Social/Flair';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 
-import { useAuth } from '@/utils/hooks/useAuth';
-
 import SocialCounts from '@/components/Profile/SocialCounts';
-import VerifyEmailButton from '@/components/Profile/VerifyEmailButton';
 
 const useStyles = makeStyles((theme) => ({
   iconStats: {
@@ -30,10 +27,6 @@ export default function ShowDetails({
 }) {
   const classes = useStyles();
   const theme = useTheme();
-
-  const {
-    authUser,
-  } = useAuth();
 
   return (
     <>
@@ -68,11 +61,6 @@ export default function ShowDetails({
               </Grid>
             </div>
           </Grid>
-          {authUser && profile.id === authUser.uid && email ? (
-            <Grid item>
-              <VerifyEmailButton />
-            </Grid>
-          ) : null}
         </Grid>
       </div>
     </>

@@ -22,19 +22,12 @@ import DefaultErrorPage from '@/components/404';
 import WPGraphQL from '@/utils/wpgraphql';
 
 import { useError } from '@/utils/hooks/useSnackbar';
-import { useAuth } from '@/utils/hooks/useAuth';
 import { useTrending } from '@/utils/hooks/useTrending';
-import firebaseAdmin from '@/utils/firebaseAdmin';
-import firebase from '@/utils/firebase';
 import postFetch from '@/utils/postFetch';
 
 const ProfileFeed = dynamic(import('@/components/Profile/ProfileFeed'));
 const Trending = dynamic(import('@/components/Home/Trending'));
-const ConnectButtons = dynamic(import('@/components/Profile/ConnectButtons'));
 const ShowDetails = dynamic(import('@/components/Profile/ShowDetails'));
-const EditDetails = dynamic(import('@/components/Profile/EditDetails'));
-const EditProfileButton = dynamic(import('@/components/Profile/EditProfileButton'));
-const SocialMediaDetails = dynamic(import('@/components/Profile/SocialMediaDetails'));
 const Article = dynamic(import('@/components/List/Article'));
 
 const DisplayAvatar = dynamic(import('@/components/Profile/DisplayAvatar'));
@@ -74,10 +67,6 @@ export default function Home({ profile, cdnKey, staffArticles }) {
   const theme = useTheme();
   const trending = useTrending();
 
-  const {
-    profile: authProfile,
-    loadingAuth,
-  } = useAuth();
   const { setError } = useError();
 
   const [loading, setLoading] = React.useState(true);
@@ -159,35 +148,6 @@ export default function Home({ profile, cdnKey, staffArticles }) {
       setUsername(profile.username);
       setBio(profile.bio);
       setEmail(profile.email);
-
-      firebase.firestore().collection('users')
-        .doc(profile.id)
-        .collection('profileFeeds')
-        .orderBy('timestamp', 'desc')
-        .limit(6)
-        .get()
-        .then(async (doc) => {
-          setStartAt(doc.docs[doc.docs.length - 1]);
-          const arrayList = [];
-          if (!doc.empty) {
-            let i = 0;
-            doc.forEach((feed) => {
-              if (i < 5) {
-                arrayList.push(feed.data());
-              }
-              i += 1;
-            });
-          }
-          setLoading(false);
-          setComments(arrayList);
-          if (doc.docs.length < 6) {
-            setHasMore(false);
-          }
-        })
-        .catch((err) => {
-          setLoading(false);
-          setError(err.message);
-        });
     } else {
       setError('User not found!');
     }
@@ -195,35 +155,6 @@ export default function Home({ profile, cdnKey, staffArticles }) {
 
   const next = () => {
     if (startAt) {
-      firebase.firestore().collection('users')
-        .doc(profile.id)
-        .collection('profileFeeds')
-        .orderBy('timestamp', 'desc')
-        .limit(6)
-        .startAt(startAt)
-        .get()
-        .then(async (doc) => {
-          setStartAt(doc.docs[doc.docs.length - 1]);
-          const arrayList = [];
-          if (!doc.empty) {
-            let i = 0;
-            doc.forEach((feed) => {
-              if (i < 5) {
-                arrayList.push(feed.data());
-              }
-              i += 1;
-            });
-            if (doc.docs.length < 6) {
-              setHasMore(false);
-            }
-          } else {
-            setHasMore(false);
-          }
-          setComments((prev) => [...prev, ...arrayList]);
-        })
-        .catch((err) => {
-          setError(err.message);
-        });
     } else {
       setHasMore(false);
     }
@@ -345,127 +276,73 @@ export default function Home({ profile, cdnKey, staffArticles }) {
             handle: '@atenews',
           }}
         />
-        { !loadingAuth ? (
-          <>
-            <Grid container spacing={6} justifyContent="center">
-              <Grid item>
-                <DisplayAvatar editMode={editMode} profile={profile} cdnKey={cdnKey} />
-              </Grid>
-              <Grid item xs>
-                {editMode ? (
-                  <EditDetails
-                    profile={profile}
-                    displayName={displayName}
-                    setDisplayName={setDisplayName}
-                    username={username}
-                    setUsername={setUsername}
-                    bio={bio}
-                    setBio={setBio}
-                    email={email}
-                    setEmail={setEmail}
-                  />
-                ) : (
-                  <ShowDetails
-                    profile={profile}
-                    displayName={displayName}
-                    username={username}
-                    bio={bio}
-                    email={email}
-                  />
-                )}
-                {authProfile && authProfile.id === profile.id ? (
-                  <>
-                    <ConnectButtons loading={loading} profile={profile} />
-                    <EditProfileButton
-                      profile={profile}
-                      displayName={displayName}
-                      username={username}
-                      backup={backup}
-                      bio={bio}
-                      email={email}
-                      setBackup={setBackup}
-                      setDisplayName={setDisplayName}
-                      setUsername={setUsername}
-                      setBio={setBio}
-                      setEmail={setEmail}
-                      password={password}
-                      setPassword={setPassword}
-                      editMode={editMode}
-                      setEditMode={setEditMode}
-                    />
-                  </>
-                ) : (
-                  <SocialMediaDetails profile={profile} />
-                )}
-              </Grid>
-            </Grid>
-            <Divider style={{ marginTop: theme.spacing(4), marginBottom: theme.spacing(4) }} />
-            <Tabs
-              value={tabValue}
-              onChange={handleTabChange}
-              indicatorColor="primary"
-              textColor="default"
-              centered
-              style={{ marginBottom: theme.spacing(2) }}
-            >
-              { profile.staff ? (
-                <Tab label="Written Articles" />
-              ) : null}
-              <Tab label="Recent Activities" />
-            </Tabs>
-            { profile.staff ? (
-              <SwipeableViews
-                index={tabValue}
-                onChangeIndex={handleTabChangeIndex}
-                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-              >
-                <TabPanel value={tabValue} index={0} dir={theme.direction}>
-                  <WrittenArticles />
-                </TabPanel>
-                <TabPanel value={tabValue} index={1} dir={theme.direction}>
-                  <>
-                    { !loading ? (
-                      <RecentActivities />
-                    ) : (
-                      <Grid container justifyContent="center" alignItems="center" spacing={2}>
-                        <Grid item>
-                          <CircularProgress color="primary" style={{ margin: theme.spacing(2) }} />
-                        </Grid>
-                      </Grid>
-                    ) }
-                  </>
-                </TabPanel>
-              </SwipeableViews>
-            ) : (
-              <TabPanel value={tabValue} index={0} dir={theme.direction}>
-                <>
-                  { !loading ? (
-                    <RecentActivities />
-                  ) : (
-                    <Grid container justifyContent="center" alignItems="center" spacing={2}>
-                      <Grid item>
-                        <CircularProgress color="primary" style={{ margin: theme.spacing(2) }} />
-                      </Grid>
-                    </Grid>
-                  ) }
-                </>
-              </TabPanel>
-            ) }
-            <Trending articles={trending} />
-          </>
-        ) : (
-          <Grid
-            container
-            spacing={0}
-            alignItems="center"
-            justifyContent="center"
-            style={{ minHeight: '100vh' }}
-          >
-            <Grid item>
-              <img src={theme.palette.mode === 'light' ? '/logo-blue.png' : '/logo.png'} alt="Atenews Logo" width="100" />
-            </Grid>
+        <Grid container spacing={6} justifyContent="center">
+          <Grid item>
+            <DisplayAvatar editMode={editMode} profile={profile} cdnKey={cdnKey} />
           </Grid>
+          <Grid item xs>
+            <ShowDetails
+              profile={profile}
+              displayName={displayName}
+              username={username}
+              bio={bio}
+              email={email}
+            />
+          </Grid>
+        </Grid>
+        <Divider style={{ marginTop: theme.spacing(4), marginBottom: theme.spacing(4) }} />
+        <Tabs
+          value={tabValue}
+          onChange={handleTabChange}
+          indicatorColor="primary"
+          textColor="default"
+          centered
+          style={{ marginBottom: theme.spacing(2) }}
+        >
+          { profile.staff ? (
+            <Tab label="Written Articles" />
+          ) : null}
+          <Tab label="Recent Activities" />
+        </Tabs>
+        { profile.staff ? (
+          <SwipeableViews
+            index={tabValue}
+            onChangeIndex={handleTabChangeIndex}
+            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+          >
+            <TabPanel value={tabValue} index={0} dir={theme.direction}>
+              <WrittenArticles />
+            </TabPanel>
+            <TabPanel value={tabValue} index={1} dir={theme.direction}>
+              <>
+                { !loading ? (
+                  <RecentActivities />
+                ) : (
+                  <Grid container justifyContent="center" alignItems="center" spacing={2}>
+                    <Grid item>
+                      <CircularProgress color="primary" style={{ margin: theme.spacing(2) }} />
+                    </Grid>
+                  </Grid>
+                ) }
+              </>
+            </TabPanel>
+          </SwipeableViews>
+        ) : (
+          <TabPanel value={tabValue} index={0} dir={theme.direction}>
+            <>
+              { !loading ? (
+                <RecentActivities />
+              ) : (
+                <Grid container justifyContent="center" alignItems="center" spacing={2}>
+                  <Grid item>
+                    <CircularProgress color="primary" style={{ margin: theme.spacing(2) }} />
+                  </Grid>
+                </Grid>
+              ) }
+            </>
+          </TabPanel>
         ) }
+        <Trending articles={trending} />
       </div>
     );
   }
@@ -476,80 +353,68 @@ export default function Home({ profile, cdnKey, staffArticles }) {
 }
 
 export async function getServerSideProps({ params }) {
-  try {
-    const snapshot = await firebaseAdmin.firestore().collection('users').where('username', '==', params.username).get();
-    const keySnapshot = await firebaseAdmin.firestore().collection('keys').doc('custom').get();
-    let wpData = null;
-    let wpId = null;
-    if (!snapshot.empty) {
-      if (snapshot.docs[0].data().staff) {
-        const wpSnapshot = await firebaseAdmin.firestore().collection('wordpress').where('id', '==', snapshot.docs[0].id).get();
-        if (!wpSnapshot.empty) {
-          wpId = wpSnapshot.docs[0].id;
-          wpData = await WPGraphQL.request(
-            gql`
-              query Articles {
-                posts(first: 5, where: { author: ${wpId} }) {
-                  pageInfo {
-                    hasNextPage
-                    hasPreviousPage
-                    startCursor
-                    endCursor
-                  }
-                  nodes {
-                    title(format: RENDERED)
-                    slug
-                    date
-                    coauthors {
-                      nodes {
-                        firstName
-                        lastName
-                        databaseId
-                      }
-                    }
-                    excerpt
-                    categories {
-                      nodes {
-                        name
-                        databaseId
-                        slug
-                      }
-                    }
-                    databaseId
-                    featuredImage {
-                      node {
-                        sourceUrl(size: LARGE)
-                      }
-                    }
-                  }
+  /* try {
+    const wpData = await WPGraphQL.request(
+      gql`
+        query Articles {
+          posts(first: 5, where: { author: ${wpId} }) {
+            pageInfo {
+              hasNextPage
+              hasPreviousPage
+              startCursor
+              endCursor
+            }
+            nodes {
+              title(format: RENDERED)
+              slug
+              date
+              coauthors {
+                nodes {
+                  firstName
+                  lastName
+                  databaseId
                 }
-              }            
-            `,
-          );
+              }
+              excerpt
+              categories {
+                nodes {
+                  name
+                  databaseId
+                  slug
+                }
+              }
+              databaseId
+              featuredImage {
+                node {
+                  sourceUrl(size: LARGE)
+                }
+              }
+            }
+          }
         }
-      }
-      return {
-        props: {
-          profile: {
-            ...snapshot.docs[0].data(),
-            id: snapshot.docs[0].id,
-          },
-          staffArticles: {
-            articlesRaw: wpData ? wpData.posts.nodes : null,
-            wpId,
-            pageInfo: wpData ? wpData.posts.pageInfo : null,
-          },
-          cdnKey: keySnapshot.data().cdn,
-        },
-      };
-    }
-
+      `,
+    );
     return {
-      notFound: true,
+      props: {
+        profile: {
+          ...snapshot.docs[0].data(),
+          id: snapshot.docs[0].id,
+        },
+        staffArticles: {
+          articlesRaw: wpData ? wpData.posts.nodes : null,
+          wpId,
+          pageInfo: wpData ? wpData.posts.pageInfo : null,
+        },
+        cdnKey: keySnapshot.data().cdn,
+      },
     };
   } catch (err) {
     return {
       notFound: true,
     };
-  }
+  } */
+
+  return {
+    notFound: true,
+  };
 }

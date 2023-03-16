@@ -13,7 +13,6 @@ import AnnouncementIcon from '@mui/icons-material/Announcement';
 
 import slugGenerator from '@/utils/slugGenerator';
 
-import { useAuth } from '@/utils/hooks/useAuth';
 import { useTrending } from '@/utils/hooks/useTrending';
 
 import Hidden from '@mui/material/Hidden';
@@ -41,8 +40,6 @@ import Button from '@mui/material/Button';
 
 import Footer from '@/components/Layout/Footer';
 import Header from '@/components/Layout/Header';
-
-const AuthForm = dynamic(import('@/components/Auth/AuthForm'));
 
 const Tag = dynamic(import('@/components/General/Tag'));
 
@@ -132,16 +129,6 @@ const Layout = ({ children, setDarkMode }) => {
   const classes = useStyles();
   const router = useRouter();
   const theme = useTheme();
-  const {
-    profile,
-    loadingAuth,
-    setFormOpen,
-    formOpen,
-    notifications,
-    newNotif,
-    setNewNotif,
-    clearNotifs,
-  } = useAuth();
 
   const trending = useTrending();
 
@@ -193,16 +180,6 @@ const Layout = ({ children, setDarkMode }) => {
     }
   }, [router.pathname]);
 
-  React.useEffect(() => {
-    if (!profile && formOpen) {
-      setValue(2);
-    }
-  }, [formOpen]);
-
-  if (loadingAuth) {
-    return children;
-  }
-
   return (
     <div className={classes.layoutContainer}>
       <Header
@@ -228,12 +205,6 @@ const Layout = ({ children, setDarkMode }) => {
             } else {
               setOpen(true);
             }
-            if (newValue === 2 && !profile) {
-              setFormOpen(true);
-            } else {
-              setNewNotif(0);
-              setValue(newValue);
-            }
           }}
           showLabels
           className={classes.root}
@@ -242,17 +213,7 @@ const Layout = ({ children, setDarkMode }) => {
         >
           <BottomNavigationAction icon={<HomeIcon />} />
           <BottomNavigationAction icon={<SearchIcon />} />
-          {profile ? (
-            <BottomNavigationAction
-              icon={(
-                <Badge color="primary" badgeContent={newNotif}>
-                  <NotificationIcon />
-                </Badge>
-              )}
-            />
-          ) : (
-            <BottomNavigationAction icon={<AccountCircleIcon />} />
-          ) }
+          <BottomNavigationAction icon={<AccountCircleIcon />} />
         </BottomNavigation>
 
         <Dialog fullScreen open={open} TransitionComponent={Transition} style={{ zIndex: 1000 }}>
@@ -322,43 +283,6 @@ const Layout = ({ children, setDarkMode }) => {
                 </>
               )
               : null }
-            { value === 2 && profile
-              ? (
-                <List subheader={<ListSubheader>Recent Notifications</ListSubheader>}>
-                  {notifications.map((notification, i) => (
-                    <ListItem
-                      key={`${notification.slug}_${i}`}
-                      button
-                      onClick={() => {
-                        router.push(`/${notification.slug}`);
-                        setValue(0);
-                        setOpen(false);
-                      }}
-                    >
-                      <ListItemAvatar>
-                        <Avatar>
-                          <AnnouncementIcon />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={notification.title}
-                        secondary={notification.description}
-                      />
-                    </ListItem>
-                  ))}
-                  <Button fullWidth variant="text" onClick={clearNotifs}>Clear Notifications</Button>
-                </List>
-              )
-              : null}
-            { value === 2 && !profile ? (
-              <AuthForm
-                close={() => {
-                  setValue(0);
-                  setOpen(false);
-                }}
-                mobile
-              />
-            ) : null }
           </Paper>
         </Dialog>
       </Hidden>

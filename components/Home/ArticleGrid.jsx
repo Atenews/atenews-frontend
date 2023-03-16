@@ -30,8 +30,6 @@ import coauthors from '@/utils/coauthors';
 import imageGenerator from '@/utils/imageGenerator';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
-import useFirebaseDatabase from '@/utils/hooks/useFirebaseDatabase';
-
 const useStyles = makeStyles((theme) => ({
   trendingStats: {
     position: 'absolute',
@@ -81,19 +79,7 @@ const ArticleGrid = ({ articles }) => {
   const theme = useTheme();
   const router = useRouter();
 
-  const { getDocument } = useFirebaseDatabase();
-
   const [socialStats, setSocialStats] = React.useState(null);
-
-  React.useEffect(() => {
-    const unsubscribe = getDocument(`articles/${articles[0].slug}`, (doc) => {
-      setSocialStats(doc);
-    });
-
-    return () => {
-      unsubscribe.off();
-    };
-  }, [articles]);
 
   return (
     <div>

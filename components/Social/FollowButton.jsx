@@ -7,51 +7,16 @@ import UnfollowIcon from '@mui/icons-material/Remove';
 
 import { useTheme } from '@mui/material/styles';
 
-import { useAuth } from '@/utils/hooks/useAuth';
-
-import firebase from '@/utils/firebase';
-
 export default function FollowButton({ category }) {
   const theme = useTheme();
-
-  const { profile, authUser } = useAuth();
 
   const [ready, setReady] = React.useState(false);
   const [unfollowed, _setUnfollowed] = React.useState(false);
   const [hovered, setHovered] = React.useState(false);
 
-  React.useEffect(() => {
-    if (profile) {
-      firebase.database().ref(`unfollows/${profile.id}`).once('value')
-        .then((snapshot) => {
-          if (snapshot.exists()) {
-            const data = snapshot.val();
-            _setUnfollowed(data[category]);
-          }
-          setReady(true);
-        });
-    }
-  }, [profile]);
+  return null;
 
-  const toggleUnfollowed = () => {
-    firebase.database().ref(`unfollows/${profile.id}`).update({
-      [category]: !unfollowed,
-    });
-    _setUnfollowed((prev) => !prev);
-  };
-
-  if (!profile) {
-    return null;
-  }
-
-  if (!authUser.emailVerified) {
-    return null;
-  }
-
-  if (!ready) {
-    return null;
-  }
-
+  /*
   if (!unfollowed) {
     return (
       <Button
@@ -88,4 +53,5 @@ export default function FollowButton({ category }) {
       Follow
     </Button>
   );
+  */
 }

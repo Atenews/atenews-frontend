@@ -14,7 +14,6 @@ import NightsStayIcon from '@mui/icons-material/NightsStay';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 
 import imageGenerator from '@/utils/imageGenerator';
-import { useAuth } from '@/utils/hooks/useAuth';
 
 import postFetch from '@/utils/postFetch';
 
@@ -74,7 +73,6 @@ export default function MenuAppBar({ closeButtomNav, setDarkMode }) {
   const classes = useStyles();
   const router = useRouter();
   const theme = useTheme();
-  const { profile, logout } = useAuth();
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
@@ -121,13 +119,6 @@ export default function MenuAppBar({ closeButtomNav, setDarkMode }) {
     }
     setOpenSubMenu(null);
     setSideMenu(open);
-  };
-
-  const toggleProfileMenu = (open) => (event) => {
-    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-    setProfileMenu(open);
   };
 
   const handleSubMenu = (submenu) => {
@@ -196,86 +187,6 @@ export default function MenuAppBar({ closeButtomNav, setDarkMode }) {
     </div>
   );
 
-  const profileList = () => (
-    <div
-      className={classes.list}
-      role="presentation"
-    >
-      <List
-        subheader={(
-          <ListSubheader component="div">
-            User Settings
-          </ListSubheader>
-        )}
-      >
-        <ListItem button onClick={() => handleClickLink(`/profile/${profile.username}`)}>
-          <ListItemIcon>
-            <AccountCircleIcon />
-          </ListItemIcon>
-          <ListItemText primary="Profile" />
-        </ListItem>
-        <ListItem
-          button
-          onClick={() => {
-            logout();
-            setSideMenu(false);
-            setProfileMenu(false);
-            setOpenSubMenu(null);
-            closeButtomNav();
-          }}
-        >
-          <ListItemIcon>
-            <ExitToAppIcon />
-          </ListItemIcon>
-          <ListItemText primary="Logout" />
-        </ListItem>
-      </List>
-      { profile?.staff ? (
-        <>
-          <Divider />
-          <List
-            subheader={(
-              <ListSubheader component="div">
-                Admin Settings
-              </ListSubheader>
-            )}
-          >
-            <ListItem button onClick={() => { window.location = 'https://wp.atenews.ph/admin-login'; }}>
-              <ListItemIcon>
-                <SupervisorAccountIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dashboard" />
-            </ListItem>
-          </List>
-        </>
-      ) : null }
-      <Divider />
-      <List
-        subheader={(
-          <ListSubheader component="div">
-            Theme Settings
-          </ListSubheader>
-        )}
-      >
-        {theme.palette.mode === 'dark' ? (
-          <ListItem button onClick={() => setDarkMode(false)}>
-            <ListItemIcon>
-              <Brightness7Icon />
-            </ListItemIcon>
-            <ListItemText primary="Light Mode" />
-          </ListItem>
-        ) : (
-          <ListItem button onClick={() => setDarkMode(true)}>
-            <ListItemIcon>
-              <NightsStayIcon />
-            </ListItemIcon>
-            <ListItemText primary="Dark Mode" />
-          </ListItem>
-        )}
-      </List>
-    </div>
-  );
-
   return (
     <div className={classes.root}>
       <AppBar
@@ -301,24 +212,6 @@ export default function MenuAppBar({ closeButtomNav, setDarkMode }) {
               <div className={classes.logo} />
             </Grid>
           </Grid>
-          <div className={classes.account}>
-            <IconButton
-              className={classes.button}
-              color="primary"
-              onClick={toggleProfileMenu(true)}
-              disabled={!profile}
-              size="large"
-            >
-              {profile
-                ? (
-                  <Avatar
-                    src={imageGenerator(profile.photoURL, 40)}
-                    style={{ width: 40, height: 40 }}
-                  />
-                )
-                : null}
-            </IconButton>
-          </div>
         </Toolbar>
       </AppBar>
       <Hidden mdUp>
@@ -331,16 +224,6 @@ export default function MenuAppBar({ closeButtomNav, setDarkMode }) {
           onOpen={toggleDrawer(true)}
         >
           {list()}
-        </SwipeableDrawer>
-        <SwipeableDrawer
-          disableBackdropTransition={!iOS}
-          disableDiscovery={iOS}
-          anchor="right"
-          open={profileMenu}
-          onClose={toggleProfileMenu(false)}
-          onOpen={toggleProfileMenu(true)}
-        >
-          {profileList()}
         </SwipeableDrawer>
       </Hidden>
     </div>

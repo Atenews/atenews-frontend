@@ -17,9 +17,6 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 
-import { useAuth } from '@/utils/hooks/useAuth';
-import AuthForm from '@/components/Auth/AuthForm';
-
 import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme) => ({
@@ -45,89 +42,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PopoutView = ({ close, setDarkMode }) => {
-  const classes = useStyles();
-  const {
-    authUser,
-    profile,
-    logout,
-  } = useAuth();
-  const router = useRouter();
-  const theme = useTheme();
 
-  if (authUser) {
-    return (
-      <Paper variant="outlined" className={classes.viewContainer}>
-        <div className={classes.arrowUp} />
-        <List
-          subheader={(
-            <ListSubheader component="div">
-              User Settings
-            </ListSubheader>
-          )}
-          className={classes.list}
-        >
-          <ListItem button onClick={() => { router.push(`/profile/${profile.username}`); close(); }}>
-            <ListItemIcon>
-              <AccountCircleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Profile" />
-          </ListItem>
-          <ListItem button onClick={() => { logout(); close(); }}>
-            <ListItemIcon>
-              <ExitToAppIcon />
-            </ListItemIcon>
-            <ListItemText primary="Logout" />
-          </ListItem>
-        </List>
-        { profile?.staff ? (
-          <>
-            <Divider />
-            <List
-              subheader={(
-                <ListSubheader component="div">
-                  Admin Settings
-                </ListSubheader>
-            )}
-            >
-              <ListItem button onClick={() => { window.location = 'https://wp.atenews.ph/admin-login'; }}>
-                <ListItemIcon>
-                  <SupervisorAccountIcon />
-                </ListItemIcon>
-                <ListItemText primary="Dashboard" />
-              </ListItem>
-            </List>
-          </>
-        ) : null }
-        <Divider />
-        <List
-          subheader={(
-            <ListSubheader component="div">
-              Theme Settings
-            </ListSubheader>
-          )}
-          className={classes.list}
-        >
-          { theme.palette.mode === 'dark' ? (
-            <ListItem button onClick={() => { setDarkMode(false); }}>
-              <ListItemIcon>
-                <Brightness7Icon />
-              </ListItemIcon>
-              <ListItemText primary="Light Mode" />
-            </ListItem>
-          ) : (
-            <ListItem button onClick={() => { setDarkMode(true); }}>
-              <ListItemIcon>
-                <NightsStayIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dark Mode" />
-            </ListItem>
-          )}
-        </List>
-      </Paper>
-    );
-  }
-
-  return <AuthForm close={close} />;
+  return null;
 };
 
 export default PopoutView;

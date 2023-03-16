@@ -17,10 +17,8 @@ import Grow from '@mui/material/Grow';
 import Popper from '@mui/material/Popper';
 import Tooltip from '@mui/material/Tooltip';
 
-import { useAuth } from '@/utils/hooks/useAuth';
 import { useArticle } from '@/utils/hooks/useArticle';
 import { useError } from '@/utils/hooks/useSnackbar';
-import firebase from '@/utils/firebase';
 
 const useStyles = makeStyles(() => ({
   reacts: {
@@ -60,31 +58,11 @@ const ReactArticle = ({
   const classes = useStyles();
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const { authUser, profile } = useAuth();
   const { setError } = useError();
   const { article: { setArticle } } = useArticle();
 
   const [buttonText, setButtonText] = React.useState('React');
   const [react, setReact] = React.useState(null);
-
-  React.useEffect(() => {
-    let unsubscribe = () => { };
-    if (profile) {
-      unsubscribe = firebase.firestore().collection('reacts')
-        .doc(`${slug}_${profile.id}`)
-        .onSnapshot((snapshot) => {
-          if (!snapshot.exists) {
-            setReact('');
-          } else {
-            setReact(snapshot.data().content);
-          }
-        });
-    }
-
-    return () => {
-      unsubscribe();
-    };
-  }, [profile, authUser, slug]);
 
   React.useEffect(() => {
     switch (react) {
@@ -110,15 +88,7 @@ const ReactArticle = ({
 
   const handlePopoverOpen = (event) => {
     if (!disableHover) {
-      if (authUser) {
-        if (authUser.emailVerified) {
-          setAnchorEl(event.currentTarget);
-        } else {
-          setError('A verified email is required to do this action!');
-        }
-      } else {
-        setError('You need to be logged in to do this action!');
-      }
+      setError('You need to be logged in to do this action!');
     }
   };
 
@@ -135,36 +105,6 @@ const ReactArticle = ({
         ...prev,
         totalReactCount: prev?.totalReactCount || 0 + 1,
       }));
-    }
-    if (reactX === react && profile) {
-      setArticle((prev) => ({
-        ...prev,
-        totalReactCount: prev?.totalReactCount || 0 - 1,
-        reactCount: {
-          ...prev.reactCount,
-          [reactX]: prev?.reactCount[reactX] || 0 - 1,
-        },
-      }));
-      firebase.firestore()
-        .doc(`reacts/${slug}_${profile.id}`)
-        .delete();
-    } else if (reactX !== '' && authUser) {
-      setArticle((prev) => ({
-        ...prev,
-        reactCount: {
-          ...prev?.reactCount,
-          [react]: prev?.reactCount[react] || 0 - 1,
-          [reactX]: prev?.reactCount[reactX] || 0 + 1,
-        },
-      }));
-      firebase.firestore()
-        .doc(`reacts/${slug}_${profile.id}`)
-        .set({
-          articleSlug: slug,
-          content: reactX,
-          timestamp: new Date(),
-          userId: profile.id,
-        }, { merge: true });
     }
   };
 

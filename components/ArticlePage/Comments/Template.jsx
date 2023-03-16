@@ -24,8 +24,6 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 
 import imageGenerator from '@/utils/imageGenerator';
-import firebase from '@/utils/firebase';
-import { useAuth } from '@/utils/hooks/useAuth';
 import { useError } from '@/utils/hooks/useSnackbar';
 import { useArticle } from '@/utils/hooks/useArticle';
 
@@ -65,119 +63,17 @@ const CommentReplyTemplate = ({
     },
     replies: { repliesSocialStats, setRepliesSocialStats },
   } = useArticle();
-  const { profile, authUser } = useAuth();
   const { setError, setSuccess } = useError();
 
   const [vote, setVote] = React.useState(null);
 
-  React.useEffect(() => {
-    let unsub = () => { };
-    if (profile) {
-      unsub = firebase.firestore().collection('votes').doc(`${details.id}_${profile.id}`).onSnapshot(async (snapshot) => {
-        if (snapshot.exists) {
-          setVote(snapshot.data().content);
-        } else {
-          setVote(null);
-        }
-      });
-    }
-
-    return () => {
-      unsub();
-    };
-  }, []);
-
   const handleVote = async (voteHandle) => {
-    if (!authUser) {
-      setError('You need to be logged in to do this action!');
-      return;
-    }
-
-    if (!authUser.emailVerified) {
-      setError('A verified email is required to do this action!');
-      return;
-    }
-    try {
-      if (vote !== voteHandle) {
-        let data = {
-          articleSlug: slug,
-          commenterId: details.userId,
-          content: voteHandle,
-          timestamp: new Date(),
-          userId: profile.id,
-        };
-        if (!reply) {
-          data = { ...data, commentId: details.id };
-          if (vote !== null) {
-            setCommentSocialStats((prev) => ({
-              ...prev,
-              [details.id]: {
-                ...prev[details.id],
-                [`${vote}voteCount`]: prev[details.id][`${vote}voteCount`] - 1,
-                [`${voteHandle}voteCount`]: prev[details.id][`${voteHandle}voteCount`] + 1,
-              },
-            }));
-          } else {
-            setCommentSocialStats((prev) => ({
-              ...prev,
-              [details.id]: {
-                ...prev[details.id],
-                [`${voteHandle}voteCount`]: prev[details.id][`${voteHandle}voteCount`] + 1,
-              },
-            }));
-          }
-        } else {
-          data = { ...data, replyId: details.id };
-          if (vote !== null) {
-            setRepliesSocialStats((prev) => ({
-              ...prev,
-              [details.id]: {
-                ...prev[details.id],
-                [`${vote}voteCount`]: prev[details.id][`${vote}voteCount`] - 1,
-                [`${voteHandle}voteCount`]: prev[details.id][`${voteHandle}voteCount`] + 1,
-              },
-            }));
-          } else {
-            setRepliesSocialStats((prev) => ({
-              ...prev,
-              [details.id]: {
-                ...prev[details.id],
-                [`${voteHandle}voteCount`]: prev[details.id][`${voteHandle}voteCount`] + 1,
-              },
-            }));
-          }
-        }
-
-        await firebase.firestore().collection('votes').doc(`${details.id}_${profile.id}`).set(data);
-      } else {
-        if (!reply) {
-          setCommentSocialStats((prev) => ({
-            ...prev,
-            [details.id]: {
-              ...prev[details.id],
-              [`${vote}voteCount`]: prev[details.id][`${vote}voteCount`] - 1,
-            },
-          }));
-        } else {
-          setRepliesSocialStats((prev) => ({
-            ...prev,
-            [details.id]: {
-              ...prev[details.id],
-              [`${vote}voteCount`]: prev[details.id][`${vote}voteCount`] - 1,
-            },
-          }));
-        }
-
-        await firebase.firestore().collection('votes').doc(`${details.id}_${profile.id}`).delete();
-      }
-    } catch (err) {
-      setError(err.message);
-    }
+    setError('You need to be logged in to do this action!');
+    return;
   };
 
   const handleCommentDelete = async () => {
     try {
-      await firebase.firestore().collection('comments').doc(details.id).delete();
       setSuccess('Successfully deleted comment!');
     } catch (err) {
       setError(err.message);
@@ -186,7 +82,6 @@ const CommentReplyTemplate = ({
 
   const handleReplyDelete = async () => {
     try {
-      await firebase.firestore().collection('replies').doc(details.id).delete();
       setSuccess('Successfully deleted reply!');
     } catch (err) {
       setError(err.message);
@@ -194,11 +89,6 @@ const CommentReplyTemplate = ({
   };
 
   const isOwner = () => {
-    if (profile) {
-      if (details.userId === profile.id) {
-        return true;
-      }
-    }
     return false;
   };
 
@@ -250,7 +140,7 @@ const CommentReplyTemplate = ({
                   color={theme.palette.mode === 'light' ? 'primary' : 'secondary'}
                   size="small"
                   onClick={() => { handleVote('up'); }}
-                  disabled={!profile}
+                  disabled={true}
                 >
                   <LikeIcon style={{ marginRight: theme.spacing(1) }} />
                   {reply ? (
@@ -267,7 +157,7 @@ const CommentReplyTemplate = ({
                   color={theme.palette.mode === 'light' ? 'primary' : 'secondary'}
                   size="small"
                   onClick={() => { handleVote('down'); }}
-                  disabled={!profile}
+                  disabled={true}
                 >
                   <DislikeIcon style={{ marginRight: theme.spacing(1) }} />
                   {reply ? (
@@ -279,7 +169,7 @@ const CommentReplyTemplate = ({
               </Grid>
               {!reply ? (
                 <Grid item>
-                  { profile || commentsSocialStats[details.id].replyCount > 0 ? (
+                  { commentsSocialStats[details.id].replyCount > 0 ? (
                     <Button
                       style={{ padding: 0 }}
                       variant="text"

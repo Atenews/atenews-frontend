@@ -5,9 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import withStyles from '@mui/styles/withStyles';
 
-import { useAuth } from '@/utils/hooks/useAuth';
 import { useError } from '@/utils/hooks/useSnackbar';
-import firebase from '@/utils/firebase';
 import imageGenerator from '@/utils/imageGenerator';
 
 import SendIcon from '@mui/icons-material/Send';
@@ -49,7 +47,6 @@ const useStyles = makeStyles(() => ({
 export default function Page({ reply, slug, rootDetails }) {
   const classes = useStyles();
   const theme = useTheme();
-  const { profile, authUser } = useAuth();
   const { setError } = useError();
 
   const [content, setContent] = React.useState('');
@@ -103,53 +100,12 @@ export default function Page({ reply, slug, rootDetails }) {
 
   const submitComment = async (e) => {
     e.preventDefault();
-    if (authUser) {
-      if (authUser.emailVerified) {
-        if (content.trim()) {
-          await firebase.firestore().collection('comments').add({
-            articleSlug: slug,
-            content,
-            downvoteCount: 0,
-            replyCount: 0,
-            socialScore: 0,
-            timestamp: new Date(),
-            upvoteCount: 0,
-            userId: profile.id,
-          });
-          initiateTimer();
-          setContent('You may comment again after 3 seconds.');
-        }
-      } else {
-        setError('A verified email is required to do this action!');
-      }
-    } else {
-      setError('You need to be logged in to do this action!');
-    }
+    setError('You need to be logged in to do this action!');
   };
 
   const submitReply = async (e) => {
     e.preventDefault();
-    if (authUser) {
-      if (authUser.emailVerified) {
-        if (content.trim()) {
-          await firebase.firestore().collection('replies').add({
-            articleSlug: slug,
-            commentId: rootDetails.id,
-            content,
-            downvoteCount: 0,
-            timestamp: new Date(),
-            upvoteCount: 0,
-            userId: profile.id,
-          });
-          initiateTimer();
-          setContent('You may reply again after 3 seconds.');
-        }
-      } else {
-        setError('A verified email is required to do this action!');
-      }
-    } else {
-      setError('You need to be logged in to do this action!');
-    }
+    setError('You need to be logged in to do this action!');
   };
 
   const handleChange = (event) => {
@@ -168,23 +124,21 @@ export default function Page({ reply, slug, rootDetails }) {
     }
   };
 
-  if (!profile) {
-    return (
-      <Grid
-        container
-        direction="column"
-        spacing={0}
-        alignItems="center"
-        justifyContent="center"
-        style={{ marginBottom: theme.spacing(4) }}
-      >
-        <Grid item>
-          <Typography variant="body1">Sign up/Log in to post a comment and join the discussion!</Typography>
-        </Grid>
+  return (
+    <Grid
+      container
+      direction="column"
+      spacing={0}
+      alignItems="center"
+      justifyContent="center"
+      style={{ marginBottom: theme.spacing(4) }}
+    >
+      <Grid item>
+        <Typography variant="body1">Sign up/Log in to post a comment and join the discussion!</Typography>
       </Grid>
-    );
-  }
-
+    </Grid>
+  );
+  /*
   return (
     <ListItem style={{ padding: 0, marginBottom: reply ? 0 : theme.spacing(2) }}>
       <ListItemIcon>
@@ -225,4 +179,5 @@ export default function Page({ reply, slug, rootDetails }) {
       />
     </ListItem>
   );
+  */
 }

@@ -3,7 +3,6 @@ import {
 } from 'react';
 
 import { toast } from 'react-toastify';
-import firebase from '@/utils/firebase';
 
 export const ErrorContext = createContext();
 
@@ -14,10 +13,6 @@ export const ErrorProvider = ({ children }) => {
 
   useEffect(() => {
     if (error) {
-      firebase.analytics().logEvent('error', {
-        error,
-      });
-
       toast.error(error, {
         position: 'bottom-center',
         autoClose: 5000,
@@ -33,9 +28,6 @@ export const ErrorProvider = ({ children }) => {
 
   useEffect(() => {
     if (success) {
-      firebase.analytics().logEvent('success', {
-        success,
-      });
       toast.success(success, {
         position: 'bottom-center',
         autoClose: 5000,
@@ -51,9 +43,6 @@ export const ErrorProvider = ({ children }) => {
 
   useEffect(() => {
     if (warning) {
-      firebase.analytics().logEvent('warning', {
-        warning,
-      });
       toast.warning(warning, {
         position: 'bottom-center',
         autoClose: 5000,

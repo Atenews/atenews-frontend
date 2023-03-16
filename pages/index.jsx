@@ -18,9 +18,7 @@ import Grid from '@mui/material/Grid';
 import WPGraphQL from '@/utils/wpgraphql';
 
 import { useTrending } from '@/utils/hooks/useTrending';
-import { useAuth } from '@/utils/hooks/useAuth';
 import { useError } from '@/utils/hooks/useSnackbar';
-import firebase from '@/utils/firebase';
 
 import RecentArticles from '@/components/Home/RecentArticles';
 
@@ -73,9 +71,6 @@ export default function Home({
   const fullHead = parse(homepage.seo.fullHead.replace('https://atenews.ph/wp-', 'https://wp.atenews.ph/wp-'));
   const theme = useTheme();
   const trending = useTrending();
-  const {
-    loadingAuth,
-  } = useAuth();
   const router = useRouter();
 
   const { setSuccess, setError } = useError();
@@ -93,14 +88,6 @@ export default function Home({
           break;
         case 'verifyEmail':
           // Display email verification handler and UI.
-          firebase.auth().applyActionCode(oobCode).then(async () => {
-            setSuccess('Successfully verified email!');
-            if (continueUrl) {
-              router.push(continueUrl);
-            }
-          }).catch((err) => {
-            setError(err.message);
-          });
           break;
         default:
           // Error: invalid mode.
@@ -117,55 +104,39 @@ export default function Home({
         </title>
         { fullHead }
       </Head>
-      { !loadingAuth ? (
-        <>
-          <div className={classes.header}>
-            <img src={theme.palette.mode === 'dark' ? '/atenews-footer.svg' : '/atenews-header.svg'} alt="Atenews Header" height="35" />
-            <Typography variant="subtitle2" style={{ fontSize: '0.7rem' }}>
-              The official student publication of the Ateneo de Davao University
-            </Typography>
-          </div>
-          <Trending articles={trending} />
-          <RecentArticles articles={recentArticles} />
-          <LazyLoadComponent>
-            <div className={classes.section}>
-              <Title color={theme.palette.atenews.news}>News</Title>
-              <ArticleGrid articles={news} />
-            </div>
-          </LazyLoadComponent>
+      <div className={classes.header}>
+        <img src={theme.palette.mode === 'dark' ? '/atenews-footer.svg' : '/atenews-header.svg'} alt="Atenews Header" height="35" />
+        <Typography variant="subtitle2" style={{ fontSize: '0.7rem' }}>
+          The official student publication of the Ateneo de Davao University
+        </Typography>
+      </div>
+      <Trending articles={trending} />
+      <RecentArticles articles={recentArticles} />
+      <LazyLoadComponent>
+        <div className={classes.section}>
+          <Title color={theme.palette.atenews.news}>News</Title>
+          <ArticleGrid articles={news} />
+        </div>
+      </LazyLoadComponent>
 
-          <LazyLoadComponent>
-            <div className={classes.section}>
-              <Title color={theme.palette.atenews.features}>Features</Title>
-              <ArticleGrid articles={features} />
-            </div>
-          </LazyLoadComponent>
+      <LazyLoadComponent>
+        <div className={classes.section}>
+          <Title color={theme.palette.atenews.features}>Features</Title>
+          <ArticleGrid articles={features} />
+        </div>
+      </LazyLoadComponent>
 
-          <LazyLoadComponent>
-            <Hulagway featuredPhoto={featuredPhoto} />
-          </LazyLoadComponent>
+      <LazyLoadComponent>
+        <Hulagway featuredPhoto={featuredPhoto} />
+      </LazyLoadComponent>
 
-          <LazyLoadComponent>
-            <EditorialColumn editorial={editorial} columns={columns} />
-          </LazyLoadComponent>
+      <LazyLoadComponent>
+        <EditorialColumn editorial={editorial} columns={columns} />
+      </LazyLoadComponent>
 
-          <LazyLoadComponent>
-            <LatestRelease />
-          </LazyLoadComponent>
-        </>
-      ) : (
-        <Grid
-          container
-          spacing={0}
-          alignItems="center"
-          justifyContent="center"
-          style={{ minHeight: '100vh' }}
-        >
-          <Grid item>
-            <img src={theme.palette.mode === 'light' ? '/logo-blue.png' : '/logo.png'} alt="Atenews Logo" width="100" />
-          </Grid>
-        </Grid>
-      ) }
+      <LazyLoadComponent>
+        <LatestRelease />
+      </LazyLoadComponent>
     </div>
   );
 }

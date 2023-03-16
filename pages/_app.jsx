@@ -18,12 +18,9 @@ import '@/styles/nprogress.css';
 import '@/styles/main.css';
 
 import { TrendingProvider } from '@/utils/hooks/useTrending';
-import { AuthProvider } from '@/utils/hooks/useAuth';
 import { ErrorProvider } from '@/utils/hooks/useSnackbar';
 import { CacheProvider } from '@/utils/hooks/useCache';
 import { CategoryProvider } from '@/utils/hooks/useCategory';
-
-import firebase from '@/utils/firebase';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -36,15 +33,6 @@ Router.onRouteChangeStart = () => {
 };
 
 Router.onRouteChangeComplete = (url) => {
-  firebase.analytics().setCurrentScreen(window.location.pathname);
-  firebase.analytics().logEvent('screen_view');
-  firebase.analytics().logEvent('route_change', {
-    url,
-  });
-
-  if (firebase.auth().currentUser) {
-    firebase.auth().currentUser.reload();
-  }
   NProgress.done();
 };
 
@@ -74,20 +62,7 @@ export default function MyApp(props) {
         setDarkMode(prefersDarkMode);
       }
     });
-
-    firebase.auth().onAuthStateChanged(() => {
-      if (!firebase.auth().currentUser) {
-        setDarkMode(false);
-        localforage.removeItem('savedDarkModeState');
-      }
-    });
   }, []);
-
-  React.useEffect(() => {
-    if (firebase.auth().currentUser) {
-      localforage.setItem('savedDarkModeState', darkMode);
-    }
-  }, [darkMode]);
 
   return (
     <>
@@ -100,26 +75,24 @@ export default function MyApp(props) {
           <CssBaseline />
           <CacheProvider>
             <ErrorProvider>
-              <AuthProvider>
-                <TrendingProvider>
-                  <CategoryProvider>
-                    <Layout setDarkMode={setDarkMode}>
-                      <ToastContainer
-                        position="bottom-center"
-                        autoClose={5000}
-                        hideProgressBar={false}
-                        newestOnTop
-                        closeOnClick
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                      />
-                      <Component {...pageProps} />
-                    </Layout>
-                  </CategoryProvider>
-                </TrendingProvider>
-              </AuthProvider>
+              <TrendingProvider>
+                <CategoryProvider>
+                  <Layout setDarkMode={setDarkMode}>
+                    <ToastContainer
+                      position="bottom-center"
+                      autoClose={5000}
+                      hideProgressBar={false}
+                      newestOnTop
+                      closeOnClick
+                      rtl={false}
+                      pauseOnFocusLoss
+                      draggable
+                      pauseOnHover
+                    />
+                    <Component {...pageProps} />
+                  </Layout>
+                </CategoryProvider>
+              </TrendingProvider>
             </ErrorProvider>
           </CacheProvider>
         </ThemeProvider>

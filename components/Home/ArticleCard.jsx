@@ -26,7 +26,6 @@ import CardActionArea from '@mui/material/CardActionArea';
 
 import imageGenerator from '@/utils/imageGenerator';
 import coauthors from '@/utils/coauthors';
-import useFirebaseDatabase from '@/utils/hooks/useFirebaseDatabase';
 
 const useStyles = makeStyles(() => ({
   bannerDetailsContainer: {
@@ -53,19 +52,7 @@ const ArticleCard = ({ article }) => {
   const [containerProps, setContainerProps] = useSpring(() => ({ backgroundColor: 'rgba(0, 0, 0, 0.5)' }));
   const [textProps, setTextProps] = useSpring(() => ({ opacity: 1 }));
 
-  const { getDocument } = useFirebaseDatabase();
-
   const [socialStats, setSocialStats] = React.useState(null);
-
-  React.useEffect(() => {
-    const unsubscribe = getDocument(`articles/${article.slug}`, (doc) => {
-      setSocialStats(doc);
-    });
-
-    return () => {
-      unsubscribe.off();
-    };
-  }, [article]);
 
   const onHover = () => {
     setContainerProps({ backgroundColor: 'rgba(0, 0, 0, 0)' });

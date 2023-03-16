@@ -7,7 +7,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 
 import { useError } from '@/utils/hooks/useSnackbar';
-import firebase from '@/utils/firebase';
 
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
@@ -60,9 +59,6 @@ export default function DisplayAvatar({ editMode, profile, cdnKey }) {
       setUploadingPhoto(true);
       uploadImage(fileUploaded).then(async (res) => {
         const data = await res.json();
-        await firebase.firestore().collection('users').doc(profile.id).update({
-          photoURL: data.message,
-        });
         setPhotoURL(imageGenerator(data.message, 250));
         setUploadingPhoto(false);
         setSuccess('Successfully updated display photo!');

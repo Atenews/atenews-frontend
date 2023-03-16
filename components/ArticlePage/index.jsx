@@ -33,7 +33,6 @@ import parse from 'html-react-parser';
 
 const CommentField = dynamic(import('@/components/ArticlePage/Comments/CommentField'));
 
-const ShareButton = dynamic(import('@/components/ArticlePage/ShareButton'));
 const Error404 = dynamic(import('@/components/404'));
 
 const WriterInfo = dynamic(import('@/components/ArticlePage/WriterInfo'));
@@ -227,9 +226,6 @@ export default function Page({
         <Grid item xs={6}>
           <ReactArticle slug={post.slug} />
         </Grid>
-        <Grid item xs={6}>
-          <ShareButton article={article} />
-        </Grid>
       </Grid>
 
       <Divider />
@@ -237,7 +233,7 @@ export default function Page({
 
       <CommentField slug={post.slug} />
       <LazyLoadComponent>
-        { comments.length === 0 ? (
+        { comments?.length === 0 ? (
           <Grid
             container
             direction="column"
@@ -255,7 +251,7 @@ export default function Page({
           </Grid>
         ) : (
           <List component="div">
-            {comments.map((comment) => (commentsSocialStats[comment.id] ? (
+            {comments?.map((comment) => (commentsSocialStats[comment.id] ? (
               <Comment
                 details={comment}
                 key={comment.id}

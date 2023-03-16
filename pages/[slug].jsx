@@ -15,7 +15,6 @@ import articleServerSideProps from '@/utils/serverProps/articleServerSideProps';
 
 import DefaultErrorPage from '@/components/404';
 
-import { useAuth } from '@/utils/hooks/useAuth';
 import { ArticleProvider } from '@/utils/hooks/useArticle';
 import { useCategory } from '@/utils/hooks/useCategory';
 
@@ -36,7 +35,6 @@ export default function Page(args) {
   const fullHead = parse(post.seo.fullHead.replace('https://atenews.ph/wp-', 'https://wp.atenews.ph/wp-'));
   const classes = useStyles();
   const theme = useTheme();
-  const { loadingAuth } = useAuth();
   const router = useRouter();
   const { setCategory } = useCategory();
 
@@ -71,23 +69,9 @@ export default function Page(args) {
         </title>
         { fullHead }
       </Head>
-      { !loadingAuth ? (
-        <ArticleProvider post={post} key={post.id}>
-          <ArticlePage {...args} />
-        </ArticleProvider>
-      ) : (
-        <Grid
-          container
-          spacing={0}
-          alignItems="center"
-          justifyContent="center"
-          style={{ minHeight: '100vh' }}
-        >
-          <Grid item>
-            <img src={theme.palette.mode === 'light' ? '/logo-blue.png' : '/logo.png'} alt="Atenews Logo" width="100" />
-          </Grid>
-        </Grid>
-      ) }
+      <ArticleProvider post={post} key={post.id}>
+        <ArticlePage {...args} />
+      </ArticleProvider>
     </div>
   );
 }

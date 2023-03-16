@@ -16,8 +16,6 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import useFirebaseDatabase from '@/utils/hooks/useFirebaseDatabase';
-
 import imageGenerator from '@/utils/imageGenerator';
 
 const useStyles = makeStyles((theme) => ({
@@ -95,19 +93,8 @@ function RecentArticle({ article }) {
   const classes = useStyles();
   const theme = useTheme();
   const xsDown = useMediaQuery(theme.breakpoints.down('sm'));
-  const { getDocument } = useFirebaseDatabase();
 
   const [socialStats, setSocialStats] = React.useState(null);
-
-  React.useEffect(() => {
-    const unsubscribe = getDocument(`articles/${article.slug}`, (doc) => {
-      setSocialStats(doc);
-    });
-
-    return () => {
-      unsubscribe.off();
-    };
-  }, [article]);
 
   return (
     <Paper

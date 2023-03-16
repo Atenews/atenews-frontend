@@ -20,7 +20,6 @@ import StockTextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import Badge from '@mui/material/Badge';
 
-import { useAuth } from '@/utils/hooks/useAuth';
 import imageGenerator from '@/utils/imageGenerator';
 
 import NotificationView from '@/components/Layout/Popouts/Notification';
@@ -77,13 +76,6 @@ export default function AccountBar({ setDarkMode }) {
   }));
   const [searchOpened, setSearchOpened] = React.useState(false);
   const [search, setSearch] = React.useState('');
-  const {
-    profile,
-    setFormOpen,
-    formOpen,
-    newNotif,
-    setNewNotif,
-  } = useAuth();
 
   const searchBar = React.useRef();
   const notifButton = React.useRef();
@@ -115,36 +107,9 @@ export default function AccountBar({ setDarkMode }) {
     onStart: setNotifActive(true),
   });
 
-  React.useEffect(() => {
-    if (formOpen) {
-      openAccount();
-    } else {
-      closeAccount();
-    }
-  }, [formOpen]);
-
-  React.useEffect(() => {
-    if (accountActive) {
-      setFormOpen(true);
-      setNotifActive(false);
-    } else {
-      setFormOpen(false);
-    }
-  }, [accountActive]);
-
-  React.useEffect(() => {
-    if (notifActive) {
-      openNotif();
-      setFormOpen(false);
-      setNewNotif(0);
-    } else {
-      closeNotif();
-    }
-  }, [notifActive]);
-
   const handleClose = () => {
     closeNotif();
-    setFormOpen(false);
+    // setFormOpen(false);
     if (searchOpened) {
       set({ width: '0vw', opacity: 0 });
       setSearchOpened(false);
@@ -200,7 +165,7 @@ export default function AccountBar({ setDarkMode }) {
               <SearchIcon />
             </IconButton>
           </Grid>
-          {profile
+          {/* profile
             ? (
               <Grid item>
                 <IconButton
@@ -217,9 +182,9 @@ export default function AccountBar({ setDarkMode }) {
                 </IconButton>
               </Grid>
             )
-            : null}
+            : null */}
           <Grid item>
-            { profile ? (
+            {/* profile ? (
               <IconButton
                 aria-label="Open account settings"
                 ref={accountButton}
@@ -242,7 +207,7 @@ export default function AccountBar({ setDarkMode }) {
               >
                 Login
               </Button>
-            ) }
+            ) */}
           </Grid>
           <Popper
             open

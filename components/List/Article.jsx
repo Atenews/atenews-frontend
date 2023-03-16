@@ -29,8 +29,6 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActionArea from '@mui/material/CardActionArea';
 
-import useFirebaseDatabase from '@/utils/hooks/useFirebaseDatabase';
-
 const useStyles = makeStyles((theme) => ({
   trendingStats: {
     position: 'absolute',
@@ -72,18 +70,7 @@ const Article = ({ article, topImage }) => {
   const theme = useTheme();
   const router = useRouter();
 
-  const { getDocument } = useFirebaseDatabase();
-
   const [socialStats, setSocialStats] = React.useState(null);
-
-  React.useEffect(() => {
-    const unsubscribe = getDocument(`articles/${article.slug}`, (doc) => {
-      setSocialStats(doc);
-    });
-    return () => {
-      unsubscribe.off();
-    };
-  }, [article]);
 
   return (
     <div>

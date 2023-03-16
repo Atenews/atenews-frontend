@@ -14,8 +14,6 @@ import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import Button from '@mui/material/Button';
 
-import { useAuth } from '@/utils/hooks/useAuth';
-
 const useStyles = makeStyles((theme) => ({
   viewContainer: {
     position: 'relative',
@@ -36,10 +34,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PopoutView = () => {
-  const classes = useStyles();
-  const router = useRouter();
-  const { notifications, clearNotifs } = useAuth();
+  return null;
 
+  /*
   return (
     <Paper variant="outlined" className={classes.viewContainer}>
       <div className={classes.arrowUp} />
@@ -64,6 +61,7 @@ const PopoutView = () => {
       </List>
     </Paper>
   );
+  */
 };
 
 export default PopoutView;

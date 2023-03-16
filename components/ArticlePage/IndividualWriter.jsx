@@ -16,7 +16,6 @@ import CardActionArea from '@mui/material/CardActionArea';
 import { useError } from '@/utils/hooks/useSnackbar';
 import { useArticle } from '@/utils/hooks/useArticle';
 
-import useFirestore from '@/utils/hooks/useFirestore';
 import imageGenerator from '@/utils/imageGenerator';
 
 const useStyles = makeStyles(() => ({
@@ -49,22 +48,6 @@ export default handleViewport((props) => {
   ];
 
   const [image, setImage] = React.useState('');
-
-  const { getDocumentOnce } = useFirestore();
-
-  React.useEffect(() => {
-    getDocumentOnce(`wordpress/${author.databaseId}`).then(async (wpFirebaseId) => {
-      if (wpFirebaseId) {
-        const profile = await getDocumentOnce(`users/${wpFirebaseId.id}`);
-        setProfiles((prev) => ({ ...prev, [author.databaseId]: profile }));
-        setImage(profile.photoURL);
-        setWriterImages((prev) => ({ ...prev, [author.databaseId]: profile.photoURL }));
-      } else {
-        setImage(author.avatar.url);
-        setWriterImages((prev) => ({ ...prev, [author.databaseId]: author.avatar.url }));
-      }
-    });
-  }, []);
 
   const humanRole = (raw) => raw.replace(/_/g, ' ').replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 

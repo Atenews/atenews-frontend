@@ -22,8 +22,6 @@ import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 import CardActionArea from '@mui/material/CardActionArea';
 
-import useFirebaseDatabase from '@/utils/hooks/useFirebaseDatabase';
-
 const useStyles = makeStyles((theme) => ({
   trendingItem: {
     height: '100%',
@@ -63,18 +61,7 @@ const Column = ({ article }) => {
   const theme = useTheme();
   const router = useRouter();
 
-  const { getDocument } = useFirebaseDatabase();
-
   const [socialStats, setSocialStats] = React.useState(null);
-
-  React.useEffect(() => {
-    const unsubscribe = getDocument(`articles/${article.slug}`, (doc) => {
-      setSocialStats(doc);
-    });
-    return () => {
-      unsubscribe.off();
-    };
-  }, [article]);
 
   return (
     <CardActionArea

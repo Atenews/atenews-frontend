@@ -17,8 +17,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useTrending } from '@/utils/hooks/useTrending';
 import { useRouter } from 'next/router';
 
-import { useAuth } from '@/utils/hooks/useAuth';
-
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import postFetch from '@/utils/postFetch';
@@ -49,7 +47,6 @@ export default function Page({
   const classes = useStyles();
   const theme = useTheme();
   const router = useRouter();
-  const { loadingAuth } = useAuth();
 
   let fullHead;
   if (categorySEO) {
@@ -109,7 +106,7 @@ export default function Page({
           </title>
         )}
       </Head>
-      { !loadingAuth ? (
+      { !false ? (
         <>
           <Grid container alignItems="center" style={{ marginBottom: theme.spacing(2) }} spacing={4}>
             <Grid item>
