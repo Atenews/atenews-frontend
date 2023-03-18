@@ -8,24 +8,31 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:@next/next/recommended',
     'airbnb',
+    'airbnb-typescript',
+    'plugin:import/typescript',
   ],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 12,
+    ecmaVersion: 'latest',
     sourceType: 'module',
+    project: ['./tsconfig.json'],
   },
-  plugins: ['react', 'unused-imports'],
+  plugins: ['react', 'unused-imports', '@typescript-eslint'],
   rules: {
+    'react/require-default-props': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/forbid-prop-types': 'off',
     'react/prop-types': 'off',
+    'react/function-component-definition': 'off',
     'no-restricted-syntax': 'off',
     'import/extensions': 'off',
     '@next/next/no-img-element': 'off',
     'import/order': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
     'no-restricted-imports': [
       'error',
       {
@@ -37,17 +44,11 @@ module.exports = {
     'jsx-a11y/no-static-element-interactions': 'off',
     'jsx-a11y/anchor-is-valid': 'off',
     'jsx-a11y/mouse-events-have-key-events': 'off',
-    'import/no-unresolved': [
-      'error',
-      { ignore: ['^@'] },
-    ],
+    'import/no-unresolved': ['error', { ignore: ['^@'] }],
   },
   settings: {
     'import/resolver': {
-      alias: [
-        ['@/components', './components'],
-        ['@/classes', './classes'],
-      ],
+      alias: [['@', './src']],
       node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
