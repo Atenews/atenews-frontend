@@ -1,49 +1,25 @@
 import { SitemapStream, streamToPromise } from 'sitemap';
-import { gql } from 'graphql-request';
+
+import { appRouter } from '@/server/routers/_app';
 import slugGenerator from '@/utils/slugGenerator';
+import { NextApiHandler } from 'next';
 
-import WPGraphQL from '@/utils/wpgraphql';
+const Sitemap: NextApiHandler = async (req, res) => {
+  const caller = appRouter.createCaller({ req, res });
 
-export default async (req, res) => {
   try {
     const smStream = new SitemapStream({
       hostname: `https://${req.headers.host}`,
-      cacheTime: 600000,
     });
 
-    const data = await WPGraphQL.request(
-      gql`
-        query Sitemap {
-          posts(first: 30) {
-            nodes {
-              slug
-              categories {
-                nodes {
-                  name
-                  databaseId
-                  slug
-                }
-              }
-              databaseId
-            }
-          }
-        }              
-      `,
-    );
+    const [siteMapData, menusData] = await Promise.all([
+      caller.siteMap(),
+      caller.menus(),
+    ]);
 
     const categories = [
       '/',
-      '/news/university',
-      '/news/local',
-      '/news/national',
-      '/news/sports',
-      '/features',
-      '/features/montage',
-      '/features/artists',
-      '/opinion/column',
-      '/opinion/editorial',
-      '/opinion/blueblood',
-      '/photos/featured',
+      ...menusData.menus.map((menu) => menu.url.replace('https://atenews.ph', '')),
     ];
 
     categories.forEach((category) => {
@@ -55,7 +31,7 @@ export default async (req, res) => {
     });
 
     // Create each URL row
-    data.posts.nodes.forEach((post) => {
+    siteMapData.posts.nodes.forEach((post) => {
       smStream.write({
         url: slugGenerator(post),
         changefreq: 'daily',
@@ -80,3 +56,5 @@ export default async (req, res) => {
     res.send(JSON.stringify(e));
   }
 };
+
+export default Sitemap;

@@ -18,7 +18,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function EditorialColumn({ editorial, columns }) {
+interface Props {
+  editorial: Article;
+  columns: Article[];
+}
+
+const EditorialColumn: React.FC<Props> = ({ editorial, columns }) => {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -55,4 +60,6 @@ export default function EditorialColumn({ editorial, columns }) {
       </Grid>
     </div>
   );
-}
+};
+
+export default EditorialColumn;

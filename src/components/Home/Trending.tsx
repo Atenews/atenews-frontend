@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React from 'react';
 // import { useRouter } from 'next/router';
 // import { useTheme } from '@mui/material/styles';
@@ -75,6 +77,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// TODO: Replace trending with something else
 function Trending() {
   const classes = useStyles();
   // const theme = useTheme();

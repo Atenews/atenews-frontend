@@ -14,11 +14,8 @@ import IndividualWriter from '@/components/ArticlePage/SideWriter/IndividualWrit
 import { useSpring, animated } from 'react-spring';
 
 interface Props {
-  authors: {
-    name: string;
-    avatar: string;
-  }[];
-  tags: string[];
+  authors: Author[];
+  tags: Category[];
   show: boolean;
 }
 

@@ -13,13 +13,24 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 import trpc from '@/utils/trpc';
 
-export default handleViewport((props) => {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  forwardedRef: React.RefObject<HTMLDivElement>;
+  relatedPosts: Article[];
+  postId: number;
+  pageInfo: {
+    endCursor: string | null;
+    hasNextPage: boolean;
+  };
+  categories: Category[];
+}
+
+const ReadMore: React.FC<Props> = (props) => {
   const {
     forwardedRef, relatedPosts, postId, pageInfo, categories,
   } = props;
   const theme = useTheme();
 
-  const [articles, setArticles] = React.useState(relatedPosts);
+  const [articles, setArticles] = React.useState<Article[]>(relatedPosts);
   const [hasMore, setHasMore] = React.useState(true);
   const [cursor, setCursor] = React.useState<string | null>(null);
 
@@ -32,7 +43,10 @@ export default handleViewport((props) => {
   const trpcSuggestions = trpc.useContext().suggestions;
 
   const next = () => {
-    const relatedCategories = categories.reduce((accumulator, current) => {
+    const relatedCategories: number[] = categories.reduce((
+      accumulator: number[],
+      current: Category,
+    ) => {
       accumulator.push(current.databaseId);
       return accumulator;
     }, []);
@@ -84,4 +98,6 @@ export default handleViewport((props) => {
       </div>
     </div>
   );
-});
+};
+
+export default handleViewport(ReadMore);

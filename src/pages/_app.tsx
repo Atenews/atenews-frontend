@@ -17,9 +17,7 @@ import theme from '@/styles/theme';
 
 import '@/styles/nprogress.css';
 
-import { TrendingProvider } from '@/utils/hooks/useTrending';
 import { ErrorProvider } from '@/utils/hooks/useSnackbar';
-import { CacheProvider } from '@/utils/hooks/useCache';
 import { CategoryProvider } from '@/utils/hooks/useCategory';
 
 import trpc from '@/utils/trpc';
@@ -80,28 +78,24 @@ const MyApp: React.FC<AppProps> = (props) => {
         <ThemeProvider theme={theme(darkMode)}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
-          <CacheProvider>
-            <ErrorProvider>
-              <TrendingProvider>
-                <CategoryProvider>
-                  <Layout setDarkMode={setDarkMode}>
-                    <ToastContainer
-                      position="bottom-center"
-                      autoClose={5000}
-                      hideProgressBar={false}
-                      newestOnTop
-                      closeOnClick
-                      rtl={false}
-                      pauseOnFocusLoss
-                      draggable
-                      pauseOnHover
-                    />
-                    <Component {...pageProps} />
-                  </Layout>
-                </CategoryProvider>
-              </TrendingProvider>
-            </ErrorProvider>
-          </CacheProvider>
+          <ErrorProvider>
+            <CategoryProvider>
+              <Layout setDarkMode={setDarkMode}>
+                <ToastContainer
+                  position="bottom-center"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                />
+                <Component {...pageProps} />
+              </Layout>
+            </CategoryProvider>
+          </ErrorProvider>
         </ThemeProvider>
       </StyledEngineProvider>
     </>

@@ -22,10 +22,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface Props {
-  author: {
-    name: string;
-    databaseId: number;
-  };
+  author: Author;
 }
 
 const IndividualWriter: React.FC<Props> = ({ author }) => {
@@ -43,7 +40,7 @@ const IndividualWriter: React.FC<Props> = ({ author }) => {
     'editor',
   ];
 
-  const humanRole = (raw) => raw.replace(/_/g, ' ').replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+  const humanRole = (raw: string) => raw.replace(/_/g, ' ').replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 
   return (
     <ListItemButton
@@ -58,7 +55,7 @@ const IndividualWriter: React.FC<Props> = ({ author }) => {
       <ListItemText
         primary={`${author.firstName} ${author.lastName || ''}`}
         secondaryTypographyProps={{ component: 'div' }}
-        secondary={author.roles.nodes.map((role) => (!rolesIgnore.includes(role.name) ? (
+        secondary={author.roles?.nodes.map((role) => (!rolesIgnore.includes(role.name) ? (
           <Typography
             key={`indi_${role.name}`}
             variant="subtitle2"

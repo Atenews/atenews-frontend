@@ -1,100 +1,29 @@
-import { gql } from 'graphql-request';
-import WPGraphQL from '@/utils/wpgraphql';
 import type { GetServerSideProps } from 'next';
+import { appRouter } from '@/server/routers/_app';
 
-interface ArticlesData {
-  posts: {
-    pageInfo: {
-      hasNextPage: boolean;
-      hasPreviousPage: boolean;
-      startCursor: string;
-      endCursor: string;
-    };
-    nodes: {
-      title: string;
-      slug: string;
-      date: string;
-      postViews: number;
-      coauthors: {
-        nodes: {
-          firstName: string;
-          lastName: string;
-          databaseId: number;
-        }[];
-      };
-      excerpt: string;
-      categories: {
-        nodes: {
-          name: string;
-          databaseId: number;
-          slug: string;
-        }[];
-      };
-      databaseId: number;
-      featuredImage: {
-        node: {
-          sourceUrl: string;
-        };
-      };
-    }[];
+export interface ArticleServerSideProps {
+  post: Article;
+  relatedPosts: Article[];
+  categories: Category[];
+  pageInfo: {
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+    startCursor: string;
+    endCursor: string;
   };
 }
 
-const articleServerSideProps: GetServerSideProps = async ({ params }) => {
-  let articleData: ArticleData | null = null;
+const articleServerSideProps: GetServerSideProps<ArticleServerSideProps> = async ({
+  req,
+  res,
+  params,
+}) => {
+  const caller = appRouter.createCaller({ req, res });
+  let articleData: Article | null = null;
 
   try {
-    const tempData = await WPGraphQL.request<{ post: ArticleData }>(
-      gql`
-        query Article {
-          post( id: "${params?.slug}" , idType: SLUG ) {
-            title(format: RENDERED)
-            slug
-            date
-            seo {
-              fullHead
-              metaDesc
-              title
-            }
-            postViews
-            coauthors {
-              nodes {
-                firstName
-                lastName
-                databaseId
-                nickname
-                description
-                avatar {
-                  url
-                }
-                roles {
-                  nodes {
-                    name
-                  }
-                }
-              }
-            }
-            content
-            excerpt
-            categories {
-              nodes {
-                name
-                databaseId
-                slug
-              }
-            }
-            databaseId
-            featuredImage {
-              node {
-                sourceUrl(size: LARGE)
-                caption
-              }
-            }
-          }
-        }            
-      `,
-    );
-    articleData = tempData.post;
+    const tempData = await caller.article({ slug: params?.slug?.toString() ?? '' });
+    articleData = tempData;
   } catch (err) {
     articleData = null;
   }
@@ -108,54 +37,17 @@ const articleServerSideProps: GetServerSideProps = async ({ params }) => {
       return accumulator;
     }, []);
 
-    const data = await WPGraphQL.request<ArticlesData>(
-      gql`
-        query Articles {
-          posts(first: 5, where: { notIn: [${articleData.databaseId}], categoryIn: [${relatedCategories?.toString()}] }) {
-            pageInfo {
-              hasNextPage
-              hasPreviousPage
-              startCursor
-              endCursor
-            }
-            nodes {
-              title(format: RENDERED)
-              slug
-              date
-              postViews
-              coauthors {
-                nodes {
-                  firstName
-                  lastName
-                  databaseId
-                }
-              }
-              excerpt
-              categories {
-                nodes {
-                  name
-                  databaseId
-                  slug
-                }
-              }
-              databaseId
-              featuredImage {
-                node {
-                  sourceUrl(size: LARGE)
-                }
-              }
-            }
-          }
-        }
-      `,
-    );
+    const data = await caller.suggestions({
+      categories: JSON.stringify(relatedCategories),
+      articleId: articleData.databaseId,
+    });
 
     return {
       props: {
         post: articleData,
-        relatedPosts: data.posts.nodes,
+        relatedPosts: data.articlesRaw,
         categories: articleCategories,
-        pageInfo: data.posts.pageInfo,
+        pageInfo: data.pageInfo,
       },
     };
   }

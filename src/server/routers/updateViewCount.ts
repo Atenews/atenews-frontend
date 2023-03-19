@@ -16,12 +16,12 @@ const handler = procedure.input(
 ).mutation(async ({ input: { slug } }) => {
   const data = await WPGraphQL.request<Query>(
     gql`
-        query Article {
-          post( id: "${slug}", idType: SLUG ) {
-            postViewsAndUpdate
-          }
-        }            
-      `,
+      query Article {
+        post( id: "${slug}", idType: SLUG ) {
+          postViewsAndUpdate
+        }
+      }            
+    `,
   );
   return {
     postViews: data.post.postViewsAndUpdate,

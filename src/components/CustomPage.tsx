@@ -2,48 +2,24 @@ import React from 'react';
 
 import { useTheme } from '@mui/material/styles';
 
-import { makeStyles } from '@mui/styles';
-
 import { format } from 'date-fns';
 
 import Typography from '@mui/material/Typography';
 import Hidden from '@mui/material/Hidden';
 
-const useStyles = makeStyles(() => ({
-  account: {
-    position: 'absolute',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    textAlign: 'center',
-    right: 0,
-    marginRight: 20,
-    height: 65,
-  },
-  avatar: {
-    height: 60,
-    width: 60,
-  },
-  readMore: {
-    position: 'fixed',
-    width: 'calc(15vw - 10px)',
-    top: 'calc(65px + 8vh)',
-    right: 10,
-  },
-  sideWriter: {
-    position: 'fixed',
-    width: 'calc(15vw - 10px)',
-    top: 'calc(35px + 8vh)',
-    right: 40,
-  },
-}));
+interface Props {
+  page: {
+    title: string;
+    content: string;
+    date: string;
+  };
+}
 
-export default function Page({ page }) {
-  const classes = useStyles();
+const CustomPage: React.FC<Props> = ({ page }) => {
   const theme = useTheme();
 
   return (
-    <div className={classes.container}>
+    <div>
       <Hidden mdDown>
         <Typography variant="h3" component="h1" dangerouslySetInnerHTML={{ __html: page.title }} />
       </Hidden>
@@ -64,4 +40,6 @@ export default function Page({ page }) {
       />
     </div>
   );
-}
+};
+
+export default CustomPage;

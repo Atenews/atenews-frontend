@@ -1,74 +1,50 @@
 import React from 'react';
 
-import { gql } from 'graphql-request';
-import WPGraphQL from '@/utils/wpgraphql';
+import { appRouter } from '@/server/routers/_app';
 
 import ArchiveLayout from '@/components/ArchiveLayout';
+import { GetServerSideProps, NextPage } from 'next';
 
-export default function Page(props) {
-  return (
-    // eslint-disable-next-line react/destructuring-assignment
-    <ArchiveLayout {...props} />
-  );
+interface Props {
+  articlesRaw: Article[];
+  pageInfo: {
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+    startCursor: string;
+    endCursor: string;
+  };
+  query: string;
+  categoryName: string;
 }
 
-export async function getServerSideProps({ query: rawQuery }) {
+const SearchPage: NextPage<Props> = (props) => (
+  <ArchiveLayout {...props} />
+);
+
+export const getServerSideProps: GetServerSideProps = async ({ query: rawQuery, req, res }) => {
+  const caller = appRouter.createCaller({ req, res });
+
   try {
     const { query } = rawQuery;
-    const data = await WPGraphQL.request(
-      gql`
-        query Search {
-          posts(first: 5, where: { search: "${query}" }) {
-            pageInfo {
-              hasNextPage
-              hasPreviousPage
-              startCursor
-              endCursor
-            }
-            nodes {
-              title(format: RENDERED)
-              slug
-              date
-              coauthors {
-                nodes {
-                  firstName
-                  lastName
-                  databaseId
-                }
-              }
-              excerpt
-              categories {
-                nodes {
-                  name
-                  databaseId
-                  slug
-                }
-              }
-              databaseId
-              featuredImage {
-                node {
-                  sourceUrl(size: LARGE)
-                }
-              }
-            }
-          }
-        }            
-      `,
-    );
+    if (typeof query !== 'string') throw new Error('Invalid query type');
+
+    const data = await caller.search({ query });
+
     return {
       props: {
-        articlesRaw: data.posts.nodes,
-        pageInfo: data.posts.pageInfo,
+        articlesRaw: data.articlesRaw,
+        pageInfo: data.pageInfo,
         query,
         categoryName: `Search Results for "${query}"`,
-        category: 'search',
       },
     };
   } catch (err) {
     return {
       props: {
-        articlesRaw: [], query: '', category: 'search',
+        articlesRaw: [], query: '',
       },
     };
   }
-}
+};
+
+export default SearchPage;

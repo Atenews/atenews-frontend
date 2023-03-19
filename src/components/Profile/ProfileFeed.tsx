@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
@@ -80,22 +82,7 @@ const ProfileFeed = ({ comment }) => {
   const [article, setArticle] = React.useState(null);
   const [description, setDescription] = React.useState('');
 
-  const ReactContent = () => {
-    switch (comment.content) {
-      case 'happy':
-        return <Avatar className={classes.buttonReacts} style={{ marginRight: theme.spacing(1) }} src="/reacts/happy.svg" />;
-      case 'sad':
-        return <Avatar className={classes.buttonReacts} style={{ marginRight: theme.spacing(1) }} src="/reacts/sad.svg" />;
-      case 'angry':
-        return <Avatar className={classes.buttonReacts} style={{ marginRight: theme.spacing(1) }} src="/reacts/angry.svg" />;
-      case 'disgust':
-        return <Avatar className={classes.buttonReacts} style={{ marginRight: theme.spacing(1) }} src="/reacts/disgust.svg" />;
-      case 'worried':
-        return <Avatar className={classes.buttonReacts} style={{ marginRight: theme.spacing(1) }} src="/reacts/worried.svg" />;
-      default:
-        return null;
-    }
-  };
+  const ReactContent = () => null;
 
   if (!feedStats || !article) {
     return (

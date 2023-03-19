@@ -55,33 +55,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Menu({
+interface Props {
+  color: string;
+  children?: React.ReactNode;
+  label: string | React.ReactNode;
+  active: boolean;
+  href: string;
+}
+
+const Menu: React.FC<Props> = ({
   color, children, label, active, href,
-}) {
+}) => {
   const classes = useStyles();
   const theme = useTheme();
 
   const [submenu, setSubmenu] = React.useState(false);
   const [currentColor, setCurrentColor] = React.useState(color);
 
-  const [props, set] = useSpring(() => ({
+  const [props, api] = useSpring(() => ({
     opacity: 0, borderRadius: 10, overflow: 'hidden', config: { duration: 80 },
   }));
 
-  let timer = null;
+  let timer: number;
 
   const handleHover = () => {
     clearTimeout(timer);
     setSubmenu(true);
-    set({
+    api.start({
       opacity: 1, borderRadius: 10, overflow: 'hidden', config: { duration: 80 },
     });
     setCurrentColor(theme.palette.primary.main);
   };
 
   const handleClose = () => {
-    timer = setTimeout(() => {
-      set({
+    timer = window.setTimeout(() => {
+      api.start({
         opacity: 0, borderRadius: 10, overflow: 'hidden', config: { duration: 80 },
       });
       setSubmenu(false);
@@ -142,4 +150,6 @@ export default function Menu({
       </animated.div>
     </div>
   );
-}
+};
+
+export default Menu;

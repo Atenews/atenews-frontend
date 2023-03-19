@@ -10,6 +10,7 @@ import SubMenu from '@/components/Layout/SubMenu';
 import { useCategory } from '@/utils/hooks/useCategory';
 
 import trpc from '@/utils/trpc';
+import flatListToHierarchical from '@/utils/flatListToHierarchical';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -36,38 +37,17 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Navigation() {
+const Navigation: React.FC = () => {
   const classes = useStyles();
   const router = useRouter();
   const theme = useTheme();
   const { category, categories } = useCategory();
 
   const [activeMenu, setActiveMenu] = React.useState('/');
-  const [menus, setMenus] = React.useState([]);
+  const [menus, setMenus] = React.useState<Menu[]>([]);
   const [menuLoading, setMenuLoading] = React.useState(true);
 
-  const baseUrlMenu = (url) => (url !== '/' ? `${url.split('/').slice(0, 2).join('/')}` : '/');
-
-  const flatListToHierarchical = (
-    data = [],
-    { idKey = 'id', parentKey = 'parentId', childrenKey = 'children' } = {},
-  ) => {
-    const tree = [];
-    const childrenOf = {};
-    data.forEach((item) => {
-      const newItem = { ...item };
-      const { [idKey]: id, [parentKey]: parentId = 0 } = newItem;
-      childrenOf[id] = childrenOf[id] || [];
-      newItem[childrenKey] = childrenOf[id];
-      if (parentId) {
-        childrenOf[parentId] = childrenOf[parentId] || [];
-        childrenOf[parentId].push(newItem);
-      } else {
-        tree.push(newItem);
-      }
-    });
-    return tree;
-  };
+  const baseUrlMenu = (url: string) => (url !== '/' ? `${url.split('/').slice(0, 2).join('/')}` : '/');
 
   const trpcMenus = trpc.useContext().menus;
 
@@ -83,14 +63,18 @@ export default function Navigation() {
     setActiveMenu(baseUrlMenu(router.pathname));
   }, [router.pathname, category]);
 
-  const isActiveCondition = (menu) => {
+  const isActiveCondition = (menu: Menu) => {
     const isListPage = window.location.href.split('/')[4] === menu.url.split('/')[4];
     const slugs = [];
     slugs.push(menu.url.split('/').pop());
-    menu.children.forEach((child) => {
+    menu.children?.forEach((child) => {
       slugs.push(child.url.split('/').pop());
     });
-    const isArticle = slugs.includes(category[0]?.slug);
+
+    let isArticle = false;
+    if (category) {
+      isArticle = slugs.includes(category[0]?.slug);
+    }
     return isListPage || isArticle;
   };
 
@@ -126,14 +110,25 @@ export default function Navigation() {
           {menus.map((menu) => (
             <Menu
               key={menu.id}
-              color={categories.find((cat) => menu.url.split('/').pop() === cat.slug)?.description || theme.palette.atenews.main}
+              color={categories?.find((cat) => menu.url.split('/').pop() === cat.slug)?.description || theme.palette.atenews.main}
               label={<Typography variant="body1">{menu.label}</Typography>}
               active={isActiveCondition(menu)}
               href={menu.url.replace('https://atenews.ph', '')}
             >
               <div className={classes.submenu}>
-                {menu.children.map((child) => (
-                  <SubMenu key={child.id} label={<Typography variant="body1">{child.label}</Typography>} color={categories.find((cat) => child.url.split('/').pop() === cat.slug)?.description || theme.palette.atenews.main} href={child.url.replace('https://atenews.ph', '')} />
+                {menu.children?.map((child) => (
+                  <SubMenu
+                    key={child.id}
+                    label={(
+                      <Typography variant="body1">
+                        {child.label}
+                      </Typography>
+                    )}
+                    color={
+                      categories?.find((cat) => child.url.split('/').pop() === cat.slug)?.description || theme.palette.atenews.main
+                    }
+                    href={child.url.replace('https://atenews.ph', '')}
+                  />
                 ))}
               </div>
             </Menu>
@@ -149,4 +144,6 @@ export default function Navigation() {
       ) : null }
     </nav>
   );
-}
+};
+
+export default Navigation;

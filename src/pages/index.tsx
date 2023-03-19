@@ -9,23 +9,20 @@ import parse from 'html-react-parser';
 
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
-import { gql } from 'graphql-request';
 import { useRouter } from 'next/router';
 
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
 
-import WPGraphQL from '@/utils/wpgraphql';
-
-import { useTrending } from '@/utils/hooks/useTrending';
 import { useError } from '@/utils/hooks/useSnackbar';
 
 import RecentArticles from '@/components/Home/RecentArticles';
 
+import { appRouter } from '@/server/routers/_app';
+import { GetServerSideProps, NextPage } from 'next';
+
 const Title = dynamic(import('@/components/Home/Title'));
 
 const ArticleGrid = dynamic(import('@/components/Home/ArticleGrid'));
-const Trending = dynamic(import('@/components/Home/Trending'));
 
 const EditorialColumn = dynamic(import('@/components/Home/EditorialColumn'));
 const Hulagway = dynamic(import('@/components/Home/Hulagway'));
@@ -55,46 +52,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Home({
+interface Props {
+  recentArticles: Article[];
+  news: Article[];
+  features: Article[];
+  featuredPhoto: Article;
+  editorial: Article;
+  columns: Article[];
+  homepage: {
+    seo: {
+      title: string;
+      fullHead: string;
+    };
+  };
+}
+
+const Home: NextPage<Props> = ({
   recentArticles,
   news,
   features,
   featuredPhoto,
   editorial,
   columns,
-  mode,
-  oobCode,
-  continueUrl,
   homepage,
-}) {
+}) => {
   const classes = useStyles();
   const fullHead = parse(homepage.seo.fullHead.replace('https://atenews.ph/wp-', 'https://wp.atenews.ph/wp-'));
   const theme = useTheme();
-  const trending = useTrending();
-  const router = useRouter();
-
-  const { setSuccess, setError } = useError();
-
-  React.useEffect(() => {
-    if (mode && oobCode) {
-      switch (mode) {
-        case 'resetPassword':
-          // Display reset password handler and UI.
-          router.push(`/reset-password?mode=${mode}&oobCode=${oobCode}`);
-          break;
-        case 'recoverEmail':
-          // Display email recovery handler and UI.
-          setError('Email recovery has not been implemented yet! Please contact us at dev@atenews.ph for urgent matters.');
-          break;
-        case 'verifyEmail':
-          // Display email verification handler and UI.
-          break;
-        default:
-          // Error: invalid mode.
-          break;
-      }
-    }
-  }, [setSuccess, mode, oobCode]);
 
   return (
     <div className={classes.container}>
@@ -110,7 +94,7 @@ export default function Home({
           The official student publication of the Ateneo de Davao University
         </Typography>
       </div>
-      <Trending articles={trending} />
+      { /* TODO: Add trending */}
       <RecentArticles articles={recentArticles} />
       <LazyLoadComponent>
         <div className={classes.section}>
@@ -139,214 +123,16 @@ export default function Home({
       </LazyLoadComponent>
     </div>
   );
-}
+};
 
-export async function getServerSideProps({ query }) {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const caller = appRouter.createCaller({ req, res });
+
   try {
-    if ((query ? query.mode : null) === 'resetPassword') {
-      return {
-        redirect: {
-          permanent: false,
-          destination: `/reset-password?mode=${query.mode}&oobCode=${query.oobCode}`,
-        },
-      };
-    }
-    const data = await WPGraphQL.request(
-      gql`
-        query Home {
-          home: homepage {
-            seo {
-              fullHead
-            }
-          }
-          recentArticles: posts(first: 5) {
-            nodes {
-              title(format: RENDERED)
-              slug
-              date
-              postViews
-              coauthors {
-                nodes {
-                  firstName
-                  lastName
-                  databaseId
-                }
-              }
-              categories {
-                nodes {
-                  name
-                  databaseId
-                  slug
-                }
-              }
-              databaseId
-              featuredImage {
-                node {
-                  sourceUrl(size: LARGE)
-                }
-              }
-            }
-          }
-          news: posts(first: 5, where: { categoryName: "news" }) {
-            nodes {
-              title(format: RENDERED)
-              slug
-              date
-              postViews
-              databaseId
-              featuredImage {
-                node {
-                  sourceUrl(size: LARGE)
-                }
-              }
-              categories {
-                nodes {
-                  name
-                  databaseId
-                  slug
-                }
-              }
-              excerpt
-              coauthors {
-                nodes {
-                  firstName
-                  lastName
-                  databaseId
-                }
-              }
-            }
-          }
-          features: posts(first: 5, where: { categoryName: "features" }) {
-            nodes {
-              title(format: RENDERED)
-              slug
-              date
-              postViews
-              databaseId
-              featuredImage {
-                node {
-                  sourceUrl(size: LARGE)
-                }
-              }
-              categories {
-                nodes {
-                  name
-                  databaseId
-                  slug
-                }
-              }
-              excerpt
-              coauthors {
-                nodes {
-                  firstName
-                  lastName
-                  databaseId
-                }
-              }
-            }
-          }
-          featuredPhoto: posts(first: 1, where: { categoryName: "featured-photos" }) {
-            nodes {
-              databaseId
-              featuredImage {
-                node {
-                  sourceUrl(size: LARGE)
-                }
-              }
-              content
-              excerpt
-              categories {
-                nodes {
-                  name
-                  databaseId
-                  slug
-                }
-              }
-              coauthors {
-                nodes {
-                  firstName
-                  lastName
-                  databaseId
-                }
-              }
-            }
-          }
-          editorial: posts(first: 1, where: { categoryName: "editorial" }) {
-            nodes {
-              title(format: RENDERED)
-              databaseId
-              date
-              slug
-              postViews
-              featuredImage {
-                node {
-                  sourceUrl(size: LARGE)
-                }
-              }
-              excerpt
-              categories {
-                nodes {
-                  name
-                  databaseId
-                  slug
-                }
-              }
-              coauthors {
-                nodes {
-                  firstName
-                  lastName
-                  databaseId
-                }
-              }
-            }
-          }
-          columns: posts(first: 4, where: { categoryName: "columns" }) {
-            nodes {
-              title(format: RENDERED)
-              databaseId
-              date
-              slug
-              postViews
-              featuredImage {
-                node {
-                  sourceUrl(size: LARGE)
-                }
-              }
-              categories {
-                nodes {
-                  name
-                  databaseId
-                  slug
-                }
-              }
-              coauthors {
-                nodes {
-                  firstName
-                  lastName
-                  databaseId
-                  avatar {
-                    url
-                  }
-                }
-              }
-            }
-          }
-        }        
-      `,
-    );
+    const homeResult = await caller.home();
+
     return {
-      props: {
-        recentArticles: data.recentArticles.nodes,
-        news: data.news.nodes,
-        features: data.features.nodes,
-        featuredPhoto: data.featuredPhoto.nodes[0],
-        editorial: data.editorial.nodes[0],
-        columns: data.columns.nodes,
-        homepage: data.home,
-        mode: 'mode' in query ? query.mode : null,
-        oobCode: 'oobCode' in query ? query.oobCode : null,
-        continueUrl: 'continueUrl' in query ? query.continueUrl : null,
-      },
+      props: homeResult,
     };
   } catch (err) {
     return {
@@ -355,4 +141,6 @@ export async function getServerSideProps({ query }) {
       },
     };
   }
-}
+};
+
+export default Home;

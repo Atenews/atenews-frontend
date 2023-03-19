@@ -1,14 +1,13 @@
-import { z } from 'zod';
 import { procedure } from '@/server/trpc';
 import { gql } from 'graphql-request';
 import WPGraphQL from '@/utils/wpgraphql';
+import { z } from 'zod';
 
 export interface Query {
-  category: {
-    databaseId: number;
-    name: string;
-    description: string;
-    uri: string;
+  page: {
+    content: string;
+    title: string;
+    date: string;
     seo: {
       fullHead: string;
       title: string;
@@ -18,28 +17,25 @@ export interface Query {
 
 const handler = procedure.input(
   z.object({
-    categorySlug: z.string(),
+    slug: z.string(),
   }),
-).query(async ({ input: { categorySlug } }) => {
+).query(async ({ input: { slug } }) => {
   const data = await WPGraphQL.request<Query>(
     gql`
-      query Category {
-        category( id: "${categorySlug}", idType: SLUG ) {
-          databaseId
-          name
-          description
-          uri
+      query Terms {
+        page(id: "${slug}", idType: URI) {
+          content
+          title
+          date
           seo {
             fullHead
             title
           }
         }
-      }            
+      }             
     `,
   );
-  return {
-    category: data.category,
-  };
+  return data.page;
 });
 
 export default handler;

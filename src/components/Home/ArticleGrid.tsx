@@ -10,7 +10,6 @@ import NextLink from 'next/link';
 import AccountIcon from '@mui/icons-material/AccountCircle';
 import ClockIcon from '@mui/icons-material/AccessTime';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import CommentIcon from '@mui/icons-material/CommentOutlined';
 
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
@@ -72,11 +71,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ArticleGrid({ articles }) {
+interface Props {
+  articles: Article[];
+}
+
+const ArticleGrid: React.FC<Props> = ({ articles }) => {
   const classes = useStyles();
   const theme = useTheme();
-
-  const [socialStats, setSocialStats] = React.useState(null);
 
   return (
     <div>
@@ -95,7 +96,21 @@ function ArticleGrid({ articles }) {
             </Grid>
           </Hidden>
           <Hidden smDown>
-            <Grid item sm={6} component={CardActionArea} LinkComponent={NextLink} href={slugGenerator(articles[0])} className={classes.bannerImage} style={{ backgroundImage: `url(${imageGenerator(articles[0].featuredImage?.node.sourceUrl, 600)})` }} />
+            <Grid
+              item
+              sm={6}
+            >
+              <CardActionArea
+                LinkComponent={NextLink}
+                href={slugGenerator(articles[0])}
+                className={classes.bannerImage}
+                style={{
+                  backgroundImage: `url(${imageGenerator(articles[0].featuredImage?.node.sourceUrl, 600)})`,
+                  width: '100%',
+                  height: '100%',
+                }}
+              />
+            </Grid>
           </Hidden>
           <Grid item xs={12} sm={6} style={{ padding: theme.spacing(1) }}>
             <CardContent>
@@ -174,6 +189,6 @@ function ArticleGrid({ articles }) {
       </Grid>
     </div>
   );
-}
+};
 
 export default ArticleGrid;

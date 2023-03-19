@@ -6,7 +6,12 @@ import Grid from '@mui/material/Grid';
 
 import IndividualWriter from '@/components/ArticlePage/IndividualWriter';
 
-export default handleViewport((props) => {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  authors: Author[];
+  forwardedRef: React.RefObject<HTMLDivElement>;
+}
+
+const WriterInfo: React.FC<Props> = (props) => {
   const {
     forwardedRef, authors,
   } = props;
@@ -22,4 +27,6 @@ export default handleViewport((props) => {
       </Grid>
     </div>
   );
-});
+};
+
+export default handleViewport(WriterInfo);

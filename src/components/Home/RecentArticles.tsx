@@ -1,11 +1,10 @@
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
-import { useRouter } from 'next/router';
 
 import Tag from '@/components/General/Tag';
 import Link from '@/components/General/Link';
-import NextLink from 'next/link'
+import NextLink from 'next/link';
 
 import RecentArticle from '@/components/Home/RecentArticle';
 
@@ -96,20 +95,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function RecentArticles({ articles }) {
+interface Props {
+  articles: Article[];
+}
+
+const RecentArticles: React.FC<Props> = ({ articles }) => {
   const classes = useStyles();
   const theme = useTheme();
-  const router = useRouter();
 
   const arrLength = articles.length;
   const [
     hoveredData,
     setHoveredData,
-  ] = React.useState({ index: 0, ...articles[0] });
+  ] = React.useState<Article & { index: number }>({ index: 0, ...articles[0] });
   const [
     elRefs,
     setElRefs,
-  ] = React.useState([]);
+  ] = React.useState<React.RefObject<HTMLAnchorElement>[]>([]);
   const [arrowTop, setArrowTop] = React.useState(95);
 
   const props = useSpring({
@@ -118,15 +120,15 @@ function RecentArticles({ articles }) {
 
   React.useEffect(() => {
     // Add or remove refs
-    setElRefs((elRefsTmp) => Array(arrLength).fill()
-      .map((_, i) => elRefsTmp[i] || React.createRef()));
+    setElRefs((elRefsTmp) => Array(arrLength).fill(null)
+      .map((_, i) => elRefsTmp[i] || React.createRef<HTMLAnchorElement>()));
     if (elRefs.length > 0) {
-      setArrowTop((elRefs[0]?.current.offsetTop ?? 0) - 70);
+      setArrowTop((elRefs[0]?.current?.offsetTop ?? 0) - 70);
     }
   }, [arrLength]);
 
-  const onHover = (data) => {
-    setArrowTop((elRefs[data.index]?.current.offsetTop ?? 0) - 70);
+  const onHover = (data: Article & { index: number }) => {
+    setArrowTop((elRefs[data.index]?.current?.offsetTop ?? 0) - 70);
     setHoveredData(data);
   };
 
@@ -268,6 +270,6 @@ function RecentArticles({ articles }) {
       </Grid>
     </Grid>
   );
-}
+};
 
 export default RecentArticles;

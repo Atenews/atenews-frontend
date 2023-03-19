@@ -14,7 +14,6 @@ import articleServerSideProps from '@/utils/serverProps/articleServerSideProps';
 
 import DefaultErrorPage from '@/components/404';
 
-import { ArticleProvider } from '@/utils/hooks/useArticle';
 import { useCategory } from '@/utils/hooks/useCategory';
 
 import ArticlePage from '@/components/ArticlePage';
@@ -30,22 +29,25 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface Props {
-  post: ArticleData;
+  post: Article;
   categories: Category[];
 }
 
 const DefaultArticlePage: React.FC<Props> = (args) => {
   const { post, categories } = args;
-  const fullHead = parse(post.seo.fullHead.replace('https://atenews.ph/wp-', 'https://wp.atenews.ph/wp-'));
+  const fullHead = parse(post.seo?.fullHead.replace('https://atenews.ph/wp-', 'https://wp.atenews.ph/wp-') ?? '');
   const classes = useStyles();
   const router = useRouter();
   const { setCategory } = useCategory();
 
   React.useEffect(() => {
-    setCategory(categories || []);
-    return () => {
-      setCategory([]);
-    };
+    if (setCategory !== undefined) {
+      setCategory(categories || []);
+      return () => {
+        setCategory([]);
+      };
+    }
+    return undefined;
   }, [post]);
 
   if (router.isFallback) {
@@ -68,13 +70,11 @@ const DefaultArticlePage: React.FC<Props> = (args) => {
     <div className={classes.container}>
       <Head>
         <title>
-          { post.seo.title }
+          { post.seo?.title }
         </title>
         { fullHead }
       </Head>
-      <ArticleProvider post={post} key={post.id}>
-        <ArticlePage relatedPosts={undefined} pageInfo={undefined} {...args} />
-      </ArticleProvider>
+      <ArticlePage {...args} />
     </div>
   );
 };

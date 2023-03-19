@@ -62,7 +62,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Article({ article, topImage }) {
+interface Props {
+  article: Article;
+  topImage?: boolean;
+}
+
+const Article: React.FC<Props> = ({ article, topImage }) => {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -161,7 +166,21 @@ function Article({ article, topImage }) {
                   </Grid>
                 </Hidden>
                 <Hidden smDown>
-                  <Grid item sm={6} component={CardActionArea} LinkComponent={NextLink} className={classes.bannerImage} style={{ backgroundImage: `url(${imageGenerator(article.featuredImage?.node.sourceUrl, 600)})` }} href={slugGenerator(article)} />
+                  <Grid
+                    item
+                    sm={6}
+                  >
+                    <CardActionArea
+                      LinkComponent={NextLink}
+                      className={classes.bannerImage}
+                      style={{
+                        backgroundImage: `url(${imageGenerator(article.featuredImage?.node.sourceUrl, 600)})`,
+                        width: '100%',
+                        height: '100%',
+                      }}
+                      href={slugGenerator(article)}
+                    />
+                  </Grid>
                 </Hidden>
                 <Grid item xs={12} sm={6}>
                   <CardContent style={{ padding: theme.spacing(4) }}>
@@ -228,6 +247,6 @@ function Article({ article, topImage }) {
       </Card>
     </div>
   );
-}
+};
 
 export default Article;

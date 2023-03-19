@@ -1,13 +1,13 @@
 import React, {
-  useEffect, useState, createContext, useContext, ReactNode, 
+  useEffect, useState, createContext, useContext, ReactNode,
 } from 'react';
 import trpc from '@/utils/trpc';
 
 interface CategoryContextProps {
-  category: any[];
-  setCategory: React.Dispatch<React.SetStateAction<any[]>>;
-  categories: any[];
-  setCategories: React.Dispatch<React.SetStateAction<any[]>>;
+  category?: Category[];
+  setCategory?: React.Dispatch<React.SetStateAction<Category[] | undefined>>;
+  categories?: Category[];
+  setCategories?: React.Dispatch<React.SetStateAction<Category[] | undefined>>;
 }
 
 interface CategoryProviderProps {
@@ -17,8 +17,8 @@ interface CategoryProviderProps {
 export const CategoryContext = createContext<CategoryContextProps>({} as CategoryContextProps);
 
 export const CategoryProvider = ({ children }: CategoryProviderProps) => {
-  const [category, setCategory] = useState<any[]>([]);
-  const [categories, setCategories] = useState<any[]>([]);
+  const [category, setCategory] = useState<Category[] | undefined>([]);
+  const [categories, setCategories] = useState<Category[] | undefined>([]);
 
   const trpcCategories = trpc.useContext().categories;
 
@@ -28,14 +28,18 @@ export const CategoryProvider = ({ children }: CategoryProviderProps) => {
     });
   }, []);
 
-  return (
-    <CategoryContext.Provider value={{
+  const value = React.useMemo(
+    () => ({
       category,
       setCategory,
       categories,
       setCategories,
-    }}
-    >
+    }),
+    [category, setCategory, categories, setCategories],
+  );
+
+  return (
+    <CategoryContext.Provider value={value}>
       {children}
     </CategoryContext.Provider>
   );

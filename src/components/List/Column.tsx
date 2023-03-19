@@ -5,7 +5,6 @@ import { makeStyles } from '@mui/styles';
 import AccountIcon from '@mui/icons-material/AccountCircle';
 import ClockIcon from '@mui/icons-material/AccessTime';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import CommentIcon from '@mui/icons-material/CommentOutlined';
 
 import { formatDistanceToNow } from 'date-fns';
 import coauthors from '@/utils/coauthors';
@@ -54,11 +53,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Column({ article }) {
+interface Props {
+  article: Article;
+}
+
+const Column: React.FC<Props> = ({ article }) => {
   const classes = useStyles();
   const theme = useTheme();
-
-  const [socialStats, setSocialStats] = React.useState(null);
 
   return (
     <CardActionArea
@@ -71,7 +72,7 @@ function Column({ article }) {
           <Grid item>
             <Avatar
               className={classes.avatar}
-              src={imageGenerator(article.coauthors.nodes[0].avatar.url, 300)}
+              src={imageGenerator(article.coauthors.nodes[0].avatar?.url ?? '', 300)}
             />
           </Grid>
           <Grid item xs>
@@ -118,6 +119,6 @@ function Column({ article }) {
       </Paper>
     </CardActionArea>
   );
-}
+};
 
 export default Column;

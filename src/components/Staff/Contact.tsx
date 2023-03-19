@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Contact = () => {
+const Contact: React.FC = () => {
   const classes = useStyles();
   const theme = useTheme();
 

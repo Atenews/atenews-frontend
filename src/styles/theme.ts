@@ -66,6 +66,7 @@ const themeGenerator = (dark: boolean) => createTheme({
       paper: dark ? '#17212b' : '#fff',
     },
     atenews: {
+      main: '#195EA9',
       news: '#263E8E',
       features: '#FAB417',
       highlight: '#972E34',

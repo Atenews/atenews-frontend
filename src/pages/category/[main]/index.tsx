@@ -1,15 +1,14 @@
 import React from 'react';
 
-import listServerSideProps from '@/utils/serverProps/listServerSideProps';
+import listServerSideProps, { ListServerSideProps } from '@/utils/serverProps/listServerSideProps';
 
 import ArchiveLayout from '@/components/ArchiveLayout';
+import { GetServerSideProps } from 'next';
 
-const CategoryPage: React.FC = (props) => (
+const CategoryPage: React.FC<ListServerSideProps> = (props) => (
   <ArchiveLayout {...props} />
 );
 
-export async function getServerSideProps(ctx) {
-  return listServerSideProps(ctx.params.main);
-}
+export const getServerSideProps: GetServerSideProps = listServerSideProps;
 
 export default CategoryPage;

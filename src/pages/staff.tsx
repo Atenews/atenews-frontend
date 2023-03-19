@@ -16,9 +16,10 @@ import Hidden from '@mui/material/Hidden';
 import Contact from '@/components/Staff/Contact';
 import Staff from '@/components/Staff/Staff';
 
-import WP from '@/utils/wordpress';
+import { appRouter } from '@/server/routers/_app';
 
 import { rolesIgnore as _rolesIgnore } from '@/utils/constants';
+import { GetServerSideProps, NextPage } from 'next';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -31,14 +32,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Home({ staffs: staffsRaw }) {
+const StaffPage: NextPage<{ staffs: Staff[] }> = ({ staffs: staffsRaw }) => {
   const classes = useStyles();
   const theme = useTheme();
 
-  const [editors, setEditors] = React.useState([]);
-  const [seniors, setSeniors] = React.useState([]);
-  const [juniors, setJuniors] = React.useState([]);
-  const [trainees, setTrainees] = React.useState([]);
+  const [editors, setEditors] = React.useState<Staff[]>([]);
+  const [seniors, setSeniors] = React.useState<Staff[]>([]);
+  const [juniors, setJuniors] = React.useState<Staff[]>([]);
+  const [trainees, setTrainees] = React.useState<Staff[]>([]);
 
   React.useEffect(() => {
     const rolesIgnore = [
@@ -47,7 +48,7 @@ export default function Home({ staffs: staffsRaw }) {
       'associate_editor',
       'managing_editor',
     ];
-    const sortByPosition = (a, b) => {
+    const sortByPosition = (a: Staff, b: Staff) => {
       const aCleanRoles = a.roles.filter((role) => !rolesIgnore.includes(role));
       const bCleanRoles = b.roles.filter((role) => !rolesIgnore.includes(role));
       if (aCleanRoles[0] < bCleanRoles[0]) { return -1; }
@@ -141,7 +142,7 @@ export default function Home({ staffs: staffsRaw }) {
 
       <Grid container spacing={2}>
         { editors.map((staff) => (
-          <Grid item xs={12} sm={6} key={staff.id}>
+          <Grid item xs={12} sm={6} key={`editors_${staff.id}`}>
             <Staff details={staff} />
           </Grid>
         )) }
@@ -151,7 +152,7 @@ export default function Home({ staffs: staffsRaw }) {
 
       <Grid container spacing={2}>
         { seniors.map((staff) => (
-          <Grid item xs={12} sm={6} key={staff.id}>
+          <Grid item xs={12} sm={6} key={`seniors_${staff.id}`}>
             <Staff details={staff} />
           </Grid>
         )) }
@@ -161,7 +162,7 @@ export default function Home({ staffs: staffsRaw }) {
 
       <Grid container spacing={2}>
         { juniors.map((staff) => (
-          <Grid item xs={12} sm={6} key={staff.id}>
+          <Grid item xs={12} sm={6} key={`juniors_${staff.id}`}>
             <Staff details={staff} />
           </Grid>
         )) }
@@ -173,7 +174,7 @@ export default function Home({ staffs: staffsRaw }) {
 
           <Grid container spacing={2}>
             { trainees.map((staff) => (
-              <Grid item xs={12} sm={6} key={staff.id}>
+              <Grid item xs={12} sm={6} key={`trainees_${staff.id}`}>
                 <Staff details={staff} />
               </Grid>
             )) }
@@ -227,11 +228,13 @@ export default function Home({ staffs: staffsRaw }) {
       </Hidden>
     </div>
   );
-}
+};
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const caller = appRouter.createCaller({ req, res });
+
   try {
-    const staffs = await WP.staffs();
+    const staffs = await caller.staff();
     return {
       props: {
         staffs,
@@ -244,4 +247,6 @@ export async function getServerSideProps() {
       },
     };
   }
-}
+};
+
+export default StaffPage;

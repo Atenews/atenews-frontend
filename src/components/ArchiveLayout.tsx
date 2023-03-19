@@ -16,13 +16,11 @@ import Grid from '@mui/material/Grid';
 import Hidden from '@mui/material/Hidden';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import { useTrending } from '@/utils/hooks/useTrending';
 import { useRouter } from 'next/router';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 const Article = dynamic(import('@/components/List/Article'));
-const Trending = dynamic(import('@/components/Home/Trending'));
 
 const useStyles = makeStyles({
   account: {
@@ -40,12 +38,26 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Page({
-  articlesRaw, categoryName, category, nofollow, pageInfo, query, categorySEO,
-}) {
+interface Props {
+  articlesRaw: Article[];
+  categoryName: string;
+  category?: number;
+  pageInfo: {
+    endCursor: string;
+    hasNextPage: boolean;
+  };
+  query?: string;
+  categorySEO?: {
+    title: string;
+    fullHead: string;
+  };
+}
+
+const ArchiveLayout: React.FC<Props> = ({
+  articlesRaw, categoryName, category, pageInfo, query, categorySEO,
+}) => {
   const classes = useStyles();
   const theme = useTheme();
-  const router = useRouter();
 
   const trpcArticles = trpc.useContext().articles;
   const trpcSearch = trpc.useContext().search;
@@ -67,7 +79,7 @@ export default function Page({
   }, [articlesRaw]);
 
   const next = () => {
-    if (category !== 'search') {
+    if (category) {
       trpcArticles.fetch({
         category,
         cursor: cursor ?? undefined,
@@ -76,7 +88,7 @@ export default function Page({
         setCursor(x.pageInfo.endCursor);
         setArticles([...articles, ...x.articlesRaw]);
       });
-    } else {
+    } else if (query) {
       trpcSearch.fetch({
         query,
         cursor: cursor ?? undefined,
@@ -88,9 +100,7 @@ export default function Page({
     }
   };
 
-  const trending = useTrending();
-
-  const baseUrlMenu = (url) => (url !== '/' ? `${url.split('/').slice(0, 2).join('/')}` : '/');
+  const baseUrlMenu = (url: string) => (url !== '/' ? `${url.split('/').slice(0, 2).join('/')}` : '/');
 
   return (
     <div className={classes.container}>
@@ -108,56 +118,42 @@ export default function Page({
           </title>
         )}
       </Head>
-      { !false ? (
-        <>
-          <Grid container alignItems="center" style={{ marginBottom: theme.spacing(2) }} spacing={4}>
-            <Grid item>
-              <Hidden mdDown>
-                <Typography variant="h3" component="h1">{categoryName}</Typography>
-              </Hidden>
-              <Hidden mdUp>
-                <Typography variant="h4" component="h1">{categoryName}</Typography>
-              </Hidden>
-            </Grid>
-          </Grid>
-          <Trending articles={trending} />
-          <InfiniteScroll
-            dataLength={articles.length}
-            next={next}
-            hasMore={hasMore}
-            loader={(
-              <div style={{ overflow: 'hidden' }}>
-                <Grid
-                  container
-                  spacing={0}
-                  alignItems="center"
-                  justifyContent="center"
-                >
-                  <Grid item>
-                    <CircularProgress />
-                  </Grid>
-                </Grid>
-              </div>
-            )}
-          >
-            { articles.map((article, index) => (
-              <Article key={index} article={article} />
-            ))}
-          </InfiniteScroll>
-        </>
-      ) : (
-        <Grid
-          container
-          spacing={0}
-          alignItems="center"
-          justifyContent="center"
-          style={{ minHeight: '100vh' }}
-        >
-          <Grid item>
-            <img src={theme.palette.mode === 'light' ? '/logo-blue.png' : '/logo.png'} alt="Atenews Logo" width="100" />
-          </Grid>
+      <Grid container alignItems="center" style={{ marginBottom: theme.spacing(2) }} spacing={4}>
+        <Grid item>
+          <Hidden mdDown>
+            <Typography variant="h3" component="h1">{categoryName}</Typography>
+          </Hidden>
+          <Hidden mdUp>
+            <Typography variant="h4" component="h1">{categoryName}</Typography>
+          </Hidden>
         </Grid>
-      ) }
+      </Grid>
+      { /* TODO: add Trending */ }
+      <InfiniteScroll
+        dataLength={articles.length}
+        next={next}
+        hasMore={hasMore}
+        loader={(
+          <div style={{ overflow: 'hidden' }}>
+            <Grid
+              container
+              spacing={0}
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Grid item>
+                <CircularProgress />
+              </Grid>
+            </Grid>
+          </div>
+        )}
+      >
+        { articles.map((article, index) => (
+          <Article key={index} article={article} />
+        ))}
+      </InfiniteScroll>
     </div>
   );
-}
+};
+
+export default ArchiveLayout;

@@ -1,4 +1,4 @@
-const generator = (article: ArticleData) => `/${article.slug}`;
+const generator = (article: Article) => `/${article.slug}`;
 /* let category = '';
   let condition = null;
   if (article.categories?.nodes) {

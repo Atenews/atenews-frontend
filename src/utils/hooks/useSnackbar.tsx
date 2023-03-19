@@ -76,16 +76,18 @@ const ErrorProvider: React.FC<ErrorProviderProps> = ({ children }) => {
     }
   }, [warning]);
 
+  const value = React.useMemo(() => ({
+    error,
+    setError,
+    success,
+    setSuccess,
+    warning,
+    setWarning,
+  }), [error, success, warning]);
+
   return (
     <ErrorContext.Provider
-      value={{
-        error,
-        setError,
-        success,
-        setSuccess,
-        warning,
-        setWarning,
-      }}
+      value={value}
     >
       {children}
     </ErrorContext.Provider>

@@ -29,7 +29,8 @@
     "src",
     "theme.d.ts",
     "custom.d.ts",
-    ".eslintrc.js"
+    ".eslintrc.js",
+    "reactInViewport.d.ts"
   ],
   "exclude": [
     "node_modules",

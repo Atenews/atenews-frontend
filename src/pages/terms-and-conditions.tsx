@@ -2,19 +2,16 @@ import React from 'react';
 
 import Head from 'next/head';
 import parse from 'html-react-parser';
-import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
 
-import { gql } from 'graphql-request';
-
-import Grid from '@mui/material/Grid';
-
-import WPGraphQL from '@/utils/wpgraphql';
+import { appRouter } from '@/server/routers/_app';
 
 import CustomPage from '@/components/CustomPage';
 
 import DefaultErrorPage from '@/components/404';
+import { GetServerSideProps, NextPage } from 'next';
+import type { Query } from '@/server/routers/customPage';
 
 const useStyles = makeStyles(() => ({
   contentContainer: {
@@ -23,9 +20,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Page({ page }) {
+const TermsAndConditions: NextPage<Query> = ({ page }) => {
   const classes = useStyles();
-  const theme = useTheme();
   const fullHead = parse(page.seo.fullHead.replace('https://atenews.ph/wp-', 'https://wp.atenews.ph/wp-'));
 
   if (!page) {
@@ -35,7 +31,7 @@ export default function Page({ page }) {
   }
 
   return (
-    <div className={classes.container}>
+    <div className={classes.contentContainer}>
       <Head>
         <title>
           { page.seo.title }
@@ -45,34 +41,23 @@ export default function Page({ page }) {
       <CustomPage page={page} />
     </div>
   );
-}
+};
 
-export const getServerSideProps = async () => {
-  let res = {};
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const caller = appRouter.createCaller({ req, res });
+
   try {
-    const data = await WPGraphQL.request(
-      gql`
-        query Terms {
-          page(id: "terms-and-conditions", idType: URI) {
-            content
-            title
-            date
-            seo {
-              fullHead
-              title
-            }
-          }
-        }             
-      `,
-    );
-    res = data.page;
-  } catch (err) {
-    res = {};
-  }
-  if (res) {
-    if ('content' in res) {
-      return { props: { page: res } };
+    const page = await caller.customPage({ slug: 'terms-and-conditions' });
+    if (page) {
+      if ('content' in page) {
+        return { props: { page } };
+      }
     }
+  } catch (e) {
+    return { props: { page: null } };
   }
+
   return { props: { page: null } };
 };
+
+export default TermsAndConditions;

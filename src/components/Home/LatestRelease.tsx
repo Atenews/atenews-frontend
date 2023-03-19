@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function LatestRelease() {
+const LatestRelease: React.FC = () => {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -43,7 +43,7 @@ export default function LatestRelease() {
       </Grid>
       <Grid container justifyContent="center">
         <Grid item xs={12} sm={6}>
-          <CardActionArea LinkComponent={NextLink} href='https://issuu.com/atenews/docs/elections_issue_2022' target='_blank'>
+          <CardActionArea LinkComponent={NextLink} href="https://issuu.com/atenews/docs/elections_issue_2022" target="_blank">
             <Paper variant="outlined" style={{ borderRadius: 10, overflow: 'hidden' }}>
               <LazyLoadImage src="/issuu-demo.png" alt="Issuu" style={{ width: '100%' }} effect="blur" />
             </Paper>
@@ -52,4 +52,6 @@ export default function LatestRelease() {
       </Grid>
     </div>
   );
-}
+};
+
+export default LatestRelease;

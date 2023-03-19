@@ -1,6 +1,6 @@
 import React from 'react';
 import withStyles from '@mui/styles/withStyles';
-import Avatar from '@mui/material/Avatar';
+import MuiAvatar, { AvatarProps } from '@mui/material/Avatar';
 
 // We can inject some CSS into the DOM.
 const styles = {
@@ -9,23 +9,31 @@ const styles = {
   },
 };
 
-function ClassNames(props) {
+interface Props extends AvatarProps {
+  classes: {
+    root: string;
+  };
+  children: React.ReactNode;
+  className: string;
+}
+
+const Avatar: React.FC<Props> = (props) => {
   const {
     classes, children, className, ...other
   } = props;
 
   const [height, setHeight] = React.useState(0);
-  const ref = React.useRef(null);
+  const ref = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    setHeight(ref.current.clientWidth);
+    setHeight(ref.current?.clientWidth ?? 0);
   });
 
   return (
-    <Avatar className={classes.root} style={{ height }} {...other}>
+    <MuiAvatar className={classes.root} style={{ height }} {...other}>
       {children || 'class names'}
-    </Avatar>
+    </MuiAvatar>
   );
-}
+};
 
-export default withStyles(styles)(ClassNames);
+export default withStyles(styles)(Avatar);

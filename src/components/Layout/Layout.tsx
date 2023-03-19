@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { KeyboardEventHandler } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import withStyles from '@mui/styles/withStyles';
 import { useRouter } from 'next/router';
+import trpc from '@/utils/trpc';
 
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
@@ -17,7 +18,6 @@ import Dialog from '@mui/material/Dialog';
 import AppBar from '@mui/material/AppBar';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import Slide from '@mui/material/Slide';
 import StockTextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import List from '@mui/material/List';
@@ -112,17 +112,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  setDarkMode: (darkMode: boolean) => void;
+}
 
-function Layout({ children, setDarkMode }) {
+// TODO: Fix types
+const Layout: React.FC<Props> = ({ children, setDarkMode }) => {
   const classes = useStyles();
   const router = useRouter();
   const theme = useTheme();
+  const menuQuery = trpc.menus.useQuery();
 
   const [isLargeWidth, setIsLargeWidth] = React.useState(false);
   const [value, setValue] = React.useState(0);
 
-  const baseUrlMenu = (url) => url.split('?')[0];
+  const baseUrlMenu = (url: string) => url.split('?')[0];
 
   const [open, setOpen] = React.useState(false);
 
@@ -134,38 +138,28 @@ function Layout({ children, setDarkMode }) {
     setOpen(false);
   };
 
-  const handleKeyPress = (event) => {
-    if (event.charCode === 13) {
+  const handleKeyPress: KeyboardEventHandler = (event) => {
+    if (event.key === 'Enter') {
       event.preventDefault();
       submitSearch();
     }
   };
 
   React.useEffect(() => {
-    const largerWidthPages = [
-      '/',
-      '/news',
-      '/news/university',
-      '/news/local',
-      '/news/national',
-      '/news/sports',
-      '/features',
-      '/features/montage',
-      '/features/artists',
-      '/opinion',
-      '/opinion/column',
-      '/opinion/editorial',
-      '/opinion/blueblood',
-      '/photos',
-      '/photos/featured',
-      '/search',
-    ];
-    if (largerWidthPages.includes(baseUrlMenu(router.pathname))) {
-      setIsLargeWidth(true);
-    } else {
-      setIsLargeWidth(false);
+    if (menuQuery.isFetched) {
+      const menus = menuQuery.data?.menus.map((menu) => menu.url.replace('https://atenews.ph', '')) || [];
+      const largerWidthPages = [
+        '/',
+        ...menus,
+        '/search',
+      ];
+      if (largerWidthPages.includes(baseUrlMenu(router.asPath))) {
+        setIsLargeWidth(true);
+      } else {
+        setIsLargeWidth(false);
+      }
     }
-  }, [router.pathname]);
+  }, [router.pathname, menuQuery.isFetched]);
 
   return (
     <div className={classes.layoutContainer}>
@@ -203,7 +197,7 @@ function Layout({ children, setDarkMode }) {
           <BottomNavigationAction onClick={() => setValue(2)} icon={<Settings />} />
         </BottomNavigation>
 
-        <Dialog fullScreen open={open} TransitionComponent={Transition} style={{ zIndex: 1000 }}>
+        <Dialog fullScreen open={open} style={{ zIndex: 1000 }}>
           <AppBar className={classes.appBar} color="default" elevation={0} />
           <Paper elevation={0} style={{ padding: theme.spacing(2), paddingBottom: 70, height: '100%' }}>
             { value === 1
@@ -218,7 +212,7 @@ function Layout({ children, setDarkMode }) {
                     onKeyPress={handleKeyPress}
                     InputProps={{
                       endAdornment: (
-                        <InputAdornment>
+                        <InputAdornment position="end">
                           <IconButton onClick={submitSearch} size="large">
                             <SearchIcon color={theme.palette.mode === 'light' ? 'primary' : 'secondary'} />
                           </IconButton>
@@ -278,6 +272,6 @@ function Layout({ children, setDarkMode }) {
       </Hidden>
     </div>
   );
-}
+};
 
 export default Layout;

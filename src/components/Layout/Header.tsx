@@ -34,7 +34,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header({ closeButtomNav, setDarkMode }) {
+interface Props {
+  closeButtomNav: () => void;
+  setDarkMode: (darkMode: boolean) => void;
+}
+
+const Header: React.FC<Props> = ({ closeButtomNav, setDarkMode }) => {
   const classes = useStyles();
 
   return (
@@ -45,8 +50,10 @@ export default function Header({ closeButtomNav, setDarkMode }) {
         <RightBar setDarkMode={setDarkMode} />
       </div>
       <div className={classes.mobile}>
-        <MobileBar closeButtomNav={closeButtomNav} setDarkMode={setDarkMode} />
+        <MobileBar closeButtomNav={closeButtomNav} />
       </div>
     </div>
   );
-}
+};
+
+export default Header;

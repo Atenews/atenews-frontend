@@ -6,7 +6,6 @@ import { makeStyles } from '@mui/styles';
 import Tag from '@/components/General/Tag';
 
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import CommentIcon from '@mui/icons-material/CommentOutlined';
 
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
@@ -86,12 +85,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function RecentArticle({ article }) {
+interface Props {
+  article: Article;
+}
+
+const RecentArticle: React.FC<Props> = ({ article }) => {
   const classes = useStyles();
   const theme = useTheme();
   const xsDown = useMediaQuery(theme.breakpoints.down('sm'));
-
-  const [socialStats, setSocialStats] = React.useState(null);
 
   return (
     <Paper
@@ -174,6 +175,6 @@ function RecentArticle({ article }) {
       </div>
     </Paper>
   );
-}
+};
 
 export default RecentArticle;

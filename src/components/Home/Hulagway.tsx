@@ -16,7 +16,11 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Hulagway({ featuredPhoto }) {
+interface Props {
+  featuredPhoto: Article;
+}
+
+const Hulagway: React.FC<Props> = ({ featuredPhoto }) => {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -47,7 +51,7 @@ export default function Hulagway({ featuredPhoto }) {
         <Grid container justifyContent="center">
           <Grid item>
             { /* eslint-disable-next-line react/no-danger */ }
-            <div dangerouslySetInnerHTML={{ __html: featuredPhoto.content }} />
+            <div dangerouslySetInnerHTML={{ __html: featuredPhoto.content ?? '' }} />
           </Grid>
         </Grid>
       </Typography>
@@ -61,4 +65,6 @@ export default function Hulagway({ featuredPhoto }) {
       </Typography>
     </div>
   );
-}
+};
+
+export default Hulagway;

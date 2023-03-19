@@ -33,10 +33,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PopoutView = () => {
-  return null;
+const PopoutView = () => null;
 
-  /*
+/*
   return (
     <Paper variant="outlined" className={classes.viewContainer}>
       <div className={classes.arrowUp} />
@@ -62,6 +61,5 @@ const PopoutView = () => {
     </Paper>
   );
   */
-};
 
 export default PopoutView;

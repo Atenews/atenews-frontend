@@ -23,9 +23,14 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Menu({
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  label: string | React.ReactNode;
+  href: string;
+}
+
+const SubMenu: React.FC<Props> = ({
   children, label, href,
-}) {
+}) => {
   const classes = useStyles();
 
   const [submenu, setSubmenu] = React.useState(false);
@@ -58,4 +63,6 @@ export default function Menu({
       </div>
     </div>
   );
-}
+};
+
+export default SubMenu;

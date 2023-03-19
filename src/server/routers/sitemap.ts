@@ -3,33 +3,32 @@ import { gql } from 'graphql-request';
 import WPGraphQL from '@/utils/wpgraphql';
 
 export interface Query {
-  menu: {
-    menuItems: {
-      nodes: Menu[];
-    };
+  posts: {
+    nodes: Article[];
   };
 }
 
 const handler = procedure.query(async () => {
   const data = await WPGraphQL.request<Query>(
     gql`
-      query Menus {
-        menu(id: "Atenews Nav", idType: NAME) {
-          menuItems(first: 50) {
-            nodes {
-              id
-              url
-              label
-              parentId
+      query Sitemap {
+        posts(first: 30) {
+          nodes {
+            slug
+            categories {
+              nodes {
+                name
+                databaseId
+                slug
+              }
             }
+            databaseId
           }
         }
-      }            
+      }              
     `,
   );
-  return {
-    menus: data.menu.menuItems.nodes,
-  };
+  return data;
 });
 
 export default handler;

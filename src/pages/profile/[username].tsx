@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React from 'react';
 
 import dynamic from 'next/dynamic';
@@ -19,10 +21,11 @@ import SwipeableViews from 'react-swipeable-views';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import DefaultErrorPage from '@/components/404';
 
+import { appRouter } from '@/server/routers/_app';
+
 import WPGraphQL from '@/utils/wpgraphql';
 
 import { useError } from '@/utils/hooks/useSnackbar';
-import { useTrending } from '@/utils/hooks/useTrending';
 
 import trpc from '@/utils/trpc';
 
@@ -83,11 +86,104 @@ const TabPanel: React.FC<TabPanelProps> = (props) => {
       {...other}
     >
       {value === index && (
-        <>
-          { children }
-        </>
+        { children }
       )}
     </div>
+  );
+};
+
+const WrittenArticles: React.FC<{ articles: Article[] }> = ({ articles }) => {
+  if (!articles?.length) {
+    return (
+      <Grid
+        container
+        direction="column"
+        spacing={0}
+        alignItems="center"
+        justifyContent="center"
+        style={{ marginTop: theme.spacing(4) }}
+      >
+        <Grid item>
+          <img src="/reacts/sad.svg" alt="sad" width={40} />
+        </Grid>
+        <Grid item>
+          <Typography variant="body1">Nothing to see here!</Typography>
+        </Grid>
+      </Grid>
+    );
+  }
+  return (
+    <InfiniteScroll
+      dataLength={articles?.length || 0}
+      next={nextArticles}
+      hasMore={hasMoreArticles}
+      loader={(
+        <div style={{ overflow: 'hidden' }}>
+          <Grid
+            container
+            spacing={0}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Grid item>
+              <CircularProgress />
+            </Grid>
+          </Grid>
+        </div>
+        )}
+    >
+      { articles?.map((article, index) => (
+        <Article key={index} article={article} />
+      ))}
+    </InfiniteScroll>
+  );
+};
+
+const RecentActivities = ({ comments }) => {
+  if (!comments?.length) {
+    return (
+      <Grid
+        container
+        direction="column"
+        spacing={0}
+        alignItems="center"
+        justifyContent="center"
+        style={{ marginTop: theme.spacing(4) }}
+      >
+        <Grid item>
+          <img src="/reacts/sad.svg" alt="sad" width={40} />
+        </Grid>
+        <Grid item>
+          <Typography variant="body1">Nothing to see here!</Typography>
+        </Grid>
+      </Grid>
+    );
+  }
+  return (
+    <InfiniteScroll
+      style={{ overflow: 'hidden' }}
+      dataLength={comments?.length || 0}
+      next={next}
+      hasMore={hasMore}
+      loader={(
+        <div style={{ overflow: 'hidden' }}>
+          <Grid
+            container
+            spacing={0}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Grid item>
+              <CircularProgress />
+            </Grid>
+          </Grid>
+        </div>
+      )}
+    >
+      {comments?.map((comment) => (
+        <ProfileFeed key={comment.id} comment={comment} />
+      ))}
+    </InfiniteScroll>
   );
 };
 
@@ -100,7 +196,6 @@ interface Props {
 const UserProfile: React.FC<Props> = ({ profile, cdnKey, staffArticles }) => {
   const classes = useStyles();
   const theme = useTheme();
-  const trending = useTrending();
 
   const { setError } = useError();
 
@@ -159,108 +254,6 @@ const UserProfile: React.FC<Props> = ({ profile, cdnKey, staffArticles }) => {
       setError('User not found!');
     }
   }, [profile]);
-
-  const next = () => {
-    if (startAt) {
-    } else {
-      setHasMore(false);
-    }
-  };
-
-  const WrittenArticles = () => {
-    if (!articles?.length) {
-      return (
-        <Grid
-          container
-          direction="column"
-          spacing={0}
-          alignItems="center"
-          justifyContent="center"
-          style={{ marginTop: theme.spacing(4) }}
-        >
-          <Grid item>
-            <img src="/reacts/sad.svg" alt="sad" width={40} />
-          </Grid>
-          <Grid item>
-            <Typography variant="body1">Nothing to see here!</Typography>
-          </Grid>
-        </Grid>
-      );
-    }
-    return (
-      <InfiniteScroll
-        dataLength={articles?.length || 0}
-        next={nextArticles}
-        hasMore={hasMoreArticles}
-        loader={(
-          <div style={{ overflow: 'hidden' }}>
-            <Grid
-              container
-              spacing={0}
-              alignItems="center"
-              justifyContent="center"
-            >
-              <Grid item>
-                <CircularProgress />
-              </Grid>
-            </Grid>
-          </div>
-          )}
-      >
-        { articles?.map((article, index) => (
-          <Article key={index} article={article} />
-        ))}
-      </InfiniteScroll>
-    );
-  };
-
-  const RecentActivities = () => {
-    if (!comments?.length) {
-      return (
-        <Grid
-          container
-          direction="column"
-          spacing={0}
-          alignItems="center"
-          justifyContent="center"
-          style={{ marginTop: theme.spacing(4) }}
-        >
-          <Grid item>
-            <img src="/reacts/sad.svg" alt="sad" width={40} />
-          </Grid>
-          <Grid item>
-            <Typography variant="body1">Nothing to see here!</Typography>
-          </Grid>
-        </Grid>
-      );
-    }
-    return (
-      <InfiniteScroll
-        style={{ overflow: 'hidden' }}
-        dataLength={comments?.length || 0}
-        next={next}
-        hasMore={hasMore}
-        loader={(
-          <div style={{ overflow: 'hidden' }}>
-            <Grid
-              container
-              spacing={0}
-              alignItems="center"
-              justifyContent="center"
-            >
-              <Grid item>
-                <CircularProgress />
-              </Grid>
-            </Grid>
-          </div>
-        )}
-      >
-        {comments?.map((comment) => (
-          <ProfileFeed key={comment.id} comment={comment} />
-        ))}
-      </InfiniteScroll>
-    );
-  };
 
   if (profile) {
     return (
@@ -325,22 +318,6 @@ const UserProfile: React.FC<Props> = ({ profile, cdnKey, staffArticles }) => {
               <WrittenArticles />
             </TabPanel>
             <TabPanel value={tabValue} index={1} dir={theme.direction}>
-              <>
-                { !loading ? (
-                  <RecentActivities />
-                ) : (
-                  <Grid container justifyContent="center" alignItems="center" spacing={2}>
-                    <Grid item>
-                      <CircularProgress color="primary" style={{ margin: theme.spacing(2) }} />
-                    </Grid>
-                  </Grid>
-                ) }
-              </>
-            </TabPanel>
-          </SwipeableViews>
-        ) : (
-          <TabPanel value={tabValue} index={0} dir={theme.direction}>
-            <>
               { !loading ? (
                 <RecentActivities />
               ) : (
@@ -350,10 +327,21 @@ const UserProfile: React.FC<Props> = ({ profile, cdnKey, staffArticles }) => {
                   </Grid>
                 </Grid>
               ) }
-            </>
+            </TabPanel>
+          </SwipeableViews>
+        ) : (
+          <TabPanel value={tabValue} index={0} dir={theme.direction}>
+            { !loading ? (
+              <RecentActivities />
+            ) : (
+              <Grid container justifyContent="center" alignItems="center" spacing={2}>
+                <Grid item>
+                  <CircularProgress color="primary" style={{ margin: theme.spacing(2) }} />
+                </Grid>
+              </Grid>
+            ) }
           </TabPanel>
         ) }
-        <Trending articles={trending} />
       </div>
     );
   }

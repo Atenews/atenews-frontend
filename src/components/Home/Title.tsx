@@ -26,7 +26,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Title = ({
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  color: string;
+  small?: boolean;
+  avatar?: boolean;
+}
+
+const Title: React.FC<Props> = ({
   color, children, small, avatar,
 }) => {
   const classes = useStyles();

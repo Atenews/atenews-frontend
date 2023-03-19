@@ -52,7 +52,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Column = ({ details }) => {
+interface Props {
+  details: Staff;
+}
+
+const Staff: React.FC<Props> = ({ details }) => {
   const classes = useStyles();
   const theme = useTheme();
   const router = useRouter();
@@ -62,7 +66,7 @@ const Column = ({ details }) => {
 
   const { setError } = useError();
 
-  const humanRole = (raw) => raw.replace(/_/g, ' ').replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+  const humanRole = (raw: string) => raw.replace(/_/g, ' ').replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 
   return (
     <CardActionArea
@@ -82,7 +86,15 @@ const Column = ({ details }) => {
           <Grid item xs>
             <Typography variant="h6">{details.display_name}</Typography>
             {details.roles.map((role) => (!rolesIgnore.includes(role) ? (
-              <Typography variant="body1" style={{ color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white' }}>{humanRole(role)}</Typography>
+              <Typography
+                key={role}
+                variant="body1"
+                style={{
+                  color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white',
+                }}
+              >
+                {humanRole(role)}
+              </Typography>
             ) : null)) }
           </Grid>
         </Grid>
@@ -91,4 +103,4 @@ const Column = ({ details }) => {
   );
 };
 
-export default Column;
+export default Staff;

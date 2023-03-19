@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React from 'react';
 
 import { makeStyles } from '@mui/styles';
@@ -32,7 +34,7 @@ export default function DisplayAvatar({ editMode, profile, cdnKey }) {
 
   const [uploadingPhoto, setUploadingPhoto] = React.useState(false);
 
-  const [props, set] = useSpring(() => ({ opacity: 0 }));
+  const [props, api] = useSpring(() => ({ opacity: 0 }));
 
   React.useEffect(() => {
     setPhotoURL(imageGenerator(profile.photoURL, 250));
@@ -82,8 +84,8 @@ export default function DisplayAvatar({ editMode, profile, cdnKey }) {
       <IconButton
         disabled={!editMode || uploadingPhoto}
         onClick={() => { hiddenFileInput.current.click(); }}
-        onMouseOver={() => { set({ opacity: 0.8 }); }}
-        onMouseOut={() => { set({ opacity: 0 }); }}
+        onMouseOver={() => { api.start({ opacity: 0.8 }); }}
+        onMouseOut={() => { api.start({ opacity: 0 }); }}
         style={{ position: 'relative' }}
         size="large"
       >

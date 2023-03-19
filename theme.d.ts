@@ -1,7 +1,4 @@
-import '@mui/material/styles/createPalette';
-import '@mui/material/styles/createTheme';
-
-import '@mui/styles'; 
+import '@mui/styles';
 import type { Theme } from '@mui/material';
 
 declare module '@mui/styles/defaultTheme' {
@@ -18,6 +15,7 @@ declare module '@mui/material/styles/createTheme' {
 declare module '@mui/material/styles/createPalette' {
   interface Palette {
     atenews: {
+      main: string;
       news: string;
       features: string;
       highlight: string;
@@ -25,9 +23,10 @@ declare module '@mui/material/styles/createPalette' {
       diversions: string;
     };
   }
-  
+
   interface PaletteOptions {
     atenews?: {
+      main?: string;
       news?: string;
       features?: string;
       highlight?: string;

@@ -23,6 +23,7 @@ import Collapse from '@mui/material/Collapse';
 import Hidden from '@mui/material/Hidden';
 
 import trpc from '@/utils/trpc';
+import flatListToHierarchical from '@/utils/flatListToHierarchical';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,40 +62,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MenuAppBar({ closeButtomNav }) {
+interface Props {
+  closeButtomNav: () => void;
+}
+
+const MenuAppBar: React.FC<Props> = ({ closeButtomNav }) => {
   const classes = useStyles();
   const router = useRouter();
   const theme = useTheme();
 
   const iOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-  const [menus, setMenus] = React.useState<any[]>([]);
+  const [menus, setMenus] = React.useState<Menu[]>([]);
   const [menuLoading, setMenuLoading] = React.useState(true);
 
   const [sideMenu, setSideMenu] = React.useState(false);
 
-  const [openSubMenu, setOpenSubMenu] = React.useState(null);
-
-  const flatListToHierarchical = (
-    data = [],
-    { idKey = 'id', parentKey = 'parentId', childrenKey = 'children' } = {},
-  ) => {
-    const tree = [];
-    const childrenOf = {};
-    data.forEach((item) => {
-      const newItem = { ...item };
-      const { [idKey]: id, [parentKey]: parentId = 0 } = newItem;
-      childrenOf[id] = childrenOf[id] || [];
-      newItem[childrenKey] = childrenOf[id];
-      if (parentId) {
-        childrenOf[parentId] = childrenOf[parentId] || [];
-        childrenOf[parentId].push(newItem);
-      } else {
-        tree.push(newItem);
-      }
-    });
-    return tree;
-  };
+  const [openSubMenu, setOpenSubMenu] = React.useState<string | null>(null);
 
   const trpcMenus = trpc.useContext().menus;
 
@@ -106,7 +90,7 @@ export default function MenuAppBar({ closeButtomNav }) {
     });
   }, []);
 
-  const toggleDrawer = (open) => (event) => {
+  const toggleDrawer = (open: boolean): React.EventHandler<any> => (event) => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
@@ -114,7 +98,7 @@ export default function MenuAppBar({ closeButtomNav }) {
     setSideMenu(open);
   };
 
-  const handleSubMenu = (submenu) => {
+  const handleSubMenu = (submenu: string) => {
     if (openSubMenu === submenu) {
       setOpenSubMenu(null);
     } else {
@@ -122,7 +106,7 @@ export default function MenuAppBar({ closeButtomNav }) {
     }
   };
 
-  const handleClickLink = (e, url) => {
+  const handleClickLink = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, url: string) => {
     e.preventDefault();
     setSideMenu(false);
     setOpenSubMenu(null);
@@ -156,7 +140,7 @@ export default function MenuAppBar({ closeButtomNav }) {
                 </ListItemButton>
                 <Collapse key={`${menu.id}-collapse`} in={openSubMenu === menu.id} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-                    {menu.children.map((child) => (
+                    {menu.children?.map((child) => (
                       <ListItemButton LinkComponent={NextLink} key={child.id} className={classes.nested} href={child.url.replace('https://atenews.ph', '')} onClick={(e) => handleClickLink(e, child.url.replace('https://atenews.ph', ''))}>
                         <ListItemIcon>
                           <ChevronRightIcon />
@@ -221,4 +205,6 @@ export default function MenuAppBar({ closeButtomNav }) {
       </Hidden>
     </div>
   );
-}
+};
+
+export default MenuAppBar;

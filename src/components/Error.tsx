@@ -5,7 +5,11 @@ import Head from 'next/head';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-const CustomError = ({ statusCode }) => (
+interface Props {
+  statusCode?: number;
+}
+
+const CustomError: React.FC<Props> = ({ statusCode }) => (
   <>
     <Head>
       <meta name="robots" content="noindex" />

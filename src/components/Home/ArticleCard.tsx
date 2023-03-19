@@ -9,7 +9,6 @@ import { makeStyles } from '@mui/styles';
 import AccountIcon from '@mui/icons-material/AccountCircle';
 import ClockIcon from '@mui/icons-material/AccessTime';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import CommentIcon from '@mui/icons-material/CommentOutlined';
 
 import { useSpring, animated } from 'react-spring';
 
@@ -42,23 +41,25 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function ArticleCard({ article }) {
+interface Props {
+  article: Article;
+}
+
+const ArticleCard: React.FC<Props> = ({ article }) => {
   const classes = useStyles();
   const theme = useTheme();
 
-  const [containerProps, setContainerProps] = useSpring(() => ({ backgroundColor: 'rgba(0, 0, 0, 0.5)' }));
-  const [textProps, setTextProps] = useSpring(() => ({ opacity: 1 }));
-
-  const [socialStats, setSocialStats] = React.useState(null);
+  const [containerProps, containerPropsApi] = useSpring(() => ({ backgroundColor: 'rgba(0, 0, 0, 0.5)' }));
+  const [textProps, textPropsApi] = useSpring(() => ({ opacity: 1 }));
 
   const onHover = () => {
-    setContainerProps({ backgroundColor: 'rgba(0, 0, 0, 0)' });
-    setTextProps({ opacity: 0 });
+    containerPropsApi.start({ backgroundColor: 'rgba(0, 0, 0, 0)' });
+    textPropsApi.start({ opacity: 0 });
   };
 
   const onLeave = () => {
-    setContainerProps({ backgroundColor: 'rgba(0, 0, 0, 0.5)' });
-    setTextProps({ opacity: 1 });
+    containerPropsApi.start({ backgroundColor: 'rgba(0, 0, 0, 0.5)' });
+    textPropsApi.start({ opacity: 1 });
   };
 
   return (
@@ -138,6 +139,6 @@ function ArticleCard({ article }) {
       </CardActionArea>
     </Grid>
   );
-}
+};
 
 export default ArticleCard;

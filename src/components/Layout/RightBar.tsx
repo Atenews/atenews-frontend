@@ -51,19 +51,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RightBar({ setDarkMode }) {
+interface Props {
+  setDarkMode: (darkMode: boolean) => void;
+}
+
+const RightBar: React.FC<Props> = ({ setDarkMode }) => {
   const classes = useStyles();
   const theme = useTheme();
   const router = useRouter();
 
-  const [props, set] = useSpring(() => ({ width: '0vw', opacity: 0 }));
+  const [props, api] = useSpring(() => ({ width: '0vw', opacity: 0 }));
   const [searchOpened, setSearchOpened] = React.useState(false);
   const [search, setSearch] = React.useState('');
 
-  const searchBar = React.useRef();
+  const searchBar = React.useRef<HTMLInputElement>();
 
   return (
-    <div>
+    <>
       <animated.div className={classes.search} style={props}>
         <Grid container alignItems="center" style={{ height: '100%' }}>
           <Grid item xs>
@@ -76,7 +80,7 @@ export default function RightBar({ setDarkMode }) {
                 onChange={(e) => setSearch(e.target.value)}
                 InputProps={{
                   endAdornment: (
-                    <InputAdornment>
+                    <InputAdornment position="end">
                       <IconButton type="submit" aria-label="Search" size="large">
                         <SearchIcon color={theme.palette.mode === 'light' ? 'primary' : 'secondary'} />
                       </IconButton>
@@ -89,7 +93,7 @@ export default function RightBar({ setDarkMode }) {
           </Grid>
         </Grid>
       </animated.div>
-      <Grid component="div" container className={classes.account} justifyContent="space-around" alignItems="center" wrap="nowrap">
+      <Grid container className={classes.account} justifyContent="space-around" alignItems="center" wrap="nowrap">
         <Grid item>
           <IconButton
             aria-label="Open Search Bar"
@@ -97,11 +101,11 @@ export default function RightBar({ setDarkMode }) {
             color={theme.palette.mode === 'light' ? 'primary' : 'secondary'}
             onClick={() => {
               if (searchOpened) {
-                set({ width: '0vw', opacity: 0 });
+                api.start({ width: '0vw', opacity: 0 });
                 setSearchOpened(false);
               } else {
-                searchBar.current.focus();
-                set({ width: '66vw', opacity: 1 });
+                searchBar.current?.focus();
+                api.start({ width: '66vw', opacity: 1 });
                 setSearchOpened(true);
               }
             }}
@@ -116,7 +120,7 @@ export default function RightBar({ setDarkMode }) {
               <IconButton
                 aria-label="Enable Light Mode"
                 className={classes.button}
-                color={theme.palette.mode === 'light' ? 'primary' : 'secondary'}
+                color="secondary"
                 onClick={() => { setDarkMode(false); }}
                 size="large"
               >
@@ -126,7 +130,7 @@ export default function RightBar({ setDarkMode }) {
               <IconButton
                 aria-label="Enable Dark Mode"
                 className={classes.button}
-                color={theme.palette.mode === 'light' ? 'primary' : 'secondary'}
+                color="primary"
                 onClick={() => { setDarkMode(true); }}
                 size="large"
               >
@@ -136,6 +140,8 @@ export default function RightBar({ setDarkMode }) {
           }
         </Grid>
       </Grid>
-    </div>
+    </>
   );
-}
+};
+
+export default RightBar;
