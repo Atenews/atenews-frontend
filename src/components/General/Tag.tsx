@@ -28,6 +28,7 @@ interface Props {
   clickable?: boolean;
 }
 
+// TODO: test color on dark mode and light mode
 const Tag: React.FC<Props> = ({ type, clickable }) => {
   const classes = useStyles();
   const theme = useTheme();

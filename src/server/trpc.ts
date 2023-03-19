@@ -1,3 +1,8 @@
+// This code creates an instance of a trpc server and
+// returns the router and procedure helper functions.
+// The router is used to create trpc endpoints.
+// The procedure helper is used to create trpc procedures.
+
 import { inferAsyncReturnType, initTRPC } from '@trpc/server';
 import type { IncomingMessage, ServerResponse } from 'http';
 import * as trpcNext from '@trpc/server/adapters/next';

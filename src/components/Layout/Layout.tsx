@@ -32,6 +32,8 @@ import Footer from '@/components/Layout/Footer';
 import Header from '@/components/Layout/Header';
 import { ListItemButton } from '@mui/material';
 
+import { useTheme as useNextTheme } from 'next-themes';
+
 const TextField = withStyles({
   root: {
     '& .MuiOutlinedInput-root': {
@@ -114,14 +116,25 @@ const useStyles = makeStyles((theme) => ({
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   setDarkMode: (darkMode: boolean) => void;
+  darkMode: boolean;
 }
 
 // TODO: Fix types
-const Layout: React.FC<Props> = ({ children, setDarkMode }) => {
+const Layout: React.FC<Props> = ({ children, setDarkMode, darkMode }) => {
   const classes = useStyles();
   const router = useRouter();
   const theme = useTheme();
   const menuQuery = trpc.menus.useQuery();
+
+  const { setTheme: setNextTheme } = useNextTheme();
+
+  React.useEffect(() => {
+    if (darkMode) {
+      setNextTheme('dark');
+    } else {
+      setNextTheme('light');
+    }
+  }, [darkMode]);
 
   const [isLargeWidth, setIsLargeWidth] = React.useState(false);
   const [value, setValue] = React.useState(0);

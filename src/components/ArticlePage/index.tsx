@@ -23,7 +23,6 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
-import List from '@mui/material/List';
 import Avatar from '@mui/material/Avatar';
 import Hidden from '@mui/material/Hidden';
 
@@ -34,6 +33,8 @@ import readingTime from 'reading-time';
 import parse, { HTMLReactParserOptions, Element } from 'html-react-parser';
 
 import { useRouter } from 'next/router';
+
+const Commento = dynamic(import('@/components/ArticlePage/Commento'));
 
 const DiscussionEmbed = dynamic(import('disqus-react').then((mod) => mod.DiscussionEmbed), { ssr: false });
 
@@ -292,7 +293,7 @@ const ArticlePage: React.FC<Props> = ({
       <Divider />
       <div style={{ height: theme.spacing(4) }} />
       <div style={{ height: theme.spacing(2) }} />
-
+      {/*
       <DiscussionEmbed
         shortname="atenews-1"
         config={{
@@ -301,6 +302,11 @@ const ArticlePage: React.FC<Props> = ({
           title: post.title,
           language: 'en_US',
         }}
+      />
+      */}
+
+      <Commento
+        pageId={post.slug}
       />
 
       <Divider />

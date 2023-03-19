@@ -1,3 +1,10 @@
+// This code creates a router from the trpc library.
+// This router is used to create API endpoints for the application.
+// This router is passed to the createProxySSGHelpers function which
+// creates a helper function for the server side rendering.
+// The router has many different endpoints which are used for different
+// functionality within the application.
+
 import { router } from '@/server/trpc';
 
 import search from './search';

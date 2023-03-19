@@ -1,3 +1,7 @@
+// This code gets the article data from the database and sends it to the client.
+// It also gets related posts based on the categories of the article.
+// The article slug is used to get the data.
+
 import type { GetServerSideProps } from 'next';
 import { appRouter } from '@/server/routers/_app';
 

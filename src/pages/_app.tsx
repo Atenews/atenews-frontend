@@ -20,9 +20,13 @@ import '@/styles/nprogress.css';
 import { ErrorProvider } from '@/utils/hooks/useSnackbar';
 import { CategoryProvider } from '@/utils/hooks/useCategory';
 
+import createEmotionCache from '@/utils/createEmotionCache';
+
 import trpc from '@/utils/trpc';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { CacheProvider, EmotionCache } from '@emotion/react';
+import { ThemeProvider as NextThemeProvider } from 'next-themes';
 
 NProgress.configure({
   showSpinner: false,
@@ -41,8 +45,15 @@ Router.events.on('routeChangeError', () => {
   NProgress.done();
 });
 
-const MyApp: React.FC<AppProps> = (props) => {
-  const { Component, pageProps } = props;
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache();
+
+export interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache;
+}
+
+const MyApp: React.FC<MyAppProps> = (props) => {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const [darkMode, tmpSetDarkMode] = React.useState(false);
 
@@ -70,35 +81,37 @@ const MyApp: React.FC<AppProps> = (props) => {
   }, []);
 
   return (
-    <>
+    <CacheProvider value={emotionCache}>
       <Head>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover" />
       </Head>
-      <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={theme(darkMode)}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
-          <ErrorProvider>
-            <CategoryProvider>
-              <Layout setDarkMode={setDarkMode}>
-                <ToastContainer
-                  position="bottom-center"
-                  autoClose={5000}
-                  hideProgressBar={false}
-                  newestOnTop
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover
-                />
-                <Component {...pageProps} />
-              </Layout>
-            </CategoryProvider>
-          </ErrorProvider>
-        </ThemeProvider>
-      </StyledEngineProvider>
-    </>
+      <NextThemeProvider>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme(darkMode)}>
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
+            <ErrorProvider>
+              <CategoryProvider>
+                <Layout setDarkMode={setDarkMode} darkMode={darkMode}>
+                  <ToastContainer
+                    position="bottom-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                  />
+                  <Component {...pageProps} />
+                </Layout>
+              </CategoryProvider>
+            </ErrorProvider>
+          </ThemeProvider>
+        </StyledEngineProvider>
+      </NextThemeProvider>
+    </CacheProvider>
   );
 };
 
