@@ -306,7 +306,7 @@ const ArticlePage: React.FC<Props> = ({
       */}
 
       <Commento
-        pageId={post.slug}
+        pageId={`/${post.slug}`}
       />
 
       <Divider />
