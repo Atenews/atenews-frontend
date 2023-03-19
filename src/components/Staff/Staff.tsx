@@ -61,7 +61,6 @@ const Staff: React.FC<Props> = ({ details }) => {
   const theme = useTheme();
   const router = useRouter();
 
-  const [image, setImage] = React.useState('');
   const [username, setUsername] = React.useState('');
 
   const { setError } = useError();
@@ -81,7 +80,7 @@ const Staff: React.FC<Props> = ({ details }) => {
       <Paper elevation={0} className={classes.trendingItem}>
         <Grid container spacing={2} alignItems="center">
           <Grid item>
-            <Avatar className={classes.avatar} src={imageGenerator(image, 80)} />
+            <Avatar className={classes.avatar} src={imageGenerator(details.avatar, 80)} />
           </Grid>
           <Grid item xs>
             <Typography variant="h6">{details.display_name}</Typography>

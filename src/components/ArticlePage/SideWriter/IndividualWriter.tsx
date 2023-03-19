@@ -31,8 +31,6 @@ const IndividualWriter: React.FC<Props> = ({ author }) => {
   const router = useRouter();
   const { setError } = useError();
 
-  const [image, setImage] = React.useState('');
-
   const rolesIgnore = [
     'subscriber',
     'contributor',
@@ -50,7 +48,7 @@ const IndividualWriter: React.FC<Props> = ({ author }) => {
       key={author.databaseId}
     >
       <ListItemAvatar>
-        <Avatar className={classes.avatar} src={imageGenerator(image, 60)} />
+        <Avatar className={classes.avatar} src={imageGenerator(author.avatar?.url ?? '', 60)} />
       </ListItemAvatar>
       <ListItemText
         primary={`${author.firstName} ${author.lastName || ''}`}

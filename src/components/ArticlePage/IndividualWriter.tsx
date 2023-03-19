@@ -47,8 +47,6 @@ const IndividualWriter: React.FC<Props> = (props) => {
     'editor',
   ];
 
-  const [image, setImage] = React.useState('');
-
   const humanRole = (raw: string) => raw.replace(/_/g, ' ').replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 
   return (
@@ -60,7 +58,7 @@ const IndividualWriter: React.FC<Props> = (props) => {
       >
         <Grid container direction="row" alignItems="center" spacing={2} component="div" key={author.databaseId} wrap="nowrap">
           <Grid item>
-            <Avatar className={classes.avatar} src={imageGenerator(image, 60)} />
+            <Avatar className={classes.avatar} src={imageGenerator(author.avatar?.url ?? '', 60)} />
           </Grid>
           <Grid item>
             <Grid container direction="column" justifyContent="center">
