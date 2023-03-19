@@ -55,6 +55,8 @@ const MyDocument = ({ emotionStyleTags }: MyDocumentProps) => (
 
       <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
       {emotionStyleTags}
+
+      <script async defer data-website-id="1440d75b-591b-4f9a-9629-106a10f66531" src="https://analytics.atenews.ph/umami.js" />
     </Head>
     <body>
       <Main />
