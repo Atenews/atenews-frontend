@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '0.5vw',
     height: 65,
     zIndex: 1100,
-    width: '15vw',
+    width: '15vw !important',
     background: theme.palette.background.default,
   },
   button: {
