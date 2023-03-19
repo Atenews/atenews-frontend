@@ -174,20 +174,27 @@ const MenuAppBar: React.FC<Props> = ({ closeButtomNav }) => {
         }}
       >
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="primary"
-            aria-label="menu"
-            onClick={toggleDrawer(true)}
-            size="large"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Grid container style={{ width: '100%' }} justifyContent="center">
-            <Grid item>
-              <div className={classes.logo} />
+          <Grid container style={{ width: '100%' }} justifyContent="space-between" alignItems="center">
+            <Grid item xs>
+              <IconButton
+                edge="start"
+                className={classes.menuButton}
+                color="primary"
+                aria-label="menu"
+                onClick={toggleDrawer(true)}
+                size="large"
+              >
+                <MenuIcon />
+              </IconButton>
             </Grid>
+            <Grid item xs>
+              <Grid container style={{ width: '100%' }} justifyContent="center">
+                <Grid item>
+                  <div className={classes.logo} />
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs />
           </Grid>
         </Toolbar>
       </AppBar>
