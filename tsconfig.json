@@ -30,7 +30,8 @@
     "theme.d.ts",
     "custom.d.ts",
     ".eslintrc.js",
-    "reactInViewport.d.ts"
+    "reactInViewport.d.ts",
+    "next.config.js"
   ],
   "exclude": [
     "node_modules",

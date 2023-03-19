@@ -12,4 +12,5 @@ module.exports = withPWA({
   compiler: {
     styledComponents: true,
   },
+  compress: false,
 });
