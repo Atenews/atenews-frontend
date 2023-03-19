@@ -13,4 +13,11 @@ module.exports = withPWA({
     styledComponents: true,
   },
   compress: false,
+  swcMinify: true,
+  reactStrictMode: true,
+  modularizeImports: {
+    '@mui/material': {
+      transform: '@mui/material/{{member}}',
+    },
+  },
 });

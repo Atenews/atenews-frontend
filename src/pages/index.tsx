@@ -9,11 +9,7 @@ import parse from 'html-react-parser';
 
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
-import { useRouter } from 'next/router';
-
 import Typography from '@mui/material/Typography';
-
-import { useError } from '@/utils/hooks/useSnackbar';
 
 import RecentArticles from '@/components/Home/RecentArticles';
 

@@ -16,21 +16,15 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 
-import { gql } from 'graphql-request';
 import SwipeableViews from 'react-swipeable-views';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import DefaultErrorPage from '@/components/404';
-
-import { appRouter } from '@/server/routers/_app';
-
-import WPGraphQL from '@/utils/wpgraphql';
 
 import { useError } from '@/utils/hooks/useSnackbar';
 
 import trpc from '@/utils/trpc';
 
 const ProfileFeed = dynamic(import('@/components/Profile/ProfileFeed'));
-const Trending = dynamic(import('@/components/Home/Trending'));
 const ShowDetails = dynamic(import('@/components/Profile/ShowDetails'));
 const Article = dynamic(import('@/components/List/Article'));
 
