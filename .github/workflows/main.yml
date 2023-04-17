@@ -1,0 +1,26 @@
+name: Build and deploy Atenews Web Client
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        ref: main
+
+    - name: Install dependencies
+      working-directory: /var/www/atenews-frontend
+      run: yarn
+
+    - name: Build project
+      working-directory: /var/www/atenews-frontend
+      run: yarn build
+
+    - name: Reload app
+      working-directory: /var/www/atenews-frontend
+      run: pm2 reload frontend
