@@ -7,7 +7,7 @@ on:
 jobs:
   build-and-deploy:
     runs-on: self-hosted
-    environment: 
+    environment:
       name: Production
       url: https://atenews.ph
     steps:
@@ -16,14 +16,14 @@ jobs:
       with:
         ref: master
 
-    - name: Install dependencies
-      working-directory: /var/www/atenews-frontend
-      run: yarn
+    - name: Pull changes
+      working-directory: /srv/atenews.ph/frontend
+      run: git pull
 
-    - name: Build project
-      working-directory: /var/www/atenews-frontend
-      run: yarn build
+    - name: Docker Compose build image
+      working-directory: /srv/atenews.ph
+      run: docker compose build
 
-    - name: Reload app
-      working-directory: /var/www/atenews-frontend
-      run: pm2 reload frontend
+    - name: Recreate Docker container
+      working-directory: /srv/atenews.ph
+      run: docker compose up -d --force-recreate frontend
