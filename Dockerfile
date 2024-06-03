@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
 
 # Install application dependencies using Yarn
-RUN yarn install
+RUN yarn install --frozen-lockfile
 
 # Copy the rest of the application code to the container
 COPY . .
