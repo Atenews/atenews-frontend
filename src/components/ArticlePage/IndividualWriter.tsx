@@ -2,8 +2,6 @@ import React from 'react';
 
 import { useRouter } from 'next/router';
 
-import handleViewport from 'react-in-viewport';
-
 import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
@@ -80,4 +78,4 @@ const IndividualWriter: React.FC<Props> = (props) => {
   );
 };
 
-export default handleViewport(IndividualWriter);
+export default IndividualWriter;
