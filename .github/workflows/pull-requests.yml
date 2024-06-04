@@ -1,11 +1,10 @@
-name: CI/CD - Development
+name: CI - Pull Requests
 on:
-  push:
-    branches:
-      - master
+  pull_request:
+    types: [opened, reopened]
 jobs:
   build-image:
-    name: Dev - Docker image
+    name: PR - Docker image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,7 +26,7 @@ jobs:
         with:
           images: |
             ghcr.io/${{ github.repository }}
-          tags: type=raw,value=dev
+          tags: type=raw,value=pr-${{ github.event.number }}
           flavor: latest=false
 
       - name: Docker - Build / Push
@@ -38,15 +37,3 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
-  deploy-image:
-    name: Dev - Deployment
-    needs: build-image
-    runs-on: self-hosted
-    environment:
-      name: Development
-      url: https://dev.atenews.ph
-    steps:
-      - name: Docker Compose - Recreate
-        working-directory: /srv/dev.atenews.ph
-        run: docker compose up -d --force-recreate --pull=always frontend-dev
