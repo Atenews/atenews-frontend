@@ -13,6 +13,8 @@ import DefaultErrorPage from '@/components/404';
 import { GetServerSideProps, NextPage } from 'next';
 import type { Query } from '@/server/routers/customPage';
 
+import { createCallerFactory } from '@/server/trpc';
+
 const useStyles = makeStyles(() => ({
   contentContainer: {
     width: '90%',
@@ -44,7 +46,8 @@ const PrivacyPolicy: NextPage<Query> = ({ page }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const caller = appRouter.createCaller({ req, res });
+  const createCaller = createCallerFactory(appRouter);
+  const caller = createCaller({ req, res });
 
   try {
     const page = await caller.customPage({ slug: 'privacy-policy' });

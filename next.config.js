@@ -15,6 +15,7 @@ module.exports = withPWA({
   compress: false,
   swcMinify: true,
   reactStrictMode: true,
+  output: 'standalone',
   modularizeImports: {
     '@mui/material': {
       transform: '@mui/material/{{member}}',

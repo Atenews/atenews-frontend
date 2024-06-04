@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Article from '@/components/List/Article';
-import handleViewport from 'react-in-viewport';
+import handleViewport, { type InjectedViewportProps } from 'react-in-viewport';
 
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -13,8 +13,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 import trpc from '@/utils/trpc';
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> {
-  forwardedRef: React.RefObject<HTMLDivElement>;
+interface Props extends InjectedViewportProps<HTMLDivElement> {
   relatedPosts: Article[];
   postId: number;
   pageInfo: {

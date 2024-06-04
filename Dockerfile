@@ -1,23 +1,61 @@
-# Use an official Node.js runtime as the base image
-FROM node:18
+FROM node:lts-alpine AS base
 
-# Set the working directory in the container
-WORKDIR /usr/src/app
+### Dependencies ###
+FROM base AS deps
+RUN apk add --no-cache libc6-compat git
 
-# Copy package.json and yarn.lock to the container
-COPY package.json yarn.lock ./
+# Setup pnpm environment
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+RUN corepack prepare pnpm@latest --activate
 
-# Install application dependencies using Yarn
-RUN yarn install
+WORKDIR /app
 
-# Copy the rest of the application code to the container
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile --prefer-frozen-lockfile
+
+# Builder
+FROM base AS builder
+
+RUN corepack enable
+RUN corepack prepare pnpm@latest --activate
+
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+RUN pnpm build
 
-# Build the Next.js application
-RUN yarn build
+### Production image runner ###
+FROM base AS runner
 
-# Expose the application's port (if it's using a custom port, change it)
+# Set NODE_ENV to production
+ENV NODE_ENV production
+
+# Disable Next.js telemetry
+# Learn more here: https://nextjs.org/telemetry
+ENV NEXT_TELEMETRY_DISABLED 1
+
+# Set correct permissions for nextjs user and don't run as root
+RUN addgroup nodejs
+RUN adduser -SDH atenews
+RUN mkdir .next
+RUN chown atenews:nodejs .next
+
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=builder --chown=atenews:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=atenews:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=atenews:nodejs /app/public ./public
+
+USER atenews
+
+# Exposed port (for orchestrators and dynamic reverse proxies)
 EXPOSE 3000
+ENV PORT 3000
+ENV HOSTNAME "0.0.0.0"
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "wget", "-q0", "http://localhost:3000/staff" ]
 
-# Start the Next.js application
-CMD ["yarn", "start"]
+# Run atenews frontend
+CMD ["node", "server.js"]

@@ -1,14 +1,13 @@
 import React from 'react';
 
-import handleViewport from 'react-in-viewport';
+import handleViewport, { type InjectedViewportProps } from 'react-in-viewport';
 
 import Grid from '@mui/material/Grid';
 
 import IndividualWriter from '@/components/ArticlePage/IndividualWriter';
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> {
+interface Props extends InjectedViewportProps<HTMLDivElement> {
   authors: Author[];
-  forwardedRef: React.RefObject<HTMLDivElement>;
 }
 
 const WriterInfo: React.FC<Props> = (props) => {
