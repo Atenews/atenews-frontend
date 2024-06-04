@@ -21,7 +21,7 @@ import siteMap from './sitemap';
 import staff from './staff';
 import article from './article';
 
-import { createProxySSGHelpers } from '@trpc/react-query/ssg';
+import { createServerSideHelpers } from '@trpc/react-query/server';
 import superjson from 'superjson';
 
 export const appRouter = router({
@@ -43,7 +43,7 @@ export const appRouter = router({
 // export type definition of API
 export type AppRouter = typeof appRouter;
 
-export const ssg = createProxySSGHelpers({
+export const ssg = createServerSideHelpers({
   router: appRouter,
   ctx: {},
   transformer: superjson,

@@ -5,6 +5,8 @@
 import type { GetServerSideProps } from 'next';
 import { appRouter } from '@/server/routers/_app';
 
+import { createCallerFactory } from '@/server/trpc';
+
 export interface ArticleServerSideProps {
   post: Article;
   relatedPosts: Article[];
@@ -22,7 +24,8 @@ const articleServerSideProps: GetServerSideProps<ArticleServerSideProps> = async
   res,
   params,
 }) => {
-  const caller = appRouter.createCaller({ req, res });
+  const createCaller = createCallerFactory(appRouter);
+  const caller = createCaller({ req, res });
   let articleData: Article | null = null;
 
   try {

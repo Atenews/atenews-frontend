@@ -5,6 +5,8 @@ import { appRouter } from '@/server/routers/_app';
 import ArchiveLayout from '@/components/ArchiveLayout';
 import { GetServerSideProps, NextPage } from 'next';
 
+import { createCallerFactory } from '@/server/trpc';
+
 interface Props {
   articlesRaw: Article[];
   pageInfo: {
@@ -22,7 +24,8 @@ const SearchPage: NextPage<Props> = (props) => (
 );
 
 export const getServerSideProps: GetServerSideProps = async ({ query: rawQuery, req, res }) => {
-  const caller = appRouter.createCaller({ req, res });
+  const createCaller = createCallerFactory(appRouter);
+  const caller = createCaller({ req, res });
 
   try {
     const { query } = rawQuery;

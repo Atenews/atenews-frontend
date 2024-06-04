@@ -21,6 +21,8 @@ import { appRouter } from '@/server/routers/_app';
 import { rolesIgnore as _rolesIgnore } from '@/utils/constants';
 import { GetServerSideProps, NextPage } from 'next';
 
+import { createCallerFactory } from '@/server/trpc';
+
 const useStyles = makeStyles((theme) => ({
   container: {
   },
@@ -231,7 +233,8 @@ const StaffPage: NextPage<{ staffs: Staff[] }> = ({ staffs: staffsRaw }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const caller = appRouter.createCaller({ req, res });
+  const createCaller = createCallerFactory(appRouter);
+  const caller = createCaller({ req, res });
 
   try {
     const staffs = await caller.staff();
