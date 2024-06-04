@@ -1,4 +1,4 @@
-name: Build and deploy Atenews Web Client (Prod)
+name: CI/CD - Production
 on:
   push:
     branches:
@@ -39,12 +39,13 @@ jobs:
           cache-to: type=gha,mode=max
 
   deploy-image:
+    name: Production - Deployment
     needs: build-image
     runs-on: self-hosted
     environment:
       name: Production
       url: https://atenews.ph
     steps:
-      - name: Recreate Docker container
+      - name: Docker Compose - Recreate
         working-directory: /srv/atenews.ph
         run: docker compose up -d --force-recreate --pull=always frontend
