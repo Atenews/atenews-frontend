@@ -34,9 +34,7 @@ import parse, { HTMLReactParserOptions, Element } from 'html-react-parser';
 
 import { useRouter } from 'next/router';
 
-const Commento = dynamic(import('@/components/ArticlePage/Commento'));
-
-const DiscussionEmbed = dynamic(import('disqus-react').then((mod) => mod.DiscussionEmbed), { ssr: false });
+const Comentario = dynamic(import('@/components/ArticlePage/Comentario'));
 
 const Error404 = dynamic(import('@/components/404'));
 
@@ -305,9 +303,7 @@ const ArticlePage: React.FC<Props> = ({
       />
       */}
 
-      <Commento
-        pageId={`/${post.slug}`}
-      />
+      <Comentario />
 
       <Divider />
 
