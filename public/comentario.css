@@ -6,7 +6,7 @@ div.comentario-root {
     color: inherit !important;
 }
 
-div.comentario-root input[type=email], div.comentario-root input[type=password], div.comentario-root input[type=text], div.comentario-root input[type=url], div.comentario-root textarea {
+div.comentario-root textarea {
     color: inherit !important;
     background-color: inherit !important;
 }
@@ -22,7 +22,9 @@ div.comentario-root div.comentario-backdrop {
 }
 
 .comentario-root .comentario-btn {
+    --cmntr-btn-hover-color: inherit !important;
     --cmntr-btn-hover-bg: #2B6AB1 !important;
+    --cmntr-btn-active-color: inherit !important;
     --cmntr-btn-active-bg: #273E8F !important;
 }
 
