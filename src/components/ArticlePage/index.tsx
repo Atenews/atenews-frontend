@@ -288,23 +288,11 @@ const ArticlePage: React.FC<Props> = ({
         </>
         ) : null}
 
-      <Divider />
       <div style={{ height: theme.spacing(4) }} />
-      <div style={{ height: theme.spacing(2) }} />
-      {/*
-      <DiscussionEmbed
-        shortname="atenews-1"
-        config={{
-          url: `${origin}/${post.slug}`,
-          identifier: `${post.databaseId}` ?? undefined,
-          title: post.title,
-          language: 'en_US',
-        }}
-      />
-      */}
 
       <Comentario />
 
+      <div style={{ height: theme.spacing(4) }} />
       <Divider />
 
       <div style={{ height: theme.spacing(8) }} />
