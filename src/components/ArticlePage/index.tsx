@@ -248,17 +248,17 @@ const ArticlePage: React.FC<Props> = ({
         {parse(post.content ?? '', options)}
       </article>
 
+      <Divider
+        style={{
+          marginTop: theme.spacing(2),
+          marginBottom: theme.spacing(2),
+        }}
+      />
+
       <div style={{ height: theme.spacing(4) }} />
       {(post.categories?.nodes.filter((cat) => cat.slug === 'columns')?.length ?? 0)
       > 0 ? (
         <>
-          <Divider
-            style={{
-              marginTop: theme.spacing(2),
-              marginBottom: theme.spacing(2),
-            }}
-          />
-
           <Grid
             container
             spacing={3}
