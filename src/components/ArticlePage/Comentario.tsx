@@ -2,6 +2,17 @@ import React, { useEffect } from 'react';
 
 const COMENTARIO_URL = 'https://comentario.atenews.ph/comentario.js';
 
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'comentario-comments': React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement>,
+        HTMLElement
+      >;
+    }
+  }
+}
+
 const Comentario = () => {
   useEffect(() => {
     // @ts-ignore
