@@ -24,7 +24,7 @@ const Comentario = () => {
   }, []);
 
   return (
-    <comentario-comments no-fonts="true" css-override="false" />
+    <comentario-comments no-fonts="true" />
   );
 };
 export default Comentario;
