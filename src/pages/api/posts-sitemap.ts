@@ -22,7 +22,7 @@ const Sitemap: NextApiHandler = async (req, res) => {
 
     const categories = [
       '/',
-      ...menusData.menus.map((menu) => menu.url.replace('https://atenews.ph', '')),
+      ...menusData.menus.map((menu: { url: string; }) => menu.url.replace('https://atenews.ph', '')),
     ];
 
     categories.forEach((category) => {
@@ -34,7 +34,7 @@ const Sitemap: NextApiHandler = async (req, res) => {
     });
 
     // Create each URL row
-    siteMapData.posts.nodes.forEach((post) => {
+    siteMapData.posts.nodes.forEach((post: Article) => {
       smStream.write({
         url: slugGenerator(post),
         changefreq: 'daily',
