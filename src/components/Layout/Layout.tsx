@@ -160,7 +160,7 @@ const Layout: React.FC<Props> = ({ children, setDarkMode, darkMode }) => {
 
   React.useEffect(() => {
     if (menuQuery.isFetched) {
-      const menus = menuQuery.data?.menus.map((menu) => menu.url.replace('https://atenews.ph', '')) || [];
+      const menus = menuQuery.data?.menus.map((menu: { url: string; }) => menu.url.replace('https://atenews.ph', '')) || [];
       const largerWidthPages = [
         '/',
         ...menus,
