@@ -85,6 +85,6 @@
     "next-unused": "^0.0.6",
     "prettier": "^3.3.2",
     "typescript": "^5.0.2",
-    "webpack": "^5.76.2"
+    "webpack": "^5.92.1"
   }
 }
