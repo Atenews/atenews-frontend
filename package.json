@@ -16,7 +16,7 @@
     "@emotion/react": "^11.13.0",
     "@emotion/server": "^11.10.0",
     "@emotion/styled": "^11.13.0",
-    "@mui/icons-material": "^5.16.0",
+    "@mui/icons-material": "^5.16.5",
     "@mui/material": "^5.16.5",
     "@mui/styles": "^5.16.1",
     "@n8tb1t/use-scroll-position": "^2.0.3",
