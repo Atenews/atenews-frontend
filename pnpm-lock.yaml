@@ -72,8 +72,8 @@ importers:
         specifier: ^2.3.3
         version: 2.5.2
       html-react-parser:
-        specifier: ^5.1.10
-        version: 5.1.10(@types/react@18.3.3)(react@18.3.1)
+        specifier: ^5.1.12
+        version: 5.1.12(@types/react@18.3.3)(react@18.3.1)
       localforage:
         specifier: ^1.10.0
         version: 1.10.0
@@ -3376,16 +3376,16 @@ packages:
   hoist-non-react-statics@3.3.2:
     resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
 
-  html-dom-parser@5.0.8:
-    resolution: {integrity: sha512-vuWiX9EXgu8CJ5m9EP5c7bvBmNSuQVnrY8tl0z0ZX96Uth1IPlYH/8W8VZ/hBajFf18EN+j2pukbCNd01HEd1w==}
+  html-dom-parser@5.0.9:
+    resolution: {integrity: sha512-QGeoFYwgQ582EDvrBx0+ejIz76/LuQcwwkmSR4ueKncjl2yWbciA45Kfz/LrHvWR3CgtKnxKFkr4Mpq2Sh1QNg==}
 
   html-entities@2.5.2:
     resolution: {integrity: sha512-K//PSRMQk4FZ78Kyau+mZurHn3FH0Vwr+H36eE0rPbeYkRRi9YxceYPhuN60UwWorxyKHhqoAJl2OFKa4BVtaA==}
 
-  html-react-parser@5.1.10:
-    resolution: {integrity: sha512-gV22PvLij4wdEdtrZbGVC7Zy2OVWnQ0bYhX63S196ZRSx4+K0TuutCreHSXr+saUia8KeKB+2TYziVfijpH4Tw==}
+  html-react-parser@5.1.12:
+    resolution: {integrity: sha512-OPv8fsIvxxv/+pLj9mYvyNu8PE5dPMowTRdd5VHpcoZpXlstp8eYCxQ5rzqAE5Tb75rhdiWUXnPltfb62zCVjg==}
     peerDependencies:
-      '@types/react': 17 || 18
+      '@types/react': 0.14 || 15 || 16 || 17 || 18
       react: 0.14 || 15 || 16 || 17 || 18
     peerDependenciesMeta:
       '@types/react':
@@ -9648,17 +9648,17 @@ snapshots:
     dependencies:
       react-is: 16.13.1
 
-  html-dom-parser@5.0.8:
+  html-dom-parser@5.0.9:
     dependencies:
       domhandler: 5.0.3
       htmlparser2: 9.1.0
 
   html-entities@2.5.2: {}
 
-  html-react-parser@5.1.10(@types/react@18.3.3)(react@18.3.1):
+  html-react-parser@5.1.12(@types/react@18.3.3)(react@18.3.1):
     dependencies:
       domhandler: 5.0.3
-      html-dom-parser: 5.0.8
+      html-dom-parser: 5.0.9
       react: 18.3.1
       react-property: 2.0.2
       style-to-js: 1.1.12
