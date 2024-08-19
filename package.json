@@ -84,7 +84,7 @@
     "lint-staged": "^15.2.9",
     "next-unused": "^0.0.6",
     "prettier": "^3.3.3",
-    "typescript": "^5.5.3",
+    "typescript": "^5.5.4",
     "webpack": "^5.93.0"
   }
 }
