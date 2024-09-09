@@ -60,7 +60,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^14.2.5",
+    "@next/eslint-plugin-next": "^14.2.8",
     "@types/nprogress": "^0.2.0",
     "@types/react": "^18.3.5",
     "@types/react-lazy-load-image-component": "^1.5.2",
