@@ -105,8 +105,8 @@ importers:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
       react-in-viewport:
-        specifier: ^1.0.0-alpha.29
-        version: 1.0.0-beta.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^1.0.0-beta.6
+        version: 1.0.0-beta.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-infinite-scroll-component:
         specifier: ^6.1.0
         version: 6.1.0(react@18.3.1)
@@ -4645,8 +4645,8 @@ packages:
     peerDependencies:
       react: ^16.3.0
 
-  react-in-viewport@1.0.0-beta.2:
-    resolution: {integrity: sha512-Yfyw8UbBbq4IHtufuCJefO2RsBx0iolBNm09/BuY0Te3FKWLYmg3FxQ9P5rVKo6DZjn+4HLnL2oSBkLDU4MFng==}
+  react-in-viewport@1.0.0-beta.6:
+    resolution: {integrity: sha512-gcoIEbcV1afC1tYSBn1d2JAbOw8tfdZpQDCHdjYhZQrH0MCTdAK/w+U3EvytTu9Sz6AQ9GIKJkjrMeZwZ/NHqA==}
     peerDependencies:
       react: ^16.8.3 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.3 || ^17.0.0 || ^18.0.0
@@ -11161,7 +11161,7 @@ snapshots:
       react: 18.3.1
       warning: 4.0.3
 
-  react-in-viewport@1.0.0-beta.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-in-viewport@1.0.0-beta.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       hoist-non-react-statics: 3.3.2
       react: 18.3.1
