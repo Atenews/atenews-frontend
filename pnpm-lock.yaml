@@ -82,7 +82,7 @@ importers:
         version: 14.2.15(@babel/core@7.24.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-pwa:
         specifier: ^5.6.0
-        version: 5.6.0(@babel/core@7.24.7)(next@14.2.15(@babel/core@7.24.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(webpack@5.95.0)
+        version: 5.6.0(@babel/core@7.24.7)(next@14.2.15(@babel/core@7.24.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(webpack@5.96.1)
       next-seo:
         specifier: ^6.6.0
         version: 6.6.0(next@14.2.15(@babel/core@7.24.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -223,8 +223,8 @@ importers:
         specifier: ^5.6.3
         version: 5.6.3
       webpack:
-        specifier: ^5.95.0
-        version: 5.95.0
+        specifier: ^5.96.1
+        version: 5.96.1
 
 packages:
 
@@ -2000,6 +2000,9 @@ packages:
   '@trpc/server@10.45.2':
     resolution: {integrity: sha512-wOrSThNNE4HUnuhJG6PfDRp4L2009KDVxsd+2VYH8ro6o/7/jwYZ8Uu5j+VaW+mOmc8EHerHzGcdbGNQSAUPgg==}
 
+  '@types/eslint-scope@3.7.7':
+    resolution: {integrity: sha512-MzMFlSLBqNF2gcHWO0G1vP/YQyfvrxZ0bF+u7mzUdZ1/xK4A4sru+nraZz5i3iEIk1l1uyicaDVTB4QbbEkAYg==}
+
   '@types/eslint@8.56.10':
     resolution: {integrity: sha512-Shavhk87gCtY2fhXDctcfS3e6FdxWkCx1iUZ9eEUbh7rTqlZT0/IzOkCOVt0fCjcFuZ9FPYfuezTBImfHCDBGQ==}
 
@@ -2253,11 +2256,6 @@ packages:
     resolution: {integrity: sha512-PYAthTa2m2VKxuvSD3DPC/Gy+U+sOA1LAuT8mkmRuvw+NACSaeXEQ+NHcVF7rONl6qcaxV3Uuemwawk+7+SJLw==}
     engines: {node: '>= 0.6'}
 
-  acorn-import-attributes@1.9.5:
-    resolution: {integrity: sha512-n02Vykv5uA3eHGM/Z2dQrcD56kL8TyDb2p1+0P83PClMnC/nc+anbQRhIOWnSq4Ke/KvDPrY3C9hDtC/A3eHnQ==}
-    peerDependencies:
-      acorn: ^8
-
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
@@ -2265,6 +2263,11 @@ packages:
 
   acorn@8.12.1:
     resolution: {integrity: sha512-tcpGyI9zbizT9JbV6oYE477V6mTlXvvi0T0G3SNIYE2apm/G5huBa1+K89VGeovbg+jycCrfhl3ADxErOuO6Jg==}
+    engines: {node: '>=0.4.0'}
+    hasBin: true
+
+  acorn@8.14.0:
+    resolution: {integrity: sha512-cl669nCJTZBsL97OF4kUQm5g5hC2uihk0NxY3WENAC0TYdILVkAyHymAntgxGkl7K+t0cXIrH5siy5S4XkFycA==}
     engines: {node: '>=0.4.0'}
     hasBin: true
 
@@ -5753,8 +5756,8 @@ packages:
     resolution: {integrity: sha512-/DyMEOrDgLKKIG0fmvtz+4dUX/3Ghozwgm6iPp8KRhvn+eQf9+Q7GWxVNMk3+uCPWfdXYC4ExGBckIXdFEfH1w==}
     engines: {node: '>=10.13.0'}
 
-  webpack@5.95.0:
-    resolution: {integrity: sha512-2t3XstrKULz41MNMBF+cJ97TyHdyQ8HCt//pqErqDvNjU9YQBnZxIHa11VXsi7F3mb5/aO2tuDxdeTPdU7xu9Q==}
+  webpack@5.96.1:
+    resolution: {integrity: sha512-l2LlBSvVZGhL4ZrPwyr8+37AunkcYj5qh8o6u2/2rzoPc8gxFJkLj1WxNgooi9pnoc06jh0BjuXnamM4qlujZA==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     peerDependencies:
@@ -8235,11 +8238,15 @@ snapshots:
 
   '@trpc/server@10.45.2': {}
 
+  '@types/eslint-scope@3.7.7':
+    dependencies:
+      '@types/eslint': 8.56.10
+      '@types/estree': 1.0.6
+
   '@types/eslint@8.56.10':
     dependencies:
       '@types/estree': 1.0.6
       '@types/json-schema': 7.0.15
-    optional: true
 
   '@types/estree@0.0.39': {}
 
@@ -8560,15 +8567,13 @@ snapshots:
       mime-types: 2.1.35
       negotiator: 0.6.3
 
-  acorn-import-attributes@1.9.5(acorn@8.12.1):
-    dependencies:
-      acorn: 8.12.1
-
   acorn-jsx@5.3.2(acorn@8.12.1):
     dependencies:
       acorn: 8.12.1
 
   acorn@8.12.1: {}
+
+  acorn@8.14.0: {}
 
   ajv-keywords@3.5.2(ajv@6.12.6):
     dependencies:
@@ -8748,14 +8753,14 @@ snapshots:
     dependencies:
       '@babel/core': 7.24.7
 
-  babel-loader@8.3.0(@babel/core@7.24.7)(webpack@5.95.0):
+  babel-loader@8.3.0(@babel/core@7.24.7)(webpack@5.96.1):
     dependencies:
       '@babel/core': 7.24.7
       find-cache-dir: 3.3.2
       loader-utils: 2.0.4
       make-dir: 3.1.0
       schema-utils: 2.7.1
-      webpack: 5.95.0
+      webpack: 5.96.1
 
   babel-plugin-import@1.13.8:
     dependencies:
@@ -8921,10 +8926,10 @@ snapshots:
 
   classnames@2.5.1: {}
 
-  clean-webpack-plugin@4.0.0(webpack@5.95.0):
+  clean-webpack-plugin@4.0.0(webpack@5.96.1):
     dependencies:
       del: 4.1.1
-      webpack: 5.95.0
+      webpack: 5.96.1
 
   cli-cursor@3.1.0:
     dependencies:
@@ -11054,14 +11059,14 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  next-pwa@5.6.0(@babel/core@7.24.7)(next@14.2.15(@babel/core@7.24.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(webpack@5.95.0):
+  next-pwa@5.6.0(@babel/core@7.24.7)(next@14.2.15(@babel/core@7.24.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(webpack@5.96.1):
     dependencies:
-      babel-loader: 8.3.0(@babel/core@7.24.7)(webpack@5.95.0)
-      clean-webpack-plugin: 4.0.0(webpack@5.95.0)
+      babel-loader: 8.3.0(@babel/core@7.24.7)(webpack@5.96.1)
+      clean-webpack-plugin: 4.0.0(webpack@5.96.1)
       globby: 11.1.0
       next: 14.2.15(@babel/core@7.24.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      terser-webpack-plugin: 5.3.10(webpack@5.95.0)
-      workbox-webpack-plugin: 6.6.0(webpack@5.95.0)
+      terser-webpack-plugin: 5.3.10(webpack@5.96.1)
+      workbox-webpack-plugin: 6.6.0(webpack@5.96.1)
       workbox-window: 6.6.0
     transitivePeerDependencies:
       - '@babel/core'
@@ -12318,19 +12323,19 @@ snapshots:
       type-fest: 0.16.0
       unique-string: 2.0.0
 
-  terser-webpack-plugin@5.3.10(webpack@5.95.0):
+  terser-webpack-plugin@5.3.10(webpack@5.96.1):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.2
       terser: 5.34.1
-      webpack: 5.95.0
+      webpack: 5.96.1
 
   terser@5.34.1:
     dependencies:
       '@jridgewell/source-map': 0.3.6
-      acorn: 8.12.1
+      acorn: 8.14.0
       commander: 2.20.3
       source-map-support: 0.5.21
 
@@ -12549,14 +12554,14 @@ snapshots:
 
   webpack-sources@3.2.3: {}
 
-  webpack@5.95.0:
+  webpack@5.96.1:
     dependencies:
+      '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.6
       '@webassemblyjs/ast': 1.12.1
       '@webassemblyjs/wasm-edit': 1.12.1
       '@webassemblyjs/wasm-parser': 1.12.1
-      acorn: 8.12.1
-      acorn-import-attributes: 1.9.5(acorn@8.12.1)
+      acorn: 8.14.0
       browserslist: 4.24.0
       chrome-trace-event: 1.0.4
       enhanced-resolve: 5.17.1
@@ -12571,7 +12576,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.10(webpack@5.95.0)
+      terser-webpack-plugin: 5.3.10(webpack@5.96.1)
       watchpack: 2.4.1
       webpack-sources: 3.2.3
     transitivePeerDependencies:
@@ -12746,12 +12751,12 @@ snapshots:
 
   workbox-sw@6.6.0: {}
 
-  workbox-webpack-plugin@6.6.0(webpack@5.95.0):
+  workbox-webpack-plugin@6.6.0(webpack@5.96.1):
     dependencies:
       fast-json-stable-stringify: 2.1.0
       pretty-bytes: 5.6.0
       upath: 1.2.0
-      webpack: 5.95.0
+      webpack: 5.96.1
       webpack-sources: 1.4.3
       workbox-build: 6.6.0
     transitivePeerDependencies:
