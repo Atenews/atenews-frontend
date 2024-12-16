@@ -105,8 +105,8 @@ importers:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
       react-in-viewport:
-        specifier: ^1.0.0-beta.6
-        version: 1.0.0-beta.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^1.0.0-beta.7
+        version: 1.0.0-beta.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-infinite-scroll-component:
         specifier: ^6.1.0
         version: 6.1.0(react@18.3.1)
@@ -4734,11 +4734,11 @@ packages:
     peerDependencies:
       react: ^16.3.0
 
-  react-in-viewport@1.0.0-beta.6:
-    resolution: {integrity: sha512-gcoIEbcV1afC1tYSBn1d2JAbOw8tfdZpQDCHdjYhZQrH0MCTdAK/w+U3EvytTu9Sz6AQ9GIKJkjrMeZwZ/NHqA==}
+  react-in-viewport@1.0.0-beta.7:
+    resolution: {integrity: sha512-TL+85CuxL04mar8i+xgBFRh4oCzM+nGoDToUeRe4E6+gwvllHUzIqJmTC+WVDn6m6keXCnVw8vtQZZnH0Ckgdw==}
     peerDependencies:
-      react: ^16.8.3 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.3 || ^17.0.0 || ^18.0.0
+      react: ^16.8.3 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.8.3 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   react-infinite-scroll-component@6.1.0:
     resolution: {integrity: sha512-SQu5nCqy8DxQWpnUVLx7V7b7LcA37aM7tvoWjTLZp1dk6EJibM5/4EJKzOnl07/BsM1Y40sKLuqjCwwH/xV0TQ==}
@@ -5339,6 +5339,7 @@ packages:
 
   sudo-prompt@9.2.1:
     resolution: {integrity: sha512-Mu7R0g4ig9TUuGSxJavny5Rv0egCEtpZRNMrZaYS1vxkiIxGiGUwoezU3LazIQ+KE04hTrTfNPgxU5gzi7F5Pw==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   superagent@4.1.0:
     resolution: {integrity: sha512-FT3QLMasz0YyCd4uIi5HNe+3t/onxMyEho7C3PSqmti3Twgy2rXT4fmkTz6wRL6bTF4uzPcfkUCa8u4JWHw8Ag==}
@@ -11327,7 +11328,7 @@ snapshots:
       react: 18.3.1
       warning: 4.0.3
 
-  react-in-viewport@1.0.0-beta.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-in-viewport@1.0.0-beta.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       hoist-non-react-statics: 3.3.2
       react: 18.3.1
