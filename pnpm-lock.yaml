@@ -160,8 +160,8 @@ importers:
         specifier: ^1.5.2
         version: 1.6.4
       '@types/react-swipeable-views':
-        specifier: ^0.13.1
-        version: 0.13.5
+        specifier: ^0.13.6
+        version: 0.13.6
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.16.0
         version: 8.16.0(@typescript-eslint/parser@6.21.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)
@@ -1931,8 +1931,8 @@ packages:
     peerDependencies:
       '@types/react': '*'
 
-  '@types/react-swipeable-views@0.13.5':
-    resolution: {integrity: sha512-ni6WjO7gBq2xB2Y/ZiRdQOgjGOxIik5ow2s7xKieDq8DxsXTdV46jJslSBVK2yoIJHf6mG3uqNTwxwgzbXRRzg==}
+  '@types/react-swipeable-views@0.13.6':
+    resolution: {integrity: sha512-Pe9TxRRo098Lxi59YQ8KWVuyBOvt9nJK5AtAqGiRsnl+6PXLknuiLhg0+mGuM9Bn+nun+Ed65Kb1Yl171vCdyA==}
 
   '@types/react-transition-group@4.4.10':
     resolution: {integrity: sha512-hT/+s0VQs2ojCX823m60m5f0sL5idt9SO6Tj6Dg+rdphGPIeJbJ6CxvBYkgkGKrYeDjvIpKTR38UzmtHJOGW3Q==}
@@ -8065,7 +8065,7 @@ snapshots:
     dependencies:
       '@types/react': 18.3.12
 
-  '@types/react-swipeable-views@0.13.5':
+  '@types/react-swipeable-views@0.13.6':
     dependencies:
       '@types/react': 18.3.16
 

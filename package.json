@@ -64,7 +64,7 @@
     "@types/nprogress": "^0.2.0",
     "@types/react": "^18.3.12",
     "@types/react-lazy-load-image-component": "^1.5.2",
-    "@types/react-swipeable-views": "^0.13.1",
+    "@types/react-swipeable-views": "^0.13.6",
     "@typescript-eslint/eslint-plugin": "^8.16.0",
     "babel-plugin-import": "^1.13.6",
     "eslint": "^8.57.1",
