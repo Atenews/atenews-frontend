@@ -63,11 +63,11 @@ importers:
         specifier: ^4.2.2
         version: 4.2.2
       graphql:
-        specifier: ^16.9.0
-        version: 16.9.0
+        specifier: ^16.10.0
+        version: 16.10.0
       graphql-request:
         specifier: ^7.1.2
-        version: 7.1.2(graphql@16.9.0)
+        version: 7.1.2(graphql@16.10.0)
       html-entities:
         specifier: ^2.3.3
         version: 2.5.2
@@ -3482,8 +3482,8 @@ packages:
     peerDependencies:
       graphql: 14 - 16
 
-  graphql@16.9.0:
-    resolution: {integrity: sha512-GGTKBX4SD7Wdb8mqeDLni2oaRGYQWjWHGKPQ24ZMnUtKfcsVoiv4uX8+LJr1K6U5VW2Lu1BwJnj7uiori0YtRw==}
+  graphql@16.10.0:
+    resolution: {integrity: sha512-AjqGKbDGUFRKIRCP9tCKiIGHyriz2oHEbPIbEtcSLSs4YjReZOIPQQWek4+6hjw62H9QShXHyaGivGiYVLeYFQ==}
     engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
 
   graphviz@0.0.9:
@@ -7334,9 +7334,9 @@ snapshots:
 
   '@eslint/js@8.57.1': {}
 
-  '@graphql-typed-document-node/core@3.2.0(graphql@16.9.0)':
+  '@graphql-typed-document-node/core@3.2.0(graphql@16.10.0)':
     dependencies:
-      graphql: 16.9.0
+      graphql: 16.10.0
 
   '@hapi/hoek@9.3.0': {}
 
@@ -10204,12 +10204,12 @@ snapshots:
 
   graphemer@1.4.0: {}
 
-  graphql-request@7.1.2(graphql@16.9.0):
+  graphql-request@7.1.2(graphql@16.10.0):
     dependencies:
-      '@graphql-typed-document-node/core': 3.2.0(graphql@16.9.0)
-      graphql: 16.9.0
+      '@graphql-typed-document-node/core': 3.2.0(graphql@16.10.0)
+      graphql: 16.10.0
 
-  graphql@16.9.0: {}
+  graphql@16.10.0: {}
 
   graphviz@0.0.9:
     dependencies:
