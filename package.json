@@ -27,7 +27,7 @@
     "@trpc/server": "^10.16.0",
     "date-fns": "^4.1.0",
     "disqus-react": "^1.1.5",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.4.7",
     "eslint-config-airbnb-typescript": "^18.0.0",
     "feed": "^4.2.2",
     "graphql": "^16.10.0",
