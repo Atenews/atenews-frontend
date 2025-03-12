@@ -2,7 +2,7 @@ name: CI/CD - Development
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   build-image:
     name: Dev - Docker image
