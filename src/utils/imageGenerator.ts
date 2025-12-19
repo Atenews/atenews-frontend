@@ -1,10 +1,13 @@
-const imageGenerator = (url: string): string => {
+const imageGenerator = (url: string, width: number): string => {
   if (!url) {
     return '';
   }
   try {
     const urlObject = new URL(url.replace('https://atenews.ph', 'https://wp.atenews.ph'));
-    return urlObject.href;
+    if (urlObject.hostname !== 'wp.atenews.ph') {
+      return url;
+    }
+    return url;
   } catch (err) {
     return url;
   }
