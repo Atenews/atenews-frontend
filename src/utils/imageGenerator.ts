@@ -1,4 +1,4 @@
-const imageGenerator = (url: string, width: number): string => {
+const imageGenerator = (url: string, width?: number): string => {
   if (!url) {
     return '';
   }
@@ -7,7 +7,7 @@ const imageGenerator = (url: string, width: number): string => {
     if (urlObject.hostname !== 'wp.atenews.ph') {
       return url;
     }
-    return `https://cdn.statically.io/img/${urlObject.hostname}/w=${width},f=auto${urlObject.pathname}`;
+    return url;
   } catch (err) {
     return url;
   }
