@@ -1,11 +1,10 @@
-const imageGenerator = (url: string, width: number): string => {
+const imageGenerator = (url: string): string => {
   if (!url) {
     return '';
   }
   try {
     const urlObject = new URL(url.replace('https://atenews.ph', 'https://wp.atenews.ph'));
-    return `${urlObject.origin}${urlObject.pathname}?w=${width}&f=auto`;
-    
+    return urlObject.href;
   } catch (err) {
     return url;
   }
