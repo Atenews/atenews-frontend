@@ -1,4 +1,4 @@
-const imageGenerator = (url: string, width: number): string => {
+const imageGenerator = (url: string, width?: number): string => {
   if (!url) {
     return '';
   }
