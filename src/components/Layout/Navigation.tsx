@@ -134,12 +134,7 @@ const Navigation: React.FC = () => {
             </Menu>
           ))}
 
-          <Menu
-            color={theme.palette.primary.main}
-            label={<Typography variant="body1">Staff</Typography>}
-            active={activeMenu === '/staff'}
-            href="/staff"
-          />
+
 
         </>
       ) : null }
