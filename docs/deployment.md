@@ -9,7 +9,44 @@ How code gets from a branch to a live site. Fully automated through GitHub Actio
 | `dev`  | https://dev.atenews.ph | `ghcr.io/atenews/atenews-frontend:dev`    | `/srv/dev.atenews.ph` |
 | `prod` | https://atenews.ph     | `ghcr.io/atenews/atenews-frontend:latest` | `/srv/atenews.ph`     |
 
-`prod` is the default branch. Work on `dev`, merge to `prod` when ready to release.
+`prod` is the default branch.
+
+### Branch protection
+
+`prod` is a protected branch. Direct pushes are rejected. The only way to land changes on `prod` is through a pull request that gets merged. `dev` is not protected, so you can push directly to it.
+
+### Workflows
+
+**Multiple developers (recommended):**
+
+1. Create a feature branch off `dev` (for example `feat/article-share` or `fix/footer-center`)
+2. Open a PR from the feature branch to `dev`
+3. Merge the PR after review
+4. Wait for the dev deploy to finish, then check https://dev.atenews.ph
+5. Open a PR from `dev` to `prod`
+6. Merge to finalize and ship to https://atenews.ph
+
+**Solo developer:**
+
+1. Push commits directly to `dev`
+2. Check https://dev.atenews.ph
+3. Open a PR from `dev` to `prod` and merge
+
+Either way, `prod` only receives changes through a merged pull request.
+
+### Creating the dev-to-prod PR
+
+```bash
+git checkout prod
+git pull
+git checkout -b release/dev-to-prod
+git merge dev
+git push -u origin release/dev-to-prod
+gh pr create --base prod --head release/dev-to-prod --title "Merge dev into prod"
+gh pr merge --merge   # run after the PR opens
+```
+
+Or use the GitHub web UI. The merge triggers the Production workflow automatically.
 
 ## The pipeline
 
@@ -74,13 +111,14 @@ The container listens on `3000` (`PORT=3000`, `HOSTNAME=0.0.0.0`). The reverse p
 
 ## Release checklist
 
-To ship a change to production:
+To ship a change to production (see the workflows section above for the full branch flow):
 
-1. Open a PR from `dev` to `prod` (or from a feature branch to `dev` first)
-2. Confirm the PR build passes
-3. Merge to `prod`
-4. Watch the Production workflow run in GitHub Actions
-5. Once `deploy-image` finishes, verify https://atenews.ph
+1. Make sure the change is on `dev` and verified at https://dev.atenews.ph
+2. Open a PR from `dev` to `prod` (required, `prod` is protected)
+3. Confirm the PR build passes
+4. Merge the PR
+5. Watch the Production workflow run in GitHub Actions
+6. Once `deploy-image` finishes, verify https://atenews.ph
 
 To ship a change to dev only:
 
