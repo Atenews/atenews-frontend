@@ -1,14 +1,62 @@
 # Development
 
-Local setup, commands, project layout, and conventions.
+Local setup, commands, project layout, and conventions. Assumes a Windows machine. The server runs Linux; see the docs repo's [infrastructure/linux-for-windows-users.md](https://github.com/Atenews/docs/tree/main/infrastructure/linux-for-windows-users.md) for that side.
 
-## Requirements
+## Tools to install on your machine
 
-- [Bun](https://bun.sh/) 1.3 or newer
-- Node.js 20 or newer (the runtime uses `node:lts-alpine`)
-- A working `.env` file (see [environment.md](./environment.md))
+Install these once. All are free.
+
+### 1. Git for Windows
+
+Version control and the Git Bash shell (used for the Linux-style commands in these docs).
+
+Download: https://git-scm.com/download/win
+
+Install with default options. Git Bash comes bundled.
+
+### 2. Bun
+
+The package manager and runtime. Replaces npm, yarn, and (for this project) Node for running commands.
+
+Install via PowerShell (Start menu > PowerShell):
+
+```powershell
+powershell -c "irm bun.sh/install.ps1|iex"
+```
+
+Or see the official Windows install options: https://bun.sh/docs/installation#windows
+
+Verify:
+
+```bash
+bun --version
+```
+
+### 3. A code editor
+
+[Visual Studio Code](https://code.visualstudio.com/) is the usual pick and is free. Any editor works.
+
+Recommended VS Code extensions (optional but helpful):
+
+- ESLint
+- Prettier
+- TypeScript
+
+### 4. Node.js (optional)
+
+You do NOT need Node for this project. Bun handles installs, builds, and the dev server. Install Node 20+ only if a tool you add later complains it is missing. https://nodejs.org/
+
+### 5. The GitHub CLI (optional, convenient)
+
+For creating pull requests and other GitHub tasks from the command line: https://cli.github.com/
+
+## Get the WP_API_TOKEN from Bitwarden
+
+The frontend reads content from WordPress and needs a `WP_API_TOKEN` to authenticate. The token lives in the shared Bitwarden vault. Copy it from there before the next step. Do not ask anyone to send it over chat or email. See the docs repo's [secrets-and-2fa.md](https://github.com/Atenews/docs/tree/main/secrets-and-2fa.md) if you do not yet have vault access.
 
 ## First run
+
+Open Git Bash (Start menu > Git Bash) and run:
 
 ```bash
 git clone https://github.com/Atenews/atenews-frontend.git
@@ -16,6 +64,18 @@ cd atenews-frontend
 git checkout dev          # work on dev, not prod
 bun install
 cp .env.example .env      # then fill in WP_API_TOKEN
+bun run dev
+```
+
+Open `.env` in your editor and paste the `WP_API_TOKEN` value from Bitwarden:
+
+```
+WP_API_TOKEN=<paste from Bitwarden>
+```
+
+Then run the dev server:
+
+```bash
 bun run dev
 ```
 
