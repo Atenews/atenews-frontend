@@ -2,9 +2,15 @@ import React from 'react';
 import { makeStyles } from '@mui/styles';
 import dynamic from 'next/dynamic';
 
-const Navigation = dynamic(import('@/components/Layout/Navigation'));
-const RightBar = dynamic(import('@/components/Layout/RightBar'));
-const MobileBar = dynamic(import('@/components/Layout/MobileBar'));
+const Navigation = dynamic(import('@/components/Layout/Navigation'), {
+  ssr: false,
+});
+const RightBar = dynamic(import('@/components/Layout/RightBar'), {
+  ssr: false,
+});
+const MobileBar = dynamic(import('@/components/Layout/MobileBar'), {
+  ssr: false,
+});
 
 const useStyles = makeStyles((theme) => ({
   margin: {

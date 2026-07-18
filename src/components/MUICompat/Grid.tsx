@@ -25,7 +25,6 @@ type OldGridProps = {
   component?: React.ElementType;
   variant?: string;
   zeroMinWidth?: boolean;
-  key?: string | number;
   onClick?: React.MouseEventHandler;
   id?: string;
 };
@@ -52,7 +51,6 @@ const LegacyGrid = forwardRef<HTMLDivElement, OldGridProps>(
       style,
       className,
       zeroMinWidth,
-      key,
       onClick,
       id,
     } = props;
@@ -70,7 +68,6 @@ const LegacyGrid = forwardRef<HTMLDivElement, OldGridProps>(
           sx={stackSx}
           style={style}
           className={className}
-          key={key}
           onClick={onClick}
           id={id}
         >
@@ -107,7 +104,7 @@ const LegacyGrid = forwardRef<HTMLDivElement, OldGridProps>(
     return (
       <Grid
         container={container}
-        size={hasSize ? sizeObj : container ? undefined : 'grow'}
+        size={hasSize ? sizeObj : undefined}
         spacing={spacing}
         columnSpacing={columnSpacing}
         rowSpacing={rowSpacing}
@@ -116,7 +113,6 @@ const LegacyGrid = forwardRef<HTMLDivElement, OldGridProps>(
         sx={gridSx}
         style={style}
         className={className}
-        key={key}
         onClick={onClick}
         id={id}
         ref={ref}

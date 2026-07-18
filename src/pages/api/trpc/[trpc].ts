@@ -5,6 +5,9 @@ import { createNextApiHandler } from '@trpc/server/adapters/next';
 export default createNextApiHandler({
   router: appRouter,
   createContext,
+  onError({ error, path }) {
+    console.error(`❌ tRPC failed on ${path}:`, error.message);
+  },
   responseMeta({ ctx, type, errors }) {
     const allOk = errors.length === 0;
     const isQuery = type === 'query';

@@ -1,3 +1,5 @@
+import React from 'react';
+import type { SxProps, Theme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
 type HiddenProps = {
@@ -12,81 +14,73 @@ type HiddenProps = {
   xlDown?: boolean;
 };
 
-export default function Hidden(props: HiddenProps) {
-  const { children, ...rest } = props;
-
+function getDisplayMap(
+  rest: Omit<HiddenProps, 'children'>,
+): Record<string, string> | undefined {
   if (rest.mdDown) {
-    return (
-      <Box
-        sx={{ display: { xs: 'none', sm: 'none', md: 'none', lg: 'block' } }}
-      >
-        {children}
-      </Box>
-    );
+    return {
+      xs: 'none',
+      sm: 'none',
+      md: 'none',
+      lg: 'contents',
+      xl: 'contents',
+    };
   }
   if (rest.mdUp) {
-    return (
-      <Box sx={{ display: { xs: 'block', sm: 'block', md: 'none' } }}>
-        {children}
-      </Box>
-    );
+    return {
+      xs: 'contents',
+      sm: 'contents',
+      md: 'none',
+      lg: 'none',
+      xl: 'none',
+    };
   }
   if (rest.smDown) {
-    return <Box sx={{ display: { xs: 'none', sm: 'block' } }}>{children}</Box>;
+    return {
+      xs: 'none',
+      sm: 'contents',
+      md: 'contents',
+      lg: 'contents',
+      xl: 'contents',
+    };
   }
   if (rest.smUp) {
-    return <Box sx={{ display: { xs: 'block', sm: 'none' } }}>{children}</Box>;
+    return { xs: 'contents', sm: 'none', md: 'none', lg: 'none', xl: 'none' };
   }
   if (rest.lgDown) {
-    return (
-      <Box sx={{ display: { xs: 'none', sm: 'none', lg: 'block' } }}>
-        {children}
-      </Box>
-    );
+    return { xs: 'none', sm: 'none', md: 'none', lg: 'contents', xl: 'none' };
   }
   if (rest.lgUp) {
-    return (
-      <Box
-        sx={{ display: { xs: 'block', sm: 'block', md: 'block', lg: 'none' } }}
-      >
-        {children}
-      </Box>
-    );
+    return {
+      xs: 'contents',
+      sm: 'contents',
+      md: 'contents',
+      lg: 'none',
+      xl: 'none',
+    };
   }
   if (rest.xlDown) {
-    return (
-      <Box
-        sx={{
-          display: {
-            xs: 'none',
-            sm: 'none',
-            md: 'none',
-            lg: 'none',
-            xl: 'block',
-          },
-        }}
-      >
-        {children}
-      </Box>
-    );
+    return { xs: 'none', sm: 'none', md: 'none', lg: 'none', xl: 'contents' };
   }
   if (rest.xlUp) {
-    return (
-      <Box
-        sx={{
-          display: {
-            xs: 'block',
-            sm: 'block',
-            md: 'block',
-            lg: 'block',
-            xl: 'none',
-          },
-        }}
-      >
-        {children}
-      </Box>
-    );
+    return {
+      xs: 'contents',
+      sm: 'contents',
+      md: 'contents',
+      lg: 'contents',
+      xl: 'none',
+    };
+  }
+  return undefined;
+}
+
+export default function Hidden(props: HiddenProps) {
+  const { children, ...rest } = props;
+  const displayMap = getDisplayMap(rest);
+
+  if (!displayMap) {
+    return <>{children}</>;
   }
 
-  return <>{children}</>;
+  return <Box sx={{ display: displayMap }}>{children}</Box>;
 }
