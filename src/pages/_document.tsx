@@ -9,6 +9,7 @@ import Document, {
 } from 'next/document';
 import createEmotionCache from '@/utils/createEmotionCache';
 import createEmotionServer from '@emotion/server/create-instance';
+import { ServerStyleSheets } from '@mui/styles';
 import { AppType } from 'next/app';
 import { MyAppProps } from '@/pages/_app';
 
@@ -139,7 +140,7 @@ const MyDocument = ({ emotionStyleTags }: MyDocumentProps) => (
         src="https://analytics.atenews.ph/umami.js"
       />
     </Head>
-    <body>
+    <body suppressHydrationWarning>
       <Main />
       <NextScript />
     </body>
@@ -150,6 +151,7 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
   const originalRenderPage = ctx.renderPage;
   const cache = createEmotionCache();
   const { extractCriticalToChunks } = createEmotionServer(cache);
+  const sheets = new ServerStyleSheets();
 
   ctx.renderPage = () =>
     originalRenderPage({
@@ -157,7 +159,7 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
         App: React.ComponentType<React.ComponentProps<AppType> & MyAppProps>,
       ) =>
         function EnhanceApp(props) {
-          return <App emotionCache={cache} {...props} />;
+          return sheets.collect(<App emotionCache={cache} {...props} />);
         },
     });
 
@@ -171,9 +173,17 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
     />
   ));
 
+  const jssStyleTag = (
+    <style
+      id="jss-server-side"
+      key="jss-server-side"
+      dangerouslySetInnerHTML={{ __html: sheets.toString() }}
+    />
+  );
+
   return {
     ...initialProps,
-    emotionStyleTags,
+    emotionStyleTags: [...emotionStyleTags, jssStyleTag],
   };
 };
 
