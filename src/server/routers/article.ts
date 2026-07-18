@@ -1,13 +1,12 @@
 import { z } from 'zod';
-import { procedure } from '@/server/trpc';
-import { gql } from 'graphql-request';
-import WPGraphQL from '@/utils/wpgraphql';
+import { publicProcedure } from '@/server/trpc';
+import WPGraphQL, { gql } from '@/utils/wpgraphql';
 
 export interface Query {
   post: Article;
 }
 
-const handler = procedure.input(
+const handler = publicProcedure.input(
   z.object({
     slug: z.string(),
   }),

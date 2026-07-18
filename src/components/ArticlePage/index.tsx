@@ -21,10 +21,10 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 import Divider from '@mui/material/Divider';
 import Avatar from '@mui/material/Avatar';
-import Hidden from '@mui/material/Hidden';
+import Hidden from '@/components/MUICompat/Hidden';
 
 import trpc from '@/utils/trpc';
 

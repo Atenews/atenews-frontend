@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 import { useTheme } from '@mui/styles';
 import React from 'react';
 

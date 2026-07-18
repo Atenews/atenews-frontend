@@ -12,7 +12,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 import IconButton from '@mui/material/IconButton';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import List from '@mui/material/List';
@@ -20,7 +20,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Collapse from '@mui/material/Collapse';
-import Hidden from '@mui/material/Hidden';
+import Hidden from '@/components/MUICompat/Hidden';
 
 import trpc from '@/utils/trpc';
 import flatListToHierarchical from '@/utils/flatListToHierarchical';
@@ -80,7 +80,7 @@ const MenuAppBar: React.FC<Props> = ({ closeButtomNav }) => {
 
   const [openSubMenu, setOpenSubMenu] = React.useState<string | null>(null);
 
-  const trpcMenus = trpc.useContext().menus;
+  const trpcMenus = trpc.useUtils().menus;
 
   React.useEffect(() => {
     setMenuLoading(true);

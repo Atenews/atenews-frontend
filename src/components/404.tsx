@@ -2,7 +2,7 @@ import React from 'react';
 
 import Head from 'next/head';
 
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 import Typography from '@mui/material/Typography';
 
 export default function Custom404() {

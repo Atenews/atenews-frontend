@@ -13,11 +13,11 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActionArea from '@mui/material/CardActionArea';
-import Hidden from '@mui/material/Hidden';
+import Hidden from '@/components/MUICompat/Hidden';
 
 import ArticleCard from '@/components/Home/ArticleCard';
 

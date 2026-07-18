@@ -31,14 +31,15 @@ const IndividualWriter: React.FC<Props> = ({ author }) => {
   const router = useRouter();
   const { setError } = useError();
 
-  const rolesIgnore = [
-    'subscriber',
-    'contributor',
-    'administrator',
-    'editor',
-  ];
+  const rolesIgnore = ['subscriber', 'contributor', 'administrator', 'editor'];
 
-  const humanRole = (raw: string) => raw.replace(/_/g, ' ').replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+  const humanRole = (raw: string) =>
+    raw
+      .replace(/_/g, ' ')
+      .replace(
+        /\w\S*/g,
+        (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(),
+      );
 
   return (
     <ListItemButton
@@ -48,20 +49,30 @@ const IndividualWriter: React.FC<Props> = ({ author }) => {
       key={author.databaseId}
     >
       <ListItemAvatar>
-        <Avatar className={classes.avatar} src={imageGenerator(author.avatar?.url ?? '', 60)} />
+        <Avatar
+          className={classes.avatar}
+          src={imageGenerator(author.avatar?.url ?? '', 60)}
+        />
       </ListItemAvatar>
       <ListItemText
         primary={`${author.firstName} ${author.lastName || ''}`}
-        secondaryTypographyProps={{ component: 'div' }}
-        secondary={author.roles?.nodes.map((role) => (!rolesIgnore.includes(role.name) ? (
-          <Typography
-            key={`indi_${role.name}`}
-            variant="subtitle2"
-            style={{ color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white' }}
-          >
-            <i>{humanRole(role.name)}</i>
-          </Typography>
-        ) : null))}
+        slotProps={{ secondary: { component: 'div' } }}
+        secondary={author.roles?.nodes.map((role) =>
+          !rolesIgnore.includes(role.name) ? (
+            <Typography
+              key={`indi_${role.name}`}
+              variant="subtitle2"
+              style={{
+                color:
+                  theme.palette.mode === 'light'
+                    ? theme.palette.primary.main
+                    : 'white',
+              }}
+            >
+              <i>{humanRole(role.name)}</i>
+            </Typography>
+          ) : null,
+        )}
         style={{ marginLeft: theme.spacing(2) }}
       />
     </ListItemButton>

@@ -49,7 +49,7 @@ const Navigation: React.FC = () => {
 
   const baseUrlMenu = (url: string) => (url !== '/' ? `${url.split('/').slice(0, 2).join('/')}` : '/');
 
-  const trpcMenus = trpc.useContext().menus;
+  const trpcMenus = trpc.useUtils().menus;
 
   React.useEffect(() => {
     setMenuLoading(true);

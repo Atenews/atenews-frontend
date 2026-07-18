@@ -12,8 +12,8 @@ import { makeStyles } from '@mui/styles';
 import trpc from '@/utils/trpc';
 
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Hidden from '@mui/material/Hidden';
+import Grid from '@/components/MUICompat/Grid';
+import Hidden from '@/components/MUICompat/Hidden';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import { useRouter } from 'next/router';
@@ -59,8 +59,8 @@ const ArchiveLayout: React.FC<Props> = ({
   const classes = useStyles();
   const theme = useTheme();
 
-  const trpcArticles = trpc.useContext().articles;
-  const trpcSearch = trpc.useContext().search;
+  const trpcArticles = trpc.useUtils().articles;
+  const trpcSearch = trpc.useUtils().search;
 
   let fullHead;
   if (categorySEO) {

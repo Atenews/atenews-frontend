@@ -1,4 +1,5 @@
-declare type ReactType = 'happy' | 'sad' | 'angry' | 'disgusted' | 'worried';
+declare module 'wpapi';
+declare module '@n8tb1t/use-scroll-position';
 
 declare interface Author {
   firstName: string;

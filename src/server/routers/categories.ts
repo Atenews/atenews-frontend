@@ -1,6 +1,5 @@
-import { procedure } from '@/server/trpc';
-import { gql } from 'graphql-request';
-import WPGraphQL from '@/utils/wpgraphql';
+import { publicProcedure } from '@/server/trpc';
+import WPGraphQL, { gql } from '@/utils/wpgraphql';
 
 export interface Query {
   categories: {
@@ -13,7 +12,7 @@ export interface Query {
   };
 }
 
-const handler = procedure.query(async () => {
+const handler = publicProcedure.query(async () => {
   const data = await WPGraphQL.request<Query>(
     gql`
       query Category {

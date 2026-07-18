@@ -4,10 +4,10 @@ import { useTheme } from '@mui/material/styles';
 import Tag from '@/components/General/Tag';
 
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
-import Hidden from '@mui/material/Hidden';
+import Hidden from '@/components/MUICompat/Hidden';
 
 import IndividualWriter from '@/components/ArticlePage/SideWriter/IndividualWriter';
 

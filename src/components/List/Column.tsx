@@ -13,7 +13,7 @@ import imageGenerator from '@/utils/imageGenerator';
 
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 import Avatar from '@mui/material/Avatar';
 import CardActionArea from '@mui/material/CardActionArea';
 

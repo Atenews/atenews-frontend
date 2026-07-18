@@ -2,7 +2,7 @@ import React from 'react';
 
 import handleViewport, { type InjectedViewportProps } from 'react-in-viewport';
 
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 
 import IndividualWriter from '@/components/ArticlePage/IndividualWriter';
 

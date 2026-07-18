@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { makeStyles } from '@mui/styles';
 
 // import articlePaths from '@/utils/serverProps/articlePaths';
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import articleServerSideProps from '@/utils/serverProps/articleServerSideProps';

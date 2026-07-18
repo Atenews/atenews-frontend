@@ -5,7 +5,7 @@ import handleViewport, { type InjectedViewportProps } from 'react-in-viewport';
 
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 
 import { useTheme } from '@mui/material/styles';
 
@@ -39,7 +39,7 @@ const ReadMore: React.FC<Props> = (props) => {
     setHasMore(pageInfo.hasNextPage);
   }, [relatedPosts]);
 
-  const trpcSuggestions = trpc.useContext().suggestions;
+  const trpcSuggestions = trpc.useUtils().suggestions;
 
   const next = () => {
     const relatedCategories: number[] = categories.reduce((

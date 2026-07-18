@@ -19,9 +19,9 @@ import coauthors from '@/utils/coauthors';
 
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 import CardActionArea from '@mui/material/CardActionArea';
-import Hidden from '@mui/material/Hidden';
+import Hidden from '@/components/MUICompat/Hidden';
 
 const useStyles = makeStyles((theme) => ({
   bannerImage: {
