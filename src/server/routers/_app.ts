@@ -1,11 +1,4 @@
-// This code creates a router from the trpc library.
-// This router is used to create API endpoints for the application.
-// This router is passed to the createProxySSGHelpers function which
-// creates a helper function for the server side rendering.
-// The router has many different endpoints which are used for different
-// functionality within the application.
-
-import { router } from '@/server/trpc';
+import { router, publicProcedure } from '@/server/trpc';
 
 import search from './search';
 import updateViewCount from './updateViewCount';
@@ -20,9 +13,6 @@ import customPage from './customPage';
 import siteMap from './sitemap';
 import staff from './staff';
 import article from './article';
-
-import { createServerSideHelpers } from '@trpc/react-query/server';
-import superjson from 'superjson';
 
 export const appRouter = router({
   search,
@@ -40,11 +30,4 @@ export const appRouter = router({
   article,
 });
 
-// export type definition of API
 export type AppRouter = typeof appRouter;
-
-export const ssg = createServerSideHelpers({
-  router: appRouter,
-  ctx: {},
-  transformer: superjson,
-});

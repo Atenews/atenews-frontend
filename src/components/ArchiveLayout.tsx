@@ -59,8 +59,8 @@ const ArchiveLayout: React.FC<Props> = ({
   const classes = useStyles();
   const theme = useTheme();
 
-  const trpcArticles = trpc.useContext().articles;
-  const trpcSearch = trpc.useContext().search;
+  const trpcArticles = trpc.useUtils().articles;
+  const trpcSearch = trpc.useUtils().search;
 
   let fullHead;
   if (categorySEO) {

@@ -80,7 +80,7 @@ const MenuAppBar: React.FC<Props> = ({ closeButtomNav }) => {
 
   const [openSubMenu, setOpenSubMenu] = React.useState<string | null>(null);
 
-  const trpcMenus = trpc.useContext().menus;
+  const trpcMenus = trpc.useUtils().menus;
 
   React.useEffect(() => {
     setMenuLoading(true);

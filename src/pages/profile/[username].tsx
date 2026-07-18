@@ -4,7 +4,7 @@ import React from 'react';
 
 import dynamic from 'next/dynamic';
 
-import { NextSeo } from 'next-seo';
+import Head from 'next/head';
 import { useTheme } from '@mui/material/styles';
 
 import { makeStyles } from '@mui/styles';
@@ -16,7 +16,6 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 
-import SwipeableViews from 'react-swipeable-views';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import DefaultErrorPage from '@/components/404';
 
@@ -67,9 +66,7 @@ interface TabPanelProps {
 }
 
 const TabPanel: React.FC<TabPanelProps> = (props) => {
-  const {
-    children, value, index, ...other
-  } = props;
+  const { children, value, index, ...other } = props;
 
   return (
     <div
@@ -79,9 +76,7 @@ const TabPanel: React.FC<TabPanelProps> = (props) => {
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        { children }
-      )}
+      {value === index && { children }}
     </div>
   );
 };
@@ -111,7 +106,7 @@ const WrittenArticles: React.FC<{ articles: Article[] }> = ({ articles }) => {
       dataLength={articles?.length || 0}
       next={nextArticles}
       hasMore={hasMoreArticles}
-      loader={(
+      loader={
         <div style={{ overflow: 'hidden' }}>
           <Grid
             container
@@ -124,9 +119,9 @@ const WrittenArticles: React.FC<{ articles: Article[] }> = ({ articles }) => {
             </Grid>
           </Grid>
         </div>
-        )}
+      }
     >
-      { articles?.map((article, index) => (
+      {articles?.map((article, index) => (
         <Article key={index} article={article} />
       ))}
     </InfiniteScroll>
@@ -159,7 +154,7 @@ const RecentActivities = ({ comments }) => {
       dataLength={comments?.length || 0}
       next={next}
       hasMore={hasMore}
-      loader={(
+      loader={
         <div style={{ overflow: 'hidden' }}>
           <Grid
             container
@@ -172,7 +167,7 @@ const RecentActivities = ({ comments }) => {
             </Grid>
           </Grid>
         </div>
-      )}
+      }
     >
       {comments?.map((comment) => (
         <ProfileFeed key={comment.id} comment={comment} />
@@ -223,17 +218,19 @@ const UserProfile: React.FC<Props> = ({ profile, cdnKey, staffArticles }) => {
     setHasMoreArticles(staffArticles?.pageInfo?.hasNextPage);
   }, [staffArticles]);
 
-  const trpcAuthorArticles = trpc.useContext().authorArticles;
+  const trpcAuthorArticles = trpc.useUtils().authorArticles;
 
   const nextArticles = () => {
-    trpcAuthorArticles.fetch({
-      authorId: staffArticles?.wpId,
-      cursor: cursor ?? null,
-    }).then((x) => {
-      setHasMoreArticles(x.pageInfo.hasNextPage);
-      setCursor(x.pageInfo.endCursor);
-      setArticles([...articles, ...x.articlesRaw]);
-    });
+    trpcAuthorArticles
+      .fetch({
+        authorId: staffArticles?.wpId,
+        cursor: cursor ?? null,
+      })
+      .then((x) => {
+        setHasMoreArticles(x.pageInfo.hasNextPage);
+        setCursor(x.pageInfo.endCursor);
+        setArticles([...articles, ...x.articlesRaw]);
+      });
   };
 
   const [tabValue, setTabValue] = React.useState(0);
@@ -252,27 +249,36 @@ const UserProfile: React.FC<Props> = ({ profile, cdnKey, staffArticles }) => {
   if (profile) {
     return (
       <div className={classes.container} key={profile.username}>
-        <NextSeo
-          title={`${profile.displayName} (@${profile.username}) - Atenews`}
-          description={`The latest interactions from ${profile.displayName} (@${profile.username}). Join us here in the Atenews website!`}
-          openGraph={{
-            title: `${profile.displayName} (@${profile.username}) - Atenews`,
-            description: `The latest interactions from ${profile.displayName} (@${profile.username}). Join us here in the Atenews website!`,
-            images: profile.photoURL ? [
-              {
-                url: profile.photoURL.replace('_normal', ''),
-              },
-            ] : [{
-              url: '/default-thumbnail.jpg',
-            }],
-          }}
-          twitter={{
-            handle: '@atenews',
-          }}
-        />
+        <Head>
+          <title>{`${profile.displayName} (@${profile.username}) - Atenews`}</title>
+          <meta
+            name="description"
+            content={`The latest interactions from ${profile.displayName} (@${profile.username}). Join us here in the Atenews website!`}
+          />
+          <meta
+            property="og:title"
+            content={`${profile.displayName} (@${profile.username}) - Atenews`}
+          />
+          <meta
+            property="og:description"
+            content={`The latest interactions from ${profile.displayName} (@${profile.username}). Join us here in the Atenews website!`}
+          />
+          <meta
+            property="og:image"
+            content={
+              profile.photoURL
+                ? profile.photoURL.replace('_normal', '')
+                : '/default-thumbnail.jpg'
+            }
+          />
+        </Head>
         <Grid container spacing={6} justifyContent="center">
           <Grid item>
-            <DisplayAvatar editMode={editMode} profile={profile} cdnKey={cdnKey} />
+            <DisplayAvatar
+              editMode={editMode}
+              profile={profile}
+              cdnKey={cdnKey}
+            />
           </Grid>
           <Grid item xs>
             <ShowDetails
@@ -284,7 +290,12 @@ const UserProfile: React.FC<Props> = ({ profile, cdnKey, staffArticles }) => {
             />
           </Grid>
         </Grid>
-        <Divider style={{ marginTop: theme.spacing(4), marginBottom: theme.spacing(4) }} />
+        <Divider
+          style={{
+            marginTop: theme.spacing(4),
+            marginBottom: theme.spacing(4),
+          }}
+        />
         <Tabs
           value={tabValue}
           onChange={(event, newValue) => {
@@ -295,54 +306,60 @@ const UserProfile: React.FC<Props> = ({ profile, cdnKey, staffArticles }) => {
           centered
           style={{ marginBottom: theme.spacing(2) }}
         >
-          { profile.staff ? (
-            <Tab label="Written Articles" />
-          ) : null}
+          {profile.staff ? <Tab label="Written Articles" /> : null}
           <Tab label="Recent Activities" />
         </Tabs>
-        { profile.staff ? (
-          <SwipeableViews
-            index={tabValue}
-            onChangeIndex={(index) => {
-              setTabValue(index);
-            }}
-            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-          >
+        {profile.staff ? (
+          <>
             <TabPanel value={tabValue} index={0} dir={theme.direction}>
               <WrittenArticles />
             </TabPanel>
             <TabPanel value={tabValue} index={1} dir={theme.direction}>
-              { !loading ? (
+              {!loading ? (
                 <RecentActivities />
               ) : (
-                <Grid container justifyContent="center" alignItems="center" spacing={2}>
+                <Grid
+                  container
+                  justifyContent="center"
+                  alignItems="center"
+                  spacing={2}
+                >
                   <Grid item>
-                    <CircularProgress color="primary" style={{ margin: theme.spacing(2) }} />
+                    <CircularProgress
+                      color="primary"
+                      style={{ margin: theme.spacing(2) }}
+                    />
                   </Grid>
                 </Grid>
-              ) }
+              )}
             </TabPanel>
-          </SwipeableViews>
+          </>
         ) : (
           <TabPanel value={tabValue} index={0} dir={theme.direction}>
-            { !loading ? (
+            {!loading ? (
               <RecentActivities />
             ) : (
-              <Grid container justifyContent="center" alignItems="center" spacing={2}>
+              <Grid
+                container
+                justifyContent="center"
+                alignItems="center"
+                spacing={2}
+              >
                 <Grid item>
-                  <CircularProgress color="primary" style={{ margin: theme.spacing(2) }} />
+                  <CircularProgress
+                    color="primary"
+                    style={{ margin: theme.spacing(2) }}
+                  />
                 </Grid>
               </Grid>
-            ) }
+            )}
           </TabPanel>
-        ) }
+        )}
       </div>
     );
   }
 
-  return (
-    <DefaultErrorPage />
-  );
+  return <DefaultErrorPage />;
 };
 
 export async function getServerSideProps({ params }) {

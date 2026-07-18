@@ -39,7 +39,7 @@ const ReadMore: React.FC<Props> = (props) => {
     setHasMore(pageInfo.hasNextPage);
   }, [relatedPosts]);
 
-  const trpcSuggestions = trpc.useContext().suggestions;
+  const trpcSuggestions = trpc.useUtils().suggestions;
 
   const next = () => {
     const relatedCategories: number[] = categories.reduce((

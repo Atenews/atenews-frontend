@@ -1,6 +1,6 @@
-const Wordpress = require('wpapi');
+import WPAPI from 'wpapi';
 
-const wp = new Wordpress({
+const wp = new WPAPI({
   endpoint: 'https://wp.atenews.ph/wp-json',
 });
 

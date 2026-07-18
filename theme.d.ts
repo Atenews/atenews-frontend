@@ -1,18 +1,11 @@
-import '@mui/styles';
 import type { Theme } from '@mui/material';
+import { createTheme } from '@mui/material/styles';
 
 declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface DefaultTheme extends Theme {}
 }
 
-declare module '@mui/material/styles/createTheme' {
-  interface ThemeOptions {
-    overrides?: ComponentsProps;
-  }
-}
-
-declare module '@mui/material/styles/createPalette' {
+declare module '@mui/material/styles' {
   interface Palette {
     atenews: {
       main: string;
@@ -35,3 +28,7 @@ declare module '@mui/material/styles/createPalette' {
     };
   }
 }
+
+const defaultTheme = createTheme();
+
+export { defaultTheme };

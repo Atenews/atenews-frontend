@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { procedure } from '@/server/trpc';
+import { publicProcedure } from '@/server/trpc';
 import { gql } from 'graphql-request';
 import WPGraphQL from '@/utils/wpgraphql';
 
@@ -15,7 +15,7 @@ export interface Query {
   };
 }
 
-const handler = procedure.input(
+const handler = publicProcedure.input(
   z.object({
     category: z.number(),
     cursor: z.string().optional(),

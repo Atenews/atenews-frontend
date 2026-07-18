@@ -64,14 +64,19 @@ const RightBar: React.FC<Props> = ({ setDarkMode }) => {
   const [searchOpened, setSearchOpened] = React.useState(false);
   const [search, setSearch] = React.useState('');
 
-  const searchBar = React.useRef<HTMLInputElement>();
+  const searchBar = React.useRef<HTMLInputElement>(null);
 
   return (
     <>
       <animated.div className={classes.search} style={props}>
         <Grid container alignItems="center" style={{ height: '100%' }}>
           <Grid item xs>
-            <form onSubmit={(e) => { e.preventDefault(); router.push(`/search?query=${search}`); }}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                router.push(`/search?query=${search}`);
+              }}
+            >
               <TextField
                 variant="outlined"
                 placeholder="Search Atenews"
@@ -81,8 +86,18 @@ const RightBar: React.FC<Props> = ({ setDarkMode }) => {
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <IconButton type="submit" aria-label="Search" size="large">
-                        <SearchIcon color={theme.palette.mode === 'light' ? 'primary' : 'secondary'} />
+                      <IconButton
+                        type="submit"
+                        aria-label="Search"
+                        size="large"
+                      >
+                        <SearchIcon
+                          color={
+                            theme.palette.mode === 'light'
+                              ? 'primary'
+                              : 'secondary'
+                          }
+                        />
                       </IconButton>
                     </InputAdornment>
                   ),
@@ -93,7 +108,13 @@ const RightBar: React.FC<Props> = ({ setDarkMode }) => {
           </Grid>
         </Grid>
       </animated.div>
-      <Grid container className={classes.account} justifyContent="space-around" alignItems="center" wrap="nowrap">
+      <Grid
+        container
+        className={classes.account}
+        justifyContent="space-around"
+        alignItems="center"
+        wrap="nowrap"
+      >
         <Grid item>
           <IconButton
             aria-label="Open Search Bar"
@@ -115,29 +136,31 @@ const RightBar: React.FC<Props> = ({ setDarkMode }) => {
           </IconButton>
         </Grid>
         <Grid item>
-          {
-            theme.palette.mode === 'dark' ? (
-              <IconButton
-                aria-label="Enable Light Mode"
-                className={classes.button}
-                color="secondary"
-                onClick={() => { setDarkMode(false); }}
-                size="large"
-              >
-                <Brightness7Icon />
-              </IconButton>
-            ) : (
-              <IconButton
-                aria-label="Enable Dark Mode"
-                className={classes.button}
-                color="primary"
-                onClick={() => { setDarkMode(true); }}
-                size="large"
-              >
-                <NightsStayIcon />
-              </IconButton>
-            )
-          }
+          {theme.palette.mode === 'dark' ? (
+            <IconButton
+              aria-label="Enable Light Mode"
+              className={classes.button}
+              color="secondary"
+              onClick={() => {
+                setDarkMode(false);
+              }}
+              size="large"
+            >
+              <Brightness7Icon />
+            </IconButton>
+          ) : (
+            <IconButton
+              aria-label="Enable Dark Mode"
+              className={classes.button}
+              color="primary"
+              onClick={() => {
+                setDarkMode(true);
+              }}
+              size="large"
+            >
+              <NightsStayIcon />
+            </IconButton>
+          )}
         </Grid>
       </Grid>
     </>

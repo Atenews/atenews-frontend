@@ -20,7 +20,7 @@ export const CategoryProvider = ({ children }: CategoryProviderProps) => {
   const [category, setCategory] = useState<Category[] | undefined>([]);
   const [categories, setCategories] = useState<Category[] | undefined>([]);
 
-  const trpcCategories = trpc.useContext().categories;
+  const trpcCategories = trpc.useUtils().categories;
 
   useEffect(() => {
     trpcCategories.fetch().then((x) => {

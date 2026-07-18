@@ -1,7 +1,7 @@
-import { procedure } from '@/server/trpc';
+import { publicProcedure } from '@/server/trpc';
 import WP from '@/utils/wordpress';
 
-const handler = procedure.query(async () => {
+const handler = publicProcedure.query(async () => {
   const staffs: Staff[] = await WP.staffs();
   return staffs;
 });
