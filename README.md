@@ -1,30 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Atenews Frontend
 
-## Getting Started
+Next.js frontend for [atenews.ph](https://atenews.ph), the official student publication of Ateneo de Davao University. Reads all content from a WordPress backend at wp.atenews.ph.
 
-First, run the development server:
+## Stack
+
+- Next.js 16 (Pages Router) + React 19 + TypeScript
+- tRPC 11 for the API layer (server procedures under `src/server/routers`)
+- WordPress backend: WPGraphQL + WP REST API
+- MUI 9 for components, `@mui/styles` for JSS styling
+- Bun for install and build, Node standalone for runtime
+- Docker images on GHCR, deployed via GitHub Actions
+
+## Quick start
 
 ```bash
-npm run dev
-# or
-yarn dev
+bun install
+cp .env.example .env   # then fill in values (see docs/environment.md)
+bun run dev            # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+You need a working `.env` file before the site can fetch from WordPress. See `docs/environment.md`.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Documentation
 
-## Learn More
+Full docs live in [`docs/`](./docs). Start with [architecture](./docs/architecture.md).
 
-To learn more about Next.js, take a look at the following resources:
+| Doc                                                      | What it covers                                                  |
+| -------------------------------------------------------- | --------------------------------------------------------------- |
+| [docs/architecture.md](./docs/architecture.md)           | How the app fits together, request and data flow                |
+| [docs/wordpress-backend.md](./docs/wordpress-backend.md) | WordPress as the backend. What maps to what. How to add content |
+| [docs/data-fetching.md](./docs/data-fetching.md)         | tRPC procedures, GraphQL via fetch, TanStack Query cache        |
+| [docs/pages-and-routes.md](./docs/pages-and-routes.md)   | URL structure and page components                               |
+| [docs/styling.md](./docs/styling.md)                     | MUI 9, `@mui/styles`, the MUICompat shims                       |
+| [docs/environment.md](./docs/environment.md)             | Every env var and where it comes from                           |
+| [docs/deployment.md](./docs/deployment.md)               | CI/CD, Docker, dev and prod branches                            |
+| [docs/development.md](./docs/development.md)             | Local setup, commands, project layout, conventions              |
+| [docs/troubleshooting.md](./docs/troubleshooting.md)     | Common errors and fixes                                         |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+| Command            | Does                                                                        |
+| ------------------ | --------------------------------------------------------------------------- |
+| `bun run dev`      | Start dev server with hot reload                                            |
+| `bun run build`    | Production build (standalone output to `.next/standalone`)                  |
+| `bun run start`    | Run the built server (use `node .next/standalone/server.js` for standalone) |
+| `bun run lint`     | Run ESLint                                                                  |
+| `bun run lint:fix` | Run ESLint and auto fix                                                     |
 
-## Deploy on Vercel
+## Branches
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `prod` ships to [atenews.ph](https://atenews.ph). Stable. Merge here to release.
+- `dev` ships to [dev.atenews.ph](https://dev.atenews.ph). Stage and test here first.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+See [docs/deployment.md](./docs/deployment.md) for the full pipeline.
