@@ -1,12 +1,12 @@
-FROM node:lts-alpine AS base
+FROM oven/bun:alpine AS base
 
 FROM base AS deps
 RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm ci
+COPY package.json bun.lockb ./
+RUN bun install --frozen-lockfile
 
 FROM base AS builder
 
@@ -14,9 +14,9 @@ WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
+RUN bun run build
 
-FROM base AS runner
+FROM node:lts-alpine AS runner
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
