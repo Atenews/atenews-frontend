@@ -8,13 +8,13 @@ Common errors and fixes. Ordered by how likely you are to hit them.
 The field "RootQuery.menu" cannot be accessed without authentication.
 ```
 
-Cause: `NEXT_PUBLIC_WEB_WP_API` is empty or wrong. The GraphQL request reaches WordPress but has no valid Basic auth header.
+Cause: `WP_API_TOKEN` is empty or wrong. The GraphQL request reaches WordPress but has no valid Basic auth header.
 
 Fix:
 
-- Check `.env` has `NEXT_PUBLIC_WEB_WP_API` set to the base64 of `username:application password`
+- Check `.env` has `WP_API_TOKEN` set to the base64 of `username:application password`
 - Restart the dev server (Next.js reads `.env` at startup)
-- For Docker: confirm `.env` is not in `.dockerignore` and is present at build time. The token is inlined into the bundle during `bun run build`
+- For Docker: confirm the server's `docker-compose.yml` sets `WP_API_TOKEN` in the container environment. The var is server-only runtime, so it is NOT baked into the image at build time
 
 ## ERR_MODULE_NOT_FOUND for graphql/index.mjs in Docker
 
@@ -105,11 +105,11 @@ Fix for new code: drop `legacyBehavior`, put the `<a>` props directly on `Link`:
 Use "node .next/standalone/server.js" instead.
 ```
 
-This is expected. `bun run start` runs `next start` which does not support standalone. To run the production build locally:
+This is expected. `bun run start` runs `bun --bun next start` which does not support standalone. To run the production build locally:
 
 ```bash
 cd .next/standalone
-PORT=3000 node server.js
+PORT=3000 bun server.js
 ```
 
 ## Lint fails with ".eslintignore is no longer supported"
@@ -124,7 +124,7 @@ ignores: ['build/', 'node_modules/', '.next/', 'public/'],
 
 ## Port 3000 already in use
 
-Cause: another process (or a leftover `node server.js`) holds the port.
+Cause: another process (or a leftover `bun server.js`) holds the port.
 
 Fix:
 
