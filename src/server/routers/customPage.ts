@@ -1,6 +1,5 @@
 import { publicProcedure } from '@/server/trpc';
-import { gql } from 'graphql-request';
-import WPGraphQL from '@/utils/wpgraphql';
+import WPGraphQL, { gql } from '@/utils/wpgraphql';
 import { z } from 'zod';
 
 export interface Query {
