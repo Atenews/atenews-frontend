@@ -10,7 +10,7 @@ WordPress at `wp.atenews.ph` is the content backend and source of truth for all 
 | WP REST API | `https://wp.atenews.ph/wp-json`   | Public (read-only)                  |
 | Admin       | `https://wp.atenews.ph/wp-admin/` | WordPress user login                |
 
-The GraphQL endpoint requires authentication because the WordPress instance locks most fields behind login. The frontend sends an `Authorization: Basic <token>` header where the token is the base64 of `username:application password`. The token is stored in the `NEXT_PUBLIC_WEB_WP_API` env var.
+The GraphQL endpoint requires authentication because the WordPress instance locks most fields behind login. The frontend sends an `Authorization: Basic <token>` header where the token is the base64 of `username:application password`. The token is stored in the `WP_API_TOKEN` env var (server-only, no `NEXT_PUBLIC_` prefix). See [environment.md](./environment.md).
 
 ## What maps to what
 
@@ -180,12 +180,12 @@ If any are disabled, the matching queries fail and pages return errors.
 
 ## The application password
 
-The `NEXT_PUBLIC_WEB_WP_API` token is a WordPress application password for a user with read access. To rotate it:
+The `WP_API_TOKEN` token is a WordPress application password for a user with read access. To rotate it:
 
 1. WordPress admin > Users > (user) > Application Passwords
 2. Add a new application password
 3. Base64 encode `username:new_password`
-4. Put the base64 string in `NEXT_PUBLIC_WEB_WP_API`
+4. Put the base64 string in `WP_API_TOKEN` (local `.env` and the server `docker-compose.yml`)
 
 ```bash
 echo -n "username:xxxx xxxx xxxx xxxx xxxx xxxx" | base64

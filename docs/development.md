@@ -15,13 +15,13 @@ git clone https://github.com/Atenews/atenews-frontend.git
 cd atenews-frontend
 git checkout dev          # work on dev, not prod
 bun install
-cp .env.example .env      # then fill in NEXT_PUBLIC_WEB_WP_API at minimum
+cp .env.example .env      # then fill in WP_API_TOKEN
 bun run dev
 ```
 
 Open http://localhost:3000. The dev server uses Turbopack and hot reloads on save.
 
-If the homepage loads but data is missing, your `NEXT_PUBLIC_WEB_WP_API` is wrong or empty. The tRPC endpoint will return auth errors from WordPress.
+If the homepage loads but data is missing, your `WP_API_TOKEN` is wrong or empty. The tRPC endpoint will return auth errors from WordPress.
 
 ## Commands
 
@@ -39,7 +39,7 @@ To run the standalone build locally (matches what Docker runs):
 ```bash
 bun run build
 cd .next/standalone
-PORT=3000 node server.js
+PORT=3000 bun server.js
 ```
 
 ## Project layout

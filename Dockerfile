@@ -14,9 +14,9 @@ WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN bun run build
+RUN bun --bun next build
 
-FROM node:lts-alpine AS runner
+FROM oven/bun:alpine AS runner
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -37,4 +37,4 @@ ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD ["wget", "-qO-", "http://localhost:3000/staff"]
 
-CMD ["node", "server.js"]
+CMD ["bun", "server.js"]

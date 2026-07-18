@@ -74,22 +74,24 @@ The compose files and `.env` for the server live on the server, not in this repo
 Three stages:
 
 ```
-oven/bun:alpine   (base)
+oven/bun:alpine   (base, also the runner)
    |
    +-- deps     bun install --frozen-lockfile
-   +-- builder  copy source, bun run build (standalone output)
+   +-- builder  copy source, bun --bun next build (standalone output)
    |
-node:lts-alpine   (runner)
+oven/bun:alpine   (runner)
    copy .next/standalone, .next/static, public
    run as non-root user `atenews`
-   CMD ["node", "server.js"]
+   CMD ["bun", "server.js"]
 ```
 
-Why Bun for build and Node for runtime: Bun installs deps and runs `next build` fast. The standalone output is a Node.js server, so the runner uses `node:lts-alpine`. Bun is not in the final image.
+Pure Bun end to end. The same `oven/bun:alpine` image is the base for deps, builder, and runner. Bun installs deps, builds the app, and runs the standalone server. No Node.js in the final image.
+
+Bun can run the Next.js standalone `server.js` directly because it is Node-compatible. This keeps the small standalone image size while using Bun as the runtime.
 
 Standalone output means the runner image contains only what Next.js traced as needed. No `node_modules` install at runtime, no `bun install` in the runner. Smaller image, faster cold start.
 
-The `.env` file is copied into the builder stage (not in `.dockerignore`) so `NEXT_PUBLIC_*` vars are inlined into the client bundle at build time. See [environment.md](./environment.md).
+The build does NOT need `.env`. The WordPress token (`WP_API_TOKEN`) is server-only and runtime, so it is injected by the server's `docker-compose.yml` when the container starts, not baked in at build time. See [environment.md](./environment.md).
 
 ## Health check
 
@@ -139,4 +141,4 @@ There is no blue-green deploy or multi-version image tagging. The previous image
 | `GITHUB_TOKEN` (auto)          | GHCR login                                              |
 | Self-hosted runner credentials | The deploy step runs on a runner registered to the repo |
 
-No additional secrets are needed in GitHub. The WordPress token and Firebase keys are in `.env` on the build context, not in GitHub secrets.
+No additional secrets are needed in GitHub. The WordPress token is set on the server's `docker-compose.yml`, not in GitHub secrets and not in the image.

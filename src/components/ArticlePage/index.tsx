@@ -34,8 +34,6 @@ import parse, { HTMLReactParserOptions, Element } from 'html-react-parser';
 
 import { useRouter } from 'next/router';
 
-const Comentario = dynamic(import('@/components/ArticlePage/Comentario'));
-
 const Error404 = dynamic(import('@/components/404'));
 
 const WriterInfo = dynamic(import('@/components/ArticlePage/WriterInfo'));
@@ -98,15 +96,19 @@ interface Props {
 
 // TODO: Fix type errors for handleViewports remove ts-nocheck after
 const ArticlePage: React.FC<Props> = ({
-  post, relatedPosts, pageInfo, categories,
+  post,
+  relatedPosts,
+  pageInfo,
+  categories,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
   const router = useRouter();
 
-  const origin = typeof window !== 'undefined' && window.location.origin
-    ? window.location.origin
-    : '';
+  const origin =
+    typeof window !== 'undefined' && window.location.origin
+      ? window.location.origin
+      : '';
 
   const articleViewCount = trpc.updateViewCount.useMutation();
 
@@ -218,7 +220,10 @@ const ArticlePage: React.FC<Props> = ({
             <i
               // eslint-disable-next-line react/no-danger
               dangerouslySetInnerHTML={{
-                __html: post.featuredImage?.node.caption?.replace('<p>', '').replace('</p>', '') ?? '',
+                __html:
+                  post.featuredImage?.node.caption
+                    ?.replace('<p>', '')
+                    .replace('</p>', '') ?? '',
               }}
             />
           </Typography>
@@ -256,8 +261,8 @@ const ArticlePage: React.FC<Props> = ({
       />
 
       <div style={{ height: theme.spacing(4) }} />
-      {(post.categories?.nodes.filter((cat) => cat.slug === 'columns')?.length ?? 0)
-      > 0 ? (
+      {(post.categories?.nodes.filter((cat) => cat.slug === 'columns')
+        ?.length ?? 0) > 0 ? (
         <>
           <Grid
             container
@@ -286,11 +291,9 @@ const ArticlePage: React.FC<Props> = ({
             }}
           />
         </>
-        ) : null}
+      ) : null}
 
       <div style={{ height: theme.spacing(4) }} />
-
-      <Comentario />
 
       <div style={{ height: theme.spacing(4) }} />
       <Divider />
