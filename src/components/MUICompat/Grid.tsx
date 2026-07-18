@@ -95,6 +95,7 @@ const LegacyGrid = forwardRef<HTMLDivElement, OldGridProps>(
       sizeObj.xl = xl === true ? 'grow' : xl === false ? false : xl;
 
     const gridSx: SxProps<Theme> = {
+      ...(container ? { width: '100%' } : {}),
       ...(alignItems ? { alignItems } : {}),
       ...(justifyContent ? { justifyContent } : {}),
       ...(zeroMinWidth ? { minWidth: 0 } : {}),
