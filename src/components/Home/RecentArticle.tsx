@@ -9,7 +9,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import imageGenerator from '@/utils/imageGenerator';

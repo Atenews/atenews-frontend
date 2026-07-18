@@ -1,3 +1,4 @@
+import Hidden from "@/components/MUICompat/Hidden";
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
 
@@ -7,7 +8,8 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import MailIcon from '@mui/icons-material/Mail';
 import MapIcon from '@mui/icons-material/PinDrop';
 
-import { Typography, Grid, Hidden } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Grid from '@/components/MUICompat/Grid';
 
 const useStyles = makeStyles(() => ({
   container: {

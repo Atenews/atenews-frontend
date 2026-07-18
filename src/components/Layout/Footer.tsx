@@ -9,7 +9,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 
 import IconButton from '@mui/material/IconButton';
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 import Typography from '@mui/material/Typography';
 
 const useStyles = makeStyles((theme) => ({

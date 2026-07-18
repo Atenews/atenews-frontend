@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import { format } from 'date-fns';
 
 import Typography from '@mui/material/Typography';
-import Hidden from '@mui/material/Hidden';
+import Hidden from '@/components/MUICompat/Hidden';
 
 interface Props {
   page: {

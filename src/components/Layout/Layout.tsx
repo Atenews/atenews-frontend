@@ -9,14 +9,14 @@ import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 import Settings from '@mui/icons-material/Settings';
 
-import Hidden from '@mui/material/Hidden';
+import Hidden from '@/components/MUICompat/Hidden';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import Dialog from '@mui/material/Dialog';
 import AppBar from '@mui/material/AppBar';
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 import Typography from '@mui/material/Typography';
 import StockTextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -242,20 +242,22 @@ const Layout: React.FC<Props> = ({ children, setDarkMode, darkMode }) => {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   onKeyDown={handleKeyPress}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton onClick={submitSearch} size="large">
-                          <SearchIcon
-                            color={
-                              theme.palette.mode === 'light'
-                                ? 'primary'
-                                : 'secondary'
-                            }
-                          />
-                        </IconButton>
-                      </InputAdornment>
-                    ),
+                  slotProps={{
+                    input: {
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={submitSearch} size="large">
+                            <SearchIcon
+                              color={
+                                theme.palette.mode === 'light'
+                                  ? 'primary'
+                                  : 'secondary'
+                              }
+                            />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    },
                   }}
                   autoFocus
                 />

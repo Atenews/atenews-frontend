@@ -10,7 +10,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 
 const useStyles = makeStyles((theme) => ({
   iconStats: {

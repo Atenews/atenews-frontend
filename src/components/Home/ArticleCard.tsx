@@ -17,7 +17,7 @@ import slugGenerator from '@/utils/slugGenerator';
 
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 import CardContent from '@mui/material/CardContent';
 import CardActionArea from '@mui/material/CardActionArea';
 

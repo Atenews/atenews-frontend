@@ -19,8 +19,8 @@ import coauthors from '@/utils/coauthors';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
 import Typography from '@mui/material/Typography';
-import Hidden from '@mui/material/Hidden';
-import Grid from '@mui/material/Grid';
+import Hidden from '@/components/MUICompat/Hidden';
+import Grid from '@/components/MUICompat/Grid';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';

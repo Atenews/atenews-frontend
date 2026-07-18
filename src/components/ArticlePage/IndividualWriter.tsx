@@ -8,7 +8,7 @@ import { makeStyles } from '@mui/styles';
 
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 import CardActionArea from '@mui/material/CardActionArea';
 import NextLink from 'next/link';
 

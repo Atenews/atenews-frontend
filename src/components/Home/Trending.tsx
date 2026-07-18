@@ -6,7 +6,7 @@ import React from 'react';
 
 import { makeStyles } from '@mui/styles';
 
-import { useScrollPosition } from '@n8tb1t/use-scroll-position';
+import { useWindowScrollPosition } from '@n8tb1t/use-scroll-position';
 import useWindowDimensions from '@/utils/useWindowDimensions';
 // import slugGenerator from '@/utils/slugGenerator';
 
@@ -14,8 +14,8 @@ import useWindowDimensions from '@/utils/useWindowDimensions';
 
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Hidden from '@mui/material/Hidden';
+import Grid from '@/components/MUICompat/Grid';
+import Hidden from '@/components/MUICompat/Hidden';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
     right: 10,
   },
   trendingHead: {
-    color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white',
+    color:
+      theme.palette.mode === 'light' ? theme.palette.primary.main : 'white',
     padding: 20,
     height: 65,
     textAlign: 'center',
@@ -88,9 +89,9 @@ function Trending() {
   const { height } = useWindowDimensions();
   const rootRef = React.useRef();
 
-  useScrollPosition(({ prevPos, currPos }) => {
-    const currY = 0 - (currPos.y);
-    const prevY = 0 - (prevPos.y);
+  useWindowScrollPosition(({ prevPos, currPos }) => {
+    const currY = 0 - currPos.y;
+    const prevY = 0 - prevPos.y;
     if (rootRef.current) {
       const divHeight = rootRef.current.getBoundingClientRect().height;
       if (height < divHeight + 100) {
@@ -103,8 +104,8 @@ function Trending() {
           });
         } else {
           setTopPosition((prev) => {
-            if (currY >= divHeight - (height / 3)) {
-              return divHeight - (height / 3);
+            if (currY >= divHeight - height / 3) {
+              return divHeight - height / 3;
             }
             return prev + (currY - prevY);
           });
@@ -117,17 +118,34 @@ function Trending() {
 
   return (
     <Hidden mdDown>
-      <div className={classes.container} style={{ top: `calc((80px + 4vh) - ${topPosition}px)` }} ref={rootRef}>
-        <Grid container spacing={0} component={Paper} variant="outlined" style={{ borderRadius: 10, overflow: 'hidden' }}>
+      <div
+        className={classes.container}
+        style={{ top: `calc((80px + 4vh) - ${topPosition}px)` }}
+        ref={rootRef}
+      >
+        <Grid
+          container
+          spacing={0}
+          component={Paper}
+          variant="outlined"
+          style={{ borderRadius: 10, overflow: 'hidden' }}
+        >
           <Paper variant="outlined" square className={classes.trendingHead}>
             <Typography variant="h5">Trending</Typography>
           </Paper>
-          <Grid container justifyContent="center" alignItems="center" spacing={2}>
+          <Grid
+            container
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+          >
             <Grid item>
-              <Typography variant="body1" style={{ marginBottom: '2rem' }}>Under construction.</Typography>
+              <Typography variant="body1" style={{ marginBottom: '2rem' }}>
+                Under construction.
+              </Typography>
             </Grid>
           </Grid>
-          { /*
+          {/*
             articles.length === 0
               ? (
                 <Grid container justifyContent="center" alignItems="center" spacing={2}>

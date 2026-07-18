@@ -5,7 +5,7 @@ import handleViewport, { type InjectedViewportProps } from 'react-in-viewport';
 
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 
 import { useTheme } from '@mui/material/styles';
 

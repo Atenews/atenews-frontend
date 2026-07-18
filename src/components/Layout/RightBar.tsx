@@ -10,7 +10,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useSpring, animated } from 'react-spring';
 
 import IconButton from '@mui/material/IconButton';
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 import StockTextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 
@@ -83,24 +83,26 @@ const RightBar: React.FC<Props> = ({ setDarkMode }) => {
                 fullWidth
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        type="submit"
-                        aria-label="Search"
-                        size="large"
-                      >
-                        <SearchIcon
-                          color={
-                            theme.palette.mode === 'light'
-                              ? 'primary'
-                              : 'secondary'
-                          }
-                        />
-                      </IconButton>
-                    </InputAdornment>
-                  ),
+                slotProps={{
+                  input: {
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          type="submit"
+                          aria-label="Search"
+                          size="large"
+                        >
+                          <SearchIcon
+                            color={
+                              theme.palette.mode === 'light'
+                                ? 'primary'
+                                : 'secondary'
+                            }
+                          />
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  },
                 }}
                 inputRef={searchBar}
               />

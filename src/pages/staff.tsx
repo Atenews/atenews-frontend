@@ -13,8 +13,8 @@ import MailIcon from '@mui/icons-material/Mail';
 import MapIcon from '@mui/icons-material/PinDrop';
 
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Hidden from '@mui/material/Hidden';
+import Grid from '@/components/MUICompat/Grid';
+import Hidden from '@/components/MUICompat/Hidden';
 
 import Contact from '@/components/Staff/Contact';
 import Staff from '@/components/Staff/Staff';

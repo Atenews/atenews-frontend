@@ -9,7 +9,7 @@ import { makeStyles } from '@mui/styles';
 import MailIcon from '@mui/icons-material/Mail';
 
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 
 import SocialCounts from '@/components/Profile/SocialCounts';
 

@@ -10,7 +10,7 @@ import LikeIcon from '@mui/icons-material/ArrowUpwardRounded';
 import DislikeIcon from '@mui/icons-material/ArrowDownwardRounded';
 
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import Grid from '@/components/MUICompat/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 
