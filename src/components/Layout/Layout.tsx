@@ -87,7 +87,8 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
   trendingHead: {
-    color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white',
+    color:
+      theme.palette.mode === 'light' ? theme.palette.primary.main : 'white',
     padding: 20,
     height: 65,
     textAlign: 'center',
@@ -160,12 +161,11 @@ const Layout: React.FC<Props> = ({ children, setDarkMode, darkMode }) => {
 
   React.useEffect(() => {
     if (menuQuery.isFetched) {
-      const menus = menuQuery.data?.menus.map((menu) => menu.url.replace('https://atenews.ph', '')) || [];
-      const largerWidthPages = [
-        '/',
-        ...menus,
-        '/search',
-      ];
+      const menus =
+        menuQuery.data?.menus.map((menu) =>
+          menu.url.replace('https://atenews.ph', ''),
+        ) || [];
+      const largerWidthPages = ['/', ...menus, '/search'];
       if (largerWidthPages.includes(baseUrlMenu(router.asPath))) {
         setIsLargeWidth(true);
       } else {
@@ -183,7 +183,11 @@ const Layout: React.FC<Props> = ({ children, setDarkMode, darkMode }) => {
         }}
         setDarkMode={setDarkMode}
       />
-      <div className={isLargeWidth ? classes.homeContainer : classes.contentContainer}>
+      <div
+        className={
+          isLargeWidth ? classes.homeContainer : classes.contentContainer
+        }
+      >
         {children}
         <Footer />
       </div>
@@ -205,81 +209,141 @@ const Layout: React.FC<Props> = ({ children, setDarkMode, darkMode }) => {
           component={Paper}
           variant="outlined"
         >
-          <BottomNavigationAction onClick={() => setValue(0)} icon={<HomeIcon />} />
-          <BottomNavigationAction onClick={() => setValue(1)} icon={<SearchIcon />} />
-          <BottomNavigationAction onClick={() => setValue(2)} icon={<Settings />} />
+          <BottomNavigationAction
+            onClick={() => setValue(0)}
+            icon={<HomeIcon />}
+          />
+          <BottomNavigationAction
+            onClick={() => setValue(1)}
+            icon={<SearchIcon />}
+          />
+          <BottomNavigationAction
+            onClick={() => setValue(2)}
+            icon={<Settings />}
+          />
         </BottomNavigation>
 
         <Dialog fullScreen open={open} style={{ zIndex: 1000 }}>
           <AppBar className={classes.appBar} color="default" elevation={0} />
-          <Paper elevation={0} style={{ padding: theme.spacing(2), paddingBottom: 70, height: '100%' }}>
-            { value === 1
-              ? (
-                <>
-                  <TextField
+          <Paper
+            elevation={0}
+            style={{
+              padding: theme.spacing(2),
+              paddingBottom: 70,
+              height: '100%',
+            }}
+          >
+            {value === 1 ? (
+              <>
+                <TextField
+                  variant="outlined"
+                  placeholder="Search Atenews"
+                  fullWidth
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  onKeyDown={handleKeyPress}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={submitSearch} size="large">
+                          <SearchIcon
+                            color={
+                              theme.palette.mode === 'light'
+                                ? 'primary'
+                                : 'secondary'
+                            }
+                          />
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  autoFocus
+                />
+                <Grid
+                  container
+                  spacing={0}
+                  component={Paper}
+                  variant="outlined"
+                  justifyContent="center"
+                  style={{
+                    borderRadius: 10,
+                    overflow: 'hidden',
+                    marginTop: theme.spacing(4),
+                  }}
+                >
+                  <Paper
                     variant="outlined"
-                    placeholder="Search Atenews"
-                    fullWidth
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton onClick={submitSearch} size="large">
-                            <SearchIcon color={theme.palette.mode === 'light' ? 'primary' : 'secondary'} />
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    }}
-                    autoFocus
-                  />
-                  <Grid container spacing={0} component={Paper} variant="outlined" justifyContent="center" style={{ borderRadius: 10, overflow: 'hidden', marginTop: theme.spacing(4) }}>
-                    <Paper variant="outlined" square className={classes.trendingHead}>
-                      <Typography variant="h5">Trending</Typography>
-                    </Paper>
-                    <Grid item>
-                      <Typography variant="body1" style={{ marginBottom: '2rem' }}>Under construction.</Typography>
-                    </Grid>
-                  </Grid>
-                </>
-              )
-              : null }
-            { value === 2
-              ? (
-                <Grid container spacing={0} component={Paper} variant="outlined" style={{ borderRadius: 10, overflow: 'hidden', marginTop: theme.spacing(4) }}>
-                  <Paper variant="outlined" square className={classes.trendingHead}>
-                    <Typography variant="h5">Settings</Typography>
-                  </Paper>
-                  <List
-                    subheader={(
-                      <ListSubheader component="div">
-                        Theme Settings
-                      </ListSubheader>
-                    )}
-                    style={{
-                      width: '100%',
-                    }}
+                    square
+                    className={classes.trendingHead}
                   >
-                    { theme.palette.mode === 'dark' ? (
-                      <ListItemButton onClick={() => { setDarkMode(false); }}>
-                        <ListItemIcon>
-                          <Brightness7Icon />
-                        </ListItemIcon>
-                        <ListItemText primary="Light Mode" />
-                      </ListItemButton>
-                    ) : (
-                      <ListItemButton onClick={() => { setDarkMode(true); }}>
-                        <ListItemIcon>
-                          <NightsStayIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Dark Mode" />
-                      </ListItemButton>
-                    )}
-                  </List>
+                    <Typography variant="h5">Trending</Typography>
+                  </Paper>
+                  <Grid item>
+                    <Typography
+                      variant="body1"
+                      style={{ marginBottom: '2rem' }}
+                    >
+                      Under construction.
+                    </Typography>
+                  </Grid>
                 </Grid>
-              )
-              : null }
+              </>
+            ) : null}
+            {value === 2 ? (
+              <Grid
+                container
+                spacing={0}
+                component={Paper}
+                variant="outlined"
+                style={{
+                  borderRadius: 10,
+                  overflow: 'hidden',
+                  marginTop: theme.spacing(4),
+                }}
+              >
+                <Paper
+                  variant="outlined"
+                  square
+                  className={classes.trendingHead}
+                >
+                  <Typography variant="h5">Settings</Typography>
+                </Paper>
+                <List
+                  subheader={
+                    <ListSubheader component="div">
+                      Theme Settings
+                    </ListSubheader>
+                  }
+                  style={{
+                    width: '100%',
+                  }}
+                >
+                  {theme.palette.mode === 'dark' ? (
+                    <ListItemButton
+                      onClick={() => {
+                        setDarkMode(false);
+                      }}
+                    >
+                      <ListItemIcon>
+                        <Brightness7Icon />
+                      </ListItemIcon>
+                      <ListItemText primary="Light Mode" />
+                    </ListItemButton>
+                  ) : (
+                    <ListItemButton
+                      onClick={() => {
+                        setDarkMode(true);
+                      }}
+                    >
+                      <ListItemIcon>
+                        <NightsStayIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Dark Mode" />
+                    </ListItemButton>
+                  )}
+                </List>
+              </Grid>
+            ) : null}
           </Paper>
         </Dialog>
       </Hidden>
