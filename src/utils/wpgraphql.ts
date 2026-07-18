@@ -1,7 +1,7 @@
 import { QueryClient } from '@tanstack/query-core';
 
 const endpoint = 'https://wp.atenews.ph/graphql';
-const token = process.env.NEXT_PUBLIC_WEB_WP_API;
+const token = process.env.WP_API_TOKEN;
 
 export const gql = (
   strings: TemplateStringsArray,

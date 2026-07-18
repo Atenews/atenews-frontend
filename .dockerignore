@@ -5,3 +5,6 @@ node_modules
 *.md
 .eslintrc.js
 eslint.config.mjs
+.env
+.env.local
+.env.*.local
