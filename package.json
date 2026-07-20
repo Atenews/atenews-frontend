@@ -63,7 +63,7 @@
     "jiti": "^2.5.1",
     "node-addon-api": "^8.9.0",
     "node-gyp": "^13.0.1",
-    "typescript": "^5.8.3",
+    "typescript": "^7.0.2",
     "typescript-eslint": "^8.64.0"
   }
 }
